@@ -2,148 +2,302 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SteamWrapped.Pages.MainPage"
-    Title="Главная"
+    Title="Steam Wrapped"
     BackgroundColor="{StaticResource Background}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
 
-            <!-- Заголовок -->
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="20">
+
+            <!-- HEADER -->
+
             <VerticalStackLayout Spacing="4">
-                <Label Text="🎮 Steam Wrapped"
-                       FontSize="28"
-                       FontAttributes="Bold"
-                       TextColor="{StaticResource TextPrimary}" />
 
-                <Label Text="Твоя игровая статистика"
-                       FontSize="14"
-                       TextColor="{StaticResource TextSecondary}" />
+                <Label
+                    Text="🎮 Steam Wrapped"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <Label
+                    Text="Узнай свою игровую статистику"
+                    FontSize="14"
+                    TextColor="{StaticResource TextSecondary}" />
+
             </VerticalStackLayout>
-            <Entry
-                Placeholder="Введите SteamID64"
-                Text="{Binding SteamId}" />
 
-            <Button
-                Text="Загрузить статистику"
-                Command="{Binding LoadSteamDataCommand}" />
-            <!-- ГЛАВНЫЙ БЛОК (градиент) -->
-            <Border Padding="20"
-                    StrokeShape="RoundRectangle 25">
+            <!-- INPUT -->
 
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="{StaticResource Primary}" Offset="0.0"/>
-                        <GradientStop Color="{StaticResource Secondary}" Offset="1.0"/>
-                    </LinearGradientBrush>
-                </Border.Background>
+            <Border
+                BackgroundColor="{StaticResource CardBackground}"
+                StrokeShape="RoundRectangle 20"
+                Padding="15">
 
-                <VerticalStackLayout Spacing="10">
+                <VerticalStackLayout Spacing="12">
 
-                    <Label Text="🔥 Общее время"
-                           FontSize="14"
-                           TextColor="White"
-                           Opacity="0.8"/>
+                    <Label
+                        Text="SteamID64"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
 
-                    <Label Text="{Binding TotalHours}"
-                           FontSize="36"
-                           FontAttributes="Bold"
-                           TextColor="White"/>
+                    <Entry
+                        Placeholder="7656119xxxxxxxxxx"
+                        Text="{Binding SteamId}" />
 
-                    <Label Text="Ты в топ 10% игроков 👀"
-                           FontSize="14"
-                           TextColor="White"/>
+                    <Button
+                        Text="Загрузить статистику"
+                        Command="{Binding LoadSteamDataCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="14"/>
+
+                    <ActivityIndicator
+                        IsRunning="{Binding IsLoading}"
+                        IsVisible="{Binding IsLoading}"
+                        Color="{StaticResource Primary}" />
 
                 </VerticalStackLayout>
 
             </Border>
 
-            <!-- СЕТКА КАРТОЧЕК -->
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+            <!-- ERROR -->
 
-                <!-- Жанр -->
-                <Border Grid.Column="0"
-                        BackgroundColor="{StaticResource CardBackground}"
-                        StrokeShape="RoundRectangle 20"
-                        Padding="15">
+            <Label
+                Text="{Binding ErrorMessage}"
+                TextColor="Red"
+                IsVisible="{Binding HasError}" />
 
-                    <Border.Shadow>
-                        <Shadow Brush="#22000000"
-                                Offset="0,4"
-                                Radius="10"/>
-                    </Border.Shadow>
+            <!-- MAIN CARD -->
 
-                    <VerticalStackLayout Spacing="6">
-                        <Label Text="🎮 Жанр"
-                               FontSize="13"
-                               TextColor="{StaticResource TextSecondary}"/>
+            <Border
+                Padding="20"
+                StrokeShape="RoundRectangle 25">
 
-                        <Label Text="{Binding FavoriteGenre}"
-                               FontSize="20"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource TextPrimary}"/>
+                <Border.Background>
+
+                    <LinearGradientBrush
+                        StartPoint="0,0"
+                        EndPoint="1,1">
+
+                        <GradientStop
+                            Color="{StaticResource Primary}"
+                            Offset="0"/>
+
+                        <GradientStop
+                            Color="{StaticResource Secondary}"
+                            Offset="1"/>
+
+                    </LinearGradientBrush>
+
+                </Border.Background>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="🔥 Общее время"
+                        FontSize="14"
+                        TextColor="White"
+                        Opacity="0.8"/>
+
+                    <Label
+                        Text="{Binding TotalHours}"
+                        FontSize="38"
+                        FontAttributes="Bold"
+                        TextColor="White"/>
+
+                    <Label
+                        Text="{Binding PlayerType}"
+                        FontSize="14"
+                        TextColor="White"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- STATS GRID -->
+
+            <Grid
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto"
+                ColumnSpacing="15"
+                RowSpacing="15">
+
+                <!-- Genre -->
+
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="15">
+
+                    <VerticalStackLayout>
+
+                        <Label
+                            Text="🎮 Жанр"
+                            FontSize="13"
+                            TextColor="{StaticResource TextSecondary}" />
+
+                        <Label
+                            Text="{Binding FavoriteGenre}"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+
                     </VerticalStackLayout>
+
                 </Border>
 
-                <!-- Месяц -->
-                <Border Grid.Column="1"
-                        BackgroundColor="{StaticResource CardBackground}"
-                        StrokeShape="RoundRectangle 20"
-                        Padding="15">
+                <!-- Games -->
 
-                    <Border.Shadow>
-                        <Shadow Brush="#22000000"
-                                Offset="0,4"
-                                Radius="10"/>
-                    </Border.Shadow>
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="15">
 
-                    <VerticalStackLayout Spacing="6">
-                        <Label Text="📅 Месяц"
-                               FontSize="13"
-                               TextColor="{StaticResource TextSecondary}"/>
+                    <VerticalStackLayout>
 
-                        <Label Text="Июль"
-                               FontSize="20"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource TextPrimary}"/>
+                        <Label
+                            Text="🎲 Игр"
+                            FontSize="13"
+                            TextColor="{StaticResource TextSecondary}" />
+
+                        <Label
+                            Text="{Binding GamesPlayed}"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+
                     </VerticalStackLayout>
+
+                </Border>
+
+                <!-- Achievements -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="15">
+
+                    <VerticalStackLayout>
+
+                        <Label
+                            Text="🏆 Достижения"
+                            FontSize="13"
+                            TextColor="{StaticResource TextSecondary}" />
+
+                        <Label
+                            Text="{Binding TotalAchievements}"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- Rank -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="15">
+
+                    <VerticalStackLayout>
+
+                        <Label
+                            Text="🚀 Ранг"
+                            FontSize="13"
+                            TextColor="{StaticResource TextSecondary}" />
+
+                        <Label
+                            Text="{Binding GamerRank}"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+
+                    </VerticalStackLayout>
+
                 </Border>
 
             </Grid>
 
-            <!-- ТОП ИГРА -->
-            <Border BackgroundColor="{StaticResource CardBackground}"
-                    StrokeShape="RoundRectangle 20"
-                    Padding="15">
+            <!-- TOP GAME -->
 
-                <Border.Shadow>
-                    <Shadow Brush="#22000000"
-                            Offset="0,4"
-                            Radius="10"/>
-                </Border.Shadow>
+            <Border
+                BackgroundColor="{StaticResource CardBackground}"
+                StrokeShape="RoundRectangle 20"
+                Padding="15">
 
                 <HorizontalStackLayout Spacing="15">
 
-                    <Label Text="⭐"
-                           FontSize="28"/>
+                    <Label
+                        Text="⭐"
+                        FontSize="28"/>
 
                     <VerticalStackLayout>
-                        <Label Text="Топ игра"
-                               FontSize="13"
-                               TextColor="{StaticResource TextSecondary}"/>
 
-                        <Label Text="{Binding FavoriteGame}"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource TextPrimary}"/>
+                        <Label
+                            Text="Топ игра"
+                            FontSize="13"
+                            TextColor="{StaticResource TextSecondary}" />
+
+                        <Label
+                            Text="{Binding FavoriteGame}"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+
                     </VerticalStackLayout>
 
                 </HorizontalStackLayout>
 
             </Border>
 
-            <!-- КНОПКА -->
-            <Button 
-                Text="Открыть Wrapped 🚀"
+            <!-- TOP 3 -->
+
+            <Border
+                BackgroundColor="{StaticResource CardBackground}"
+                StrokeShape="RoundRectangle 20"
+                Padding="15">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="🏅 Топ игр"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Label
+                        Text="{Binding TopGame1}"
+                        FontSize="15"/>
+
+                    <Label
+                        Text="{Binding TopGame2}"
+                        FontSize="15"/>
+
+                    <Label
+                        Text="{Binding TopGame3}"
+                        FontSize="15"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- REPORT BUTTON -->
+
+            <Button
+                Text="Посмотреть полный отчёт 🚀"
+                Command="{Binding OpenWrappedCommand}"
                 BackgroundColor="{StaticResource Primary}"
                 TextColor="White"
                 CornerRadius="16"
@@ -151,6 +305,7 @@
                 FontAttributes="Bold"/>
 
         </VerticalStackLayout>
+
     </ScrollView>
 
 </ContentPage>
