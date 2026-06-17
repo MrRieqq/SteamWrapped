@@ -5,10 +5,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SteamWrapped"
     Title="SteamWrapped">
-
+    <!-- Главная -->
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Главная"
+        ContentTemplate="{DataTemplate pages:MainPage}" />
 
+    <!-- Игры -->
+    <ShellContent 
+        Title="Мои игры"
+        ContentTemplate="{DataTemplate pages:GamesPage}" />
+
+    <!-- Аналитика -->
+    <ShellContent 
+        Title="Аналитика"
+        ContentTemplate="{DataTemplate pages:Statspage}" />
+
+    <!-- Wrapped -->
+    <ShellContent 
+        Title="Wrapped"
+        ContentTemplate="{DataTemplate pages:WrappedPage}" />
+
+    <!-- О приложении -->
+    <ShellContent 
+        Title="О приложении"
+        ContentTemplate="{DataTemplate pages:AboutPage}" />
 </Shell>
