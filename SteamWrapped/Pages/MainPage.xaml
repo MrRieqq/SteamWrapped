@@ -9,16 +9,27 @@
         <VerticalStackLayout Padding="20" Spacing="20">
 
             <!-- Заголовок -->
-            <VerticalStackLayout Spacing="4">
-                <Label Text="🎮 Steam Wrapped"
-                       FontSize="28"
-                       FontAttributes="Bold"
-                       TextColor="{StaticResource TextPrimary}" />
+            <HorizontalStackLayout Spacing="10">
 
-                <Label Text="Твоя игровая статистика"
-                       FontSize="14"
-                       TextColor="{StaticResource TextSecondary}" />
-            </VerticalStackLayout>
+                <Image Source="steam.png"
+           WidthRequest="50"
+           HeightRequest="50"
+           VerticalOptions="Center" />
+
+                <VerticalStackLayout Spacing="4">
+
+                    <Label Text="Steam Wrapped"
+               FontSize="28"
+               FontAttributes="Bold"
+               TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Твоя игровая статистика"
+               FontSize="14"
+               TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
             <Entry
                 Placeholder="Введите SteamID64"
                 Text="{Binding SteamId}" />
