@@ -58,15 +58,18 @@ public class WrappedService
     {
         var games = await GetSteamGames(steamId);
 
-        if (!games.Any())
-            return new WrappedReport();
-
         var totalHours = games.Sum(g => g.HoursPlayed);
 
         var favoriteGame = games
             .OrderByDescending(g => g.HoursPlayed)
             .First()
             .Name;
+
+        var favoriteGenre = games
+            .GroupBy(g => g.Genre)
+            .OrderByDescending(g => g.Sum(x => x.HoursPlayed))
+            .First()
+            .Key;
 
         var averageHours = games.Average(g => g.HoursPlayed);
 
@@ -84,9 +87,10 @@ public class WrappedService
         return new WrappedReport
         {
             TotalHours = totalHours,
+
             FavoriteGame = favoriteGame,
 
-            FavoriteGenre = "Steam",
+            FavoriteGenre = favoriteGenre,
 
             PlayerType = playerType,
 
@@ -102,11 +106,12 @@ public class WrappedService
 
             TopGame3 = topGames.Count > 2 ? topGames[2].Name : "",
 
-            MostPlayedGenre = "Steam",
+            MostPlayedGenre = favoriteGenre,
 
             GamerRank = playerType
         };
     }
+
     private string GetPlayerRank(int totalHours)
     {
         if (totalHours >= 1000)
