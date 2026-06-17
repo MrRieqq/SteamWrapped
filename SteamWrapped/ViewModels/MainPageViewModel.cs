@@ -10,7 +10,7 @@ public partial class MainPageViewModel : ObservableObject
     private string steamId = string.Empty;
 [ObservableProperty]
     private int totalHours;
-
+    
     [ObservableProperty]
     private string favoriteGame = string.Empty;
 
