@@ -30,16 +30,16 @@ public class SteamApiService
     }
 
     public async Task<string> GetAchievementsJson(
-        string steamId,
-        int appId)
+    string steamId,
+    int appId)
     {
         using var client = new HttpClient();
 
         var url =
-            $"https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/" +
-            $"?key={ApiKey}" +
-            $"&steamid={steamId}" +
-            $"&appid={appId}";
+            $"https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/" +
+            $"?appid={appId}" +
+            $"&key={ApiKey}" +
+            $"&steamid={steamId}";
 
         return await client.GetStringAsync(url);
     }
