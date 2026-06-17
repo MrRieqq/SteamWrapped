@@ -15,4 +15,6 @@ public class Game
     public int Achievements { get; set; }
 
     public int YearPlayed { get; set; }
+    public string ImageUrl =>
+    $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/library_600x900.jpg";
 }

@@ -29,4 +29,6 @@ public class WrappedReport
     public string MostPlayedGenre { get; set; }
 
     public string GamerRank { get; set; }
+    public int TotalOwnedGames { get; set; }
+
 }
