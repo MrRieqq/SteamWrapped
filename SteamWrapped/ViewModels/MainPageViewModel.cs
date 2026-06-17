@@ -1,10 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SteamWrapped.Services;
 
 namespace SteamWrapped.ViewModels;
 
 public partial class MainPageViewModel : ObservableObject
 {
+    [ObservableProperty]
+    private string steamId;
+
     [ObservableProperty]
     private int totalHours;
 
@@ -37,21 +41,41 @@ public partial class MainPageViewModel : ObservableObject
 
     public MainPageViewModel()
     {
-        var service = new WrappedService();
-
-        var report = service.GenerateReport();
-
-        TotalHours = report.TotalHours;
-        FavoriteGame = report.FavoriteGame;
-        FavoriteGenre = report.FavoriteGenre;
-        PlayerType = report.PlayerType;
-
-        GamesPlayed = report.GamesPlayed;
-        AverageHoursPerGame = report.AverageHoursPerGame;
-        TotalAchievements = report.TotalAchievements;
-
-        TopGame1 = report.TopGame1;
-        TopGame2 = report.TopGame2;
-        TopGame3 = report.TopGame3;
+        SteamId = string.Empty;
     }
+
+    [RelayCommand]
+    private async Task LoadSteamData()
+    {
+        if (string.IsNullOrWhiteSpace(SteamId))
+            return;
+
+        try
+        {
+            var service = new WrappedService();
+
+            var report = await service.GenerateReport(SteamId);
+
+            TotalHours = report.TotalHours;
+            FavoriteGame = report.FavoriteGame;
+            FavoriteGenre = report.FavoriteGenre;
+            PlayerType = report.PlayerType;
+
+            GamesPlayed = report.GamesPlayed;
+            AverageHoursPerGame = report.AverageHoursPerGame;
+            TotalAchievements = report.TotalAchievements;
+
+            TopGame1 = report.TopGame1;
+            TopGame2 = report.TopGame2;
+            TopGame3 = report.TopGame3;
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert(
+                "Ошибка",
+                ex.Message,
+                "OK");
+        }
+    }
+
 }
