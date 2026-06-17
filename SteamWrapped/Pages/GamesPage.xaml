@@ -57,9 +57,10 @@
 
         <!-- Список игр -->
         <CollectionView
-            Grid.Row="2"
-            Margin="25,0"
-            SelectionMode="None">
+                Grid.Row="2"
+                Margin="25,0"
+                ItemsSource="{Binding Games}"
+                SelectionMode="None">
 
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
@@ -69,28 +70,7 @@
                     VerticalItemSpacing="20"/>
             </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Hades</x:String>
-                    <x:String>The Long Dark</x:String>
-                    <x:String>Cyberpunk 2077</x:String>
-                    <x:String>OutDrive</x:String>
-                    <x:String>Little Nightmares</x:String>
-                    <x:String>Rain World</x:String>
-                    <x:String>Robo Instructus</x:String>
-                    <x:String>Sekiro</x:String>
-                    <x:String>Slay the Spire</x:String>
-                    <x:String>Dead Cells</x:String>
-                    <x:String>Terraria</x:String>
-                    <x:String>Portal 2</x:String>
-                    <x:String>Half-Life</x:String>
-                    <x:String>Half-Life 2</x:String>
-                    <x:String>Doom Eternal</x:String>
-                    <x:String>Stardew Valley</x:String>
-                    <x:String>CS2</x:String>
-                    <x:String>Red Dead Redemption 2</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
+            
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -140,17 +120,20 @@
                                     Spacing="2">
 
                                     <Label
-                                        Text="{Binding .}"
+                                        Text="{Binding Name}"
                                         FontSize="14"
                                         FontAttributes="Bold"
                                         TextColor="White"
                                         LineBreakMode="TailTruncation"/>
 
                                     <Label
-                                        Text="148 часов"
+                                        Text="{Binding HoursPlayed, StringFormat='{0} часов'}"
                                         FontSize="12"
                                         TextColor="#B8B6B4"/>
-
+                                    <Label
+                                        Text="{Binding Genre}"
+                                        FontSize="11"
+                                        TextColor="#66C0F4"/>
                                 </VerticalStackLayout>
 
                             </Border>
