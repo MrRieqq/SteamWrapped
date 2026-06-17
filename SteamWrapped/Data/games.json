@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Dota 2",
+    "genre": "MOBA",
+    "hoursPlayed": 542,
+    "achievements": 120
+  },
+  {
+    "name": "CS2",
+    "genre": "Shooter",
+    "hoursPlayed": 320,
+    "achievements": 80
+  },
+  {
+    "name": "Cyberpunk 2077",
+    "genre": "RPG",
+    "hoursPlayed": 190,
+    "achievements": 50
+  }
+]

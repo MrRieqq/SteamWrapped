@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SteamWrapped.Pages.AboutPage"
+    Title="О приложении"
+    BackgroundColor="{StaticResource Background}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Заголовок -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="ℹ️ О приложении"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}" />
+
+                <Label Text="Информация о проекте"
+                       FontSize="14"
+                       TextColor="{StaticResource TextSecondary}" />
+            </VerticalStackLayout>
+
+            <!-- Описание -->
+            <Border BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="20">
+
+                <Border.Shadow>
+                    <Shadow Brush="#22000000"
+                            Offset="0,4"
+                            Radius="10"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="🎮 Steam Wrapped"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Это приложение позволяет анализировать игровую активность пользователя: количество часов, любимые жанры и игровые привычки."
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Функции -->
+            <Border BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="20">
+
+                <Border.Shadow>
+                    <Shadow Brush="#22000000"
+                            Offset="0,4"
+                            Radius="10"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="⚙️ Возможности"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="• Добавление игр"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="• Просмотр статистики"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="• Анализ игровых привычек"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="• Wrapped-отчёт"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Технологии -->
+            <Border BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="20">
+
+                <Border.Shadow>
+                    <Shadow Brush="#22000000"
+                            Offset="0,4"
+                            Radius="10"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="🛠 Технологии"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="• .NET MAUI"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="• C#"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="• XAML"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Автор -->
+            <Border BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="20">
+
+                <Border.Shadow>
+                    <Shadow Brush="#22000000"
+                            Offset="0,4"
+                            Radius="10"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="👨‍💻 Авторы:Климов.К.В и Ермолин.Л.В"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Студенты 2 курса"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="Проект выполнен в учебных целях"
+                           FontSize="13"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Версия -->
+            <Border BackgroundColor="{StaticResource CardBackground}"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="20">
+
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Версия приложения"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="1.0.0"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
