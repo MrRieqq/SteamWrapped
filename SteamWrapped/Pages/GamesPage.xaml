@@ -3,51 +3,92 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SteamWrapped.Pages.GamesPage"
-    Title="Мои игры"
-    BackgroundColor="{StaticResource Background}">
+    BackgroundColor="#1B2838">
 
     <Grid RowDefinitions="Auto,Auto,*">
 
         <!-- Заголовок -->
-        <VerticalStackLayout Padding="20,20,20,10" Spacing="4">
-            <Label Text="🎮 Мои игры"
-                   FontSize="28"
-                   FontAttributes="Bold"
-                   TextColor="{StaticResource TextPrimary}" />
+        <VerticalStackLayout
+            Grid.Row="0"
+            Padding="25,20,25,15"
+            Spacing="3">
 
-            <Label Text="Твоя библиотека игр"
-                   FontSize="14"
-                   TextColor="{StaticResource TextSecondary}" />
+            <Label
+                Text="МОИ ИГРЫ"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="White"/>
+
+            <Label
+                Text="Библиотека Steam"
+                FontSize="14"
+                TextColor="#8F98A0"/>
+
         </VerticalStackLayout>
 
-        <!-- Поиск (чисто визуал) -->
-        <Border Grid.Row="1"
-                Margin="15,0,15,15"
-                BackgroundColor="{StaticResource CardBackground}"
-                StrokeShape="RoundRectangle 15"
-                Padding="15">
+        <!-- Поиск -->
+        <Border
+            Grid.Row="1"
+            Margin="25,0,25,20"
+            BackgroundColor="#2A475E"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 10">
 
-            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
-                <Label Text="🔍" FontSize="18" VerticalOptions="Center"/>
+            <Grid
+                Padding="15,10"
+                ColumnDefinitions="Auto,*"
+                ColumnSpacing="10">
 
-                <Entry Placeholder="Поиск игры..."
-                       BackgroundColor="Transparent"
-                       Margin="30,0,0,0"
-                       TextColor="{StaticResource TextPrimary}" />
+                <Label
+                    Text="🔍"
+                    FontSize="18"
+                    VerticalOptions="Center"/>
+
+                <Entry
+                    Grid.Column="1"
+                    Placeholder="Поиск игры..."
+                    PlaceholderColor="#8F98A0"
+                    TextColor="White"
+                    BackgroundColor="Transparent"/>
+
             </Grid>
+
         </Border>
 
         <!-- Список игр -->
-        <CollectionView Grid.Row="2"
-                        Margin="20,5,15,0"
-                        SelectionMode="None">
+        <CollectionView
+            Grid.Row="2"
+            Margin="25,0"
+            SelectionMode="None">
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    Orientation="Vertical"
+                    Span="6"
+                    HorizontalItemSpacing="18"
+                    VerticalItemSpacing="20"/>
+            </CollectionView.ItemsLayout>
 
             <CollectionView.ItemsSource>
-                <!-- Статические данные -->
                 <x:Array Type="{x:Type x:String}">
-                    <x:String>The Witcher 3|RPG|148</x:String>
-                    <x:String>CS:GO|Shooter|220</x:String>
-                    <x:String>Stardew Valley|Simulator|95</x:String>
+                    <x:String>Hades</x:String>
+                    <x:String>The Long Dark</x:String>
+                    <x:String>Cyberpunk 2077</x:String>
+                    <x:String>OutDrive</x:String>
+                    <x:String>Little Nightmares</x:String>
+                    <x:String>Rain World</x:String>
+                    <x:String>Robo Instructus</x:String>
+                    <x:String>Sekiro</x:String>
+                    <x:String>Slay the Spire</x:String>
+                    <x:String>Dead Cells</x:String>
+                    <x:String>Terraria</x:String>
+                    <x:String>Portal 2</x:String>
+                    <x:String>Half-Life</x:String>
+                    <x:String>Half-Life 2</x:String>
+                    <x:String>Doom Eternal</x:String>
+                    <x:String>Stardew Valley</x:String>
+                    <x:String>CS2</x:String>
+                    <x:String>Red Dead Redemption 2</x:String>
                 </x:Array>
             </CollectionView.ItemsSource>
 
@@ -55,45 +96,64 @@
                 <DataTemplate>
 
                     <Border
-                        Margin="0,8"
-                        Padding="15"
-                        BackgroundColor="{StaticResource CardBackground}"
-                        StrokeShape="RoundRectangle 20">
+                        WidthRequest="160"
+                        HeightRequest="240"
+                        BackgroundColor="#101822"
+                        StrokeThickness="0">
 
                         <Border.Shadow>
-                            <Shadow Brush="#22000000"
-                                    Offset="0,4"
-                                    Radius="10"/>
+                            <Shadow
+                                Brush="#80000000"
+                                Offset="0,5"
+                                Radius="10"/>
                         </Border.Shadow>
 
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                        <Grid>
 
-                            <!-- Иконка -->
-                            <Label Text="🎮"
-                                   FontSize="26"
-                                   VerticalOptions="Center"/>
+                            <!-- Заглушка для будущей картинки -->
+                            <Border
+                                BackgroundColor="#2A475E"
+                                StrokeThickness="0">
 
-                            <!-- Инфа -->
-                            <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                <VerticalStackLayout
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
 
-                                <Label Text="{Binding .}"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       TextColor="{StaticResource TextPrimary}" />
+                                    <Label
+                                        Text="🎮"
+                                        FontSize="50"
+                                        HorizontalOptions="Center"/>
 
-                                <Label Text="Жанр • Часы"
-                                       FontSize="13"
-                                       TextColor="{StaticResource TextSecondary}" />
+                                </VerticalStackLayout>
 
-                            </VerticalStackLayout>
+                            </Border>
 
-                            <!-- Часы -->
-                            <Label Grid.Column="2"
-                                   Text="148ч"
-                                   FontSize="14"
-                                   FontAttributes="Bold"
-                                   TextColor="{StaticResource Primary}"
-                                   VerticalOptions="Center"/>
+                            <!-- Нижняя панель -->
+                            <Border
+                                VerticalOptions="End"
+                                HeightRequest="60"
+                                BackgroundColor="#CC171A21"
+                                StrokeThickness="0">
+
+                                <VerticalStackLayout
+                                    Padding="10,7"
+                                    Spacing="2">
+
+                                    <Label
+                                        Text="{Binding .}"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        TextColor="White"
+                                        LineBreakMode="TailTruncation"/>
+
+                                    <Label
+                                        Text="148 часов"
+                                        FontSize="12"
+                                        TextColor="#B8B6B4"/>
+
+                                </VerticalStackLayout>
+
+                            </Border>
 
                         </Grid>
 
@@ -103,19 +163,6 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-
-        <!-- Плавающая кнопка -->
-        <Button 
-            Text="+"
-            WidthRequest="60"
-            HeightRequest="60"
-            CornerRadius="30"
-            BackgroundColor="{StaticResource Primary}"
-            TextColor="White"
-            FontSize="28"
-            Margin="20"
-            VerticalOptions="End"
-            HorizontalOptions="End"/>
 
     </Grid>
 
