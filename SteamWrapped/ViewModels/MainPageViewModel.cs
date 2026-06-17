@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SteamWrapped.Models;
 using SteamWrapped.Services;
 
 namespace SteamWrapped.ViewModels;
@@ -72,6 +73,7 @@ public partial class MainPageViewModel : ObservableObject
 
             var report = await service.GenerateReport(SteamId);
 
+            AppData.SteamId = SteamId;
             TotalHours = report.TotalHours;
             FavoriteGame = report.FavoriteGame;
             FavoriteGenre = report.FavoriteGenre;
