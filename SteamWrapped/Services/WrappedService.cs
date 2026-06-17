@@ -82,40 +82,49 @@ public class WrappedService
     {
         var json = await _api.GetOwnedGamesJson(steamId);
 
+
+        if (string.IsNullOrWhiteSpace(json))
+            return new List<Game>();
+
         var steamData =
             JsonSerializer.Deserialize<SteamOwnedGamesResponse>(json);
 
         if (steamData?.response?.games == null)
             return new List<Game>();
 
-        var result = new List<Game>();
+        var topGames =
+            steamData.response.games
+            .OrderByDescending(x => x.playtime_forever)
+            .Take(100)
+            .ToList();
 
-        foreach (var g in steamData.response.games)
+        var tasks = topGames.Select(async g =>
         {
-            string genre = await GetGenre(g.appid);
+            var genreTask =
+                GetGenre(g.appid);
 
-            int achievements =
-                await GetAchievements(
+            var achievementTask =
+                GetAchievements(
                     steamId,
                     g.appid);
 
-            Console.WriteLine(
-                $"{g.name} ({g.appid}) -> {achievements}");
+            await Task.WhenAll(
+                genreTask,
+                achievementTask);
 
-            result.Add(new Game
+            return new Game
             {
                 AppId = g.appid,
                 Name = g.name,
                 HoursPlayed = g.playtime_forever / 60,
-                Genre = genre,
-                Achievements = achievements
-            });
-        }
+                Genre = genreTask.Result,
+                Achievements = achievementTask.Result
+            };
+        });
 
-        Console.WriteLine(
-            $"TOTAL ACHIEVEMENTS = {result.Sum(x => x.Achievements)}");
+        return (await Task.WhenAll(tasks))
+            .ToList();
 
-        return result;
     }
 
     private async Task<string> GetGenre(int appId)
@@ -123,6 +132,9 @@ public class WrappedService
         try
         {
             var json = await _api.GetGameDetails(appId);
+
+            if (string.IsNullOrWhiteSpace(json))
+                return "Unknown";
 
             using var doc = JsonDocument.Parse(json);
 
@@ -169,9 +181,12 @@ public class WrappedService
         try
         {
             var json =
-                await _api.GetAchievementsJson(
+                    await _api.GetAchievementsJson(
                     steamId,
                     appId);
+
+            if (string.IsNullOrWhiteSpace(json))
+                return 0;
 
             using var doc = JsonDocument.Parse(json);
 
