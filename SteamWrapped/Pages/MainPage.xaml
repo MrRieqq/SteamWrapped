@@ -19,7 +19,13 @@
                        FontSize="14"
                        TextColor="{StaticResource TextSecondary}" />
             </VerticalStackLayout>
+            <Entry
+                Placeholder="Введите SteamID64"
+                Text="{Binding SteamId}" />
 
+            <Button
+                Text="Загрузить статистику"
+                Command="{Binding LoadSteamDataCommand}" />
             <!-- ГЛАВНЫЙ БЛОК (градиент) -->
             <Border Padding="20"
                     StrokeShape="RoundRectangle 25">
@@ -38,7 +44,7 @@
                            TextColor="White"
                            Opacity="0.8"/>
 
-                    <Label Text="148 часов"
+                    <Label Text="{Binding TotalHours}"
                            FontSize="36"
                            FontAttributes="Bold"
                            TextColor="White"/>
@@ -71,7 +77,7 @@
                                FontSize="13"
                                TextColor="{StaticResource TextSecondary}"/>
 
-                        <Label Text="RPG"
+                        <Label Text="{Binding FavoriteGenre}"
                                FontSize="20"
                                FontAttributes="Bold"
                                TextColor="{StaticResource TextPrimary}"/>
@@ -125,7 +131,7 @@
                                FontSize="13"
                                TextColor="{StaticResource TextSecondary}"/>
 
-                        <Label Text="The Witcher 3"
+                        <Label Text="{Binding FavoriteGame}"
                                FontSize="18"
                                FontAttributes="Bold"
                                TextColor="{StaticResource TextPrimary}"/>
