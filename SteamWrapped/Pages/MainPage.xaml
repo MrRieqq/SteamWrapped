@@ -294,7 +294,6 @@
             </Border>
 
             <!-- REPORT BUTTON -->
-
             <Button
                 Text="Посмотреть полный отчёт 🚀"
                 Command="{Binding OpenWrappedCommand}"
