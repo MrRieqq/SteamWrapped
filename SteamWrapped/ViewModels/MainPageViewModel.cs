@@ -7,7 +7,7 @@ public partial class MainPageViewModel : ObservableObject
 {
     [ObservableProperty]
     private int totalHours;
-
+    
     [ObservableProperty]
     private string favoriteGame;
 
