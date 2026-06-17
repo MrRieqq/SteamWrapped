@@ -3,31 +3,41 @@
     x:Class="SteamWrapped.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:SteamWrapped"
     xmlns:pages="clr-namespace:SteamWrapped.Pages"
-    Title="SteamWrapped">
-    <!-- Главная -->
-    <ShellContent
-        Title="Главная"
-        ContentTemplate="{DataTemplate pages:MainPage}" />
+    Title="SteamWrapped"
+    BackgroundColor="#171A21"
+    ForegroundColor="White"
+    TitleColor="White"
+    FlyoutBackgroundColor="#171A21">
+    <Shell.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+    </Shell.Resources>
 
-    <!-- Игры -->
-    <ShellContent 
-        Title="Мои игры"
-        ContentTemplate="{DataTemplate pages:GamesPage}" />
+    <FlyoutItem Title="Главная" Icon="steam.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate pages:MainPage}" />
+    </FlyoutItem>
 
-    <!-- Аналитика -->
-    <ShellContent 
-        Title="Аналитика"
-        ContentTemplate="{DataTemplate pages:Statspage}" />
+    <FlyoutItem Title="Мои игры" Icon="steam.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate pages:GamesPage}" />
+    </FlyoutItem>
 
-    <!-- Wrapped -->
-    <ShellContent 
-        Title="Wrapped"
-        ContentTemplate="{DataTemplate pages:WrappedPage}" />
+    <FlyoutItem Title="Аналитика" Icon="steam.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate pages:Statspage}" />
+    </FlyoutItem>
 
-    <!-- О приложении -->
-    <ShellContent 
-        Title="О приложении"
-        ContentTemplate="{DataTemplate pages:AboutPage}" />
+    <FlyoutItem Title="Wrapped" Icon="steam.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate pages:WrappedPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="О приложении" Icon="steam.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate pages:AboutPage}" />
+    </FlyoutItem>
+
 </Shell>
