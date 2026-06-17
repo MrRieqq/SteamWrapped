@@ -65,7 +65,7 @@
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
                     Orientation="Vertical"
-                    Span="6"
+                    Span="7"
                     HorizontalItemSpacing="18"
                     VerticalItemSpacing="20"/>
             </CollectionView.ItemsLayout>
@@ -76,7 +76,7 @@
                 <DataTemplate>
 
                     <Border
-                        WidthRequest="160"
+                        WidthRequest="159"
                         HeightRequest="240"
                         BackgroundColor="#101822"
                         StrokeThickness="0">
@@ -99,11 +99,9 @@
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center">
 
-                                    <Label
-                                        Text="🎮"
-                                        FontSize="50"
-                                        HorizontalOptions="Center"/>
-
+                                    <Image
+                                        Source="{Binding ImageUrl}"
+                                        Aspect="AspectFill"/>
                                 </VerticalStackLayout>
 
                             </Border>
