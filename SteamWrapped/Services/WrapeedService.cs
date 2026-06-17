@@ -29,6 +29,7 @@ public class WrappedService
             .FirstOrDefault()?.Name ?? "Нет данных";
 
         var favoriteGenre = games
+            .Where(g => !string.IsNullOrWhiteSpace(g.Genre))
             .GroupBy(g => g.Genre)
             .OrderByDescending(g => g.Sum(x => x.HoursPlayed))
             .FirstOrDefault()?.Key ?? "Unknown";
@@ -79,33 +80,42 @@ public class WrappedService
 
     public async Task<List<Game>> GetSteamGames(string steamId)
     {
-        var api = new SteamApiService();
-
-        var json = await api.GetOwnedGamesJson(steamId);
-
-        Console.WriteLine(json);
+        var json = await _api.GetOwnedGamesJson(steamId);
 
         var steamData =
             JsonSerializer.Deserialize<SteamOwnedGamesResponse>(json);
 
-        if (steamData == null)
+        if (steamData?.response?.games == null)
             return new List<Game>();
 
-        if (steamData.response == null)
-            return new List<Game>();
+        var result = new List<Game>();
 
-        if (steamData.response.games == null)
-            return new List<Game>();
+        foreach (var g in steamData.response.games)
+        {
+            string genre = await GetGenre(g.appid);
 
-        return steamData.response.games
-            .Select(g => new Game
+            int achievements =
+                await GetAchievements(
+                    steamId,
+                    g.appid);
+
+            Console.WriteLine(
+                $"{g.name} ({g.appid}) -> {achievements}");
+
+            result.Add(new Game
             {
+                AppId = g.appid,
                 Name = g.name,
                 HoursPlayed = g.playtime_forever / 60,
-                Genre = "Unknown",
-                Achievements = 0
-            })
-            .ToList();
+                Genre = genre,
+                Achievements = achievements
+            });
+        }
+
+        Console.WriteLine(
+            $"TOTAL ACHIEVEMENTS = {result.Sum(x => x.Achievements)}");
+
+        return result;
     }
 
     private async Task<string> GetGenre(int appId)
@@ -143,10 +153,59 @@ public class WrappedService
                 }
             }
         }
-        catch
+        catch (Exception ex)
         {
+            Console.WriteLine(
+                $"GENRE ERROR {appId}: {ex.Message}");
         }
 
         return "Unknown";
     }
+
+    private async Task<int> GetAchievements(
+        string steamId,
+        int appId)
+    {
+        try
+        {
+            var json =
+                await _api.GetAchievementsJson(
+                    steamId,
+                    appId);
+
+            using var doc = JsonDocument.Parse(json);
+
+            if (doc.RootElement.TryGetProperty(
+                "playerstats",
+                out var playerstats))
+            {
+                if (playerstats.TryGetProperty(
+                    "achievements",
+                    out var achievements))
+                {
+                    int count = achievements
+                        .EnumerateArray()
+                        .Count(a =>
+                            a.GetProperty("achieved")
+                            .GetInt32() == 1);
+
+                    Console.WriteLine(
+                        $"APPID {appId}: {count} achievements");
+
+                    return count;
+                }
+            }
+
+            Console.WriteLine(
+                $"APPID {appId}: achievements not found");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"APPID {appId} ERROR: {ex.Message}");
+        }
+
+        return 0;
+    }
+
 }

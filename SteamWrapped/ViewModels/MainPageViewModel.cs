@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SteamWrapped.Services;
 
@@ -8,9 +9,10 @@ public partial class MainPageViewModel : ObservableObject
 {
     [ObservableProperty]
     private string steamId = string.Empty;
-[ObservableProperty]
+
+    [ObservableProperty]
     private int totalHours;
-    
+
     [ObservableProperty]
     private string favoriteGame = string.Empty;
 
@@ -19,6 +21,9 @@ public partial class MainPageViewModel : ObservableObject
 
     [ObservableProperty]
     private string playerType = string.Empty;
+
+    [ObservableProperty]
+    private string gamerRank = string.Empty;
 
     [ObservableProperty]
     private int gamesPlayed;
@@ -38,18 +43,31 @@ public partial class MainPageViewModel : ObservableObject
     [ObservableProperty]
     private string topGame3 = string.Empty;
 
-    public MainPageViewModel()
-    {
-    }
+    [ObservableProperty]
+    private bool isLoading;
+
+    [ObservableProperty]
+    private bool hasError;
+
+    [ObservableProperty]
+    private string errorMessage = string.Empty;
 
     [RelayCommand]
     private async Task LoadSteamData()
     {
         if (string.IsNullOrWhiteSpace(SteamId))
+        {
+            ErrorMessage = "Введите SteamID64";
+            HasError = true;
             return;
+        }
 
         try
         {
+            HasError = false;
+            ErrorMessage = "";
+            IsLoading = true;
+
             var service = new WrappedService();
 
             var report = await service.GenerateReport(SteamId);
@@ -58,6 +76,7 @@ public partial class MainPageViewModel : ObservableObject
             FavoriteGame = report.FavoriteGame;
             FavoriteGenre = report.FavoriteGenre;
             PlayerType = report.PlayerType;
+            GamerRank = report.GamerRank;
 
             GamesPlayed = report.GamesPlayed;
             AverageHoursPerGame = report.AverageHoursPerGame;
@@ -69,11 +88,17 @@ public partial class MainPageViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            HasError = true;
+            ErrorMessage = ex.Message;
+
             await Shell.Current.DisplayAlert(
                 "Ошибка",
                 ex.Message,
                 "OK");
         }
+        finally
+        {
+            IsLoading = false;
+        }
     }
-
 }
