@@ -1,75 +1,37 @@
-﻿using SteamWrapped.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
+using SteamWrapped.Models;
 
 namespace SteamWrapped.Services;
 
 public class WrappedService
 {
-    public List<Game> GetGames()
-    {
-        return new()
-        {
-            new Game
-            {
-                Name = "Dota 2",
-                Genre = "MOBA",
-                HoursPlayed = 542,
-                Achievements = 120,
-                Sessions = 250,
-                YearPlayed = 2025
-            },
-
-            new Game
-            {
-                Name = "Cyberpunk 2077",
-                Genre = "RPG",
-                HoursPlayed = 180,
-                Achievements = 55,
-                Sessions = 60,
-                YearPlayed = 2025
-            },
-
-            new Game
-            {
-                Name = "Civilization VI",
-                Genre = "Strategy",
-                HoursPlayed = 120,
-                Achievements = 35,
-                Sessions = 40,
-                YearPlayed = 2025
-            },
-
-            new Game
-            {
-                Name = "Counter Strike 2",
-                Genre = "Shooter",
-                HoursPlayed = 210,
-                Achievements = 70,
-                Sessions = 100,
-                YearPlayed = 2025
-            }
-        };
-    }
+    private readonly SteamApiService _api = new();
 
     public async Task<WrappedReport> GenerateReport(string steamId)
     {
         var games = await GetSteamGames(steamId);
 
+        if (!games.Any())
+        {
+            return new WrappedReport
+            {
+                FavoriteGame = "Нет данных",
+                FavoriteGenre = "Нет данных",
+                PlayerType = "Нет данных",
+                GamerRank = "Нет данных"
+            };
+        }
+
         var totalHours = games.Sum(g => g.HoursPlayed);
 
         var favoriteGame = games
             .OrderByDescending(g => g.HoursPlayed)
-            .First()
-            .Name;
+            .FirstOrDefault()?.Name ?? "Нет данных";
 
         var favoriteGenre = games
             .GroupBy(g => g.Genre)
             .OrderByDescending(g => g.Sum(x => x.HoursPlayed))
-            .First()
-            .Key;
+            .FirstOrDefault()?.Key ?? "Unknown";
 
         var averageHours = games.Average(g => g.HoursPlayed);
 
@@ -87,27 +49,16 @@ public class WrappedService
         return new WrappedReport
         {
             TotalHours = totalHours,
-
             FavoriteGame = favoriteGame,
-
             FavoriteGenre = favoriteGenre,
-
             PlayerType = playerType,
-
             GamesPlayed = gamesCount,
-
             AverageHoursPerGame = Math.Round(averageHours, 1),
-
             TotalAchievements = totalAchievements,
-
             TopGame1 = topGames.Count > 0 ? topGames[0].Name : "",
-
             TopGame2 = topGames.Count > 1 ? topGames[1].Name : "",
-
             TopGame3 = topGames.Count > 2 ? topGames[2].Name : "",
-
             MostPlayedGenre = favoriteGenre,
-
             GamerRank = playerType
         };
     }
@@ -125,14 +76,26 @@ public class WrappedService
 
         return "Казуальный игрок";
     }
+
     public async Task<List<Game>> GetSteamGames(string steamId)
     {
         var api = new SteamApiService();
 
         var json = await api.GetOwnedGamesJson(steamId);
 
+        Console.WriteLine(json);
+
         var steamData =
             JsonSerializer.Deserialize<SteamOwnedGamesResponse>(json);
+
+        if (steamData == null)
+            return new List<Game>();
+
+        if (steamData.response == null)
+            return new List<Game>();
+
+        if (steamData.response.games == null)
+            return new List<Game>();
 
         return steamData.response.games
             .Select(g => new Game
@@ -143,5 +106,47 @@ public class WrappedService
                 Achievements = 0
             })
             .ToList();
+    }
+
+    private async Task<string> GetGenre(int appId)
+    {
+        try
+        {
+            var json = await _api.GetGameDetails(appId);
+
+            using var doc = JsonDocument.Parse(json);
+
+            var root = doc.RootElement;
+
+            var property =
+                root.EnumerateObject().FirstOrDefault();
+
+            if (property.Value.TryGetProperty(
+                "data",
+                out var data))
+            {
+                if (data.TryGetProperty(
+                    "genres",
+                    out var genres))
+                {
+                    var firstGenre =
+                        genres.EnumerateArray()
+                        .FirstOrDefault();
+
+                    if (firstGenre.TryGetProperty(
+                        "description",
+                        out var description))
+                    {
+                        return description.GetString()
+                               ?? "Unknown";
+                    }
+                }
+            }
+        }
+        catch
+        {
+        }
+
+        return "Unknown";
     }
 }
