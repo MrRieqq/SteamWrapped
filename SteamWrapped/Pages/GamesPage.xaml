@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SteamWrapped.Pages.GamesPage"
+    Title="Мои игры"
+    BackgroundColor="{StaticResource Background}">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Заголовок -->
+        <VerticalStackLayout Padding="20,20,20,10" Spacing="4">
+            <Label Text="🎮 Мои игры"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" />
+
+            <Label Text="Твоя библиотека игр"
+                   FontSize="14"
+                   TextColor="{StaticResource TextSecondary}" />
+        </VerticalStackLayout>
+
+        <!-- Поиск (чисто визуал) -->
+        <Border Grid.Row="1"
+                Margin="15,0,15,15"
+                BackgroundColor="{StaticResource CardBackground}"
+                StrokeShape="RoundRectangle 15"
+                Padding="15">
+
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                <Label Text="🔍" FontSize="18" VerticalOptions="Center"/>
+
+                <Entry Placeholder="Поиск игры..."
+                       BackgroundColor="Transparent"
+                       Margin="30,0,0,0"
+                       TextColor="{StaticResource TextPrimary}" />
+            </Grid>
+        </Border>
+
+        <!-- Список игр -->
+        <CollectionView Grid.Row="2"
+                        Margin="20,5,15,0"
+                        SelectionMode="None">
+
+            <CollectionView.ItemsSource>
+                <!-- Статические данные -->
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>The Witcher 3|RPG|148</x:String>
+                    <x:String>CS:GO|Shooter|220</x:String>
+                    <x:String>Stardew Valley|Simulator|95</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                        Margin="0,8"
+                        Padding="15"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        StrokeShape="RoundRectangle 20">
+
+                        <Border.Shadow>
+                            <Shadow Brush="#22000000"
+                                    Offset="0,4"
+                                    Radius="10"/>
+                        </Border.Shadow>
+
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+
+                            <!-- Иконка -->
+                            <Label Text="🎮"
+                                   FontSize="26"
+                                   VerticalOptions="Center"/>
+
+                            <!-- Инфа -->
+                            <VerticalStackLayout Grid.Column="1" Spacing="4">
+
+                                <Label Text="{Binding .}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextPrimary}" />
+
+                                <Label Text="Жанр • Часы"
+                                       FontSize="13"
+                                       TextColor="{StaticResource TextSecondary}" />
+
+                            </VerticalStackLayout>
+
+                            <!-- Часы -->
+                            <Label Grid.Column="2"
+                                   Text="148ч"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center"/>
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- Плавающая кнопка -->
+        <Button 
+            Text="+"
+            WidthRequest="60"
+            HeightRequest="60"
+            CornerRadius="30"
+            BackgroundColor="{StaticResource Primary}"
+            TextColor="White"
+            FontSize="28"
+            Margin="20"
+            VerticalOptions="End"
+            HorizontalOptions="End"/>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SteamWrapped.Pages.WrappedPage"
+    Title="Wrapped">
+
+    <!-- Градиентный фон -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{StaticResource Primary}" Offset="0.0"/>
+            <GradientStop Color="{StaticResource Secondary}" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="25">
+
+            <!-- Заголовок -->
+            <Label Text="🔥 Твой игровой год"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="White" />
+
+            <!-- Карточка 1 -->
+            <Border StrokeShape="RoundRectangle 25"
+                    Padding="25"
+                    BackgroundColor="White">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="⏱ Общее время"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="148 часов"
+                           FontSize="34"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Это примерно 6 дней жизни 😄"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Карточка 2 -->
+            <Border StrokeShape="RoundRectangle 25"
+                    Padding="25"
+                    BackgroundColor="White">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="🎮 Любимый жанр"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="RPG"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Ты любишь длинные истории 📖"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Карточка 3 -->
+            <Border StrokeShape="RoundRectangle 25"
+                    Padding="25"
+                    BackgroundColor="White">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="⭐ Топ игра"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="The Witcher 3"
+                           FontSize="26"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Легендарный выбор 👑"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Карточка 4 -->
+            <Border StrokeShape="RoundRectangle 25"
+                    Padding="25"
+                    BackgroundColor="White">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="📅 Самый активный месяц"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <Label Text="Июль"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Ты был в пике формы 🔥"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Финальный блок -->
+            <Border StrokeShape="RoundRectangle 25"
+                    Padding="25">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#ffffff" Offset="0.0"/>
+                        <GradientStop Color="#f0f0f0" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="🚀 Итог"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Ты настоящий геймер!"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Label Text="Продолжай в том же духе 🎮"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
