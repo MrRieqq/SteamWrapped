@@ -56,7 +56,7 @@ public class WrappedService
 
     public async Task<WrappedReport> GenerateReport(string steamId)
     {
-        var games = GetGames();
+        var games = await GetSteamGames(steamId);
 
         var totalHours = games.Sum(g => g.HoursPlayed);
 
@@ -83,7 +83,7 @@ public class WrappedService
             .ToList();
 
         var playerType = GetPlayerRank(totalHours);
-        var games = await GetSteamGames(steamId);
+
         return new WrappedReport
         {
             TotalHours = totalHours,
