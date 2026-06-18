@@ -111,14 +111,15 @@ public class WrappedService
             await Task.WhenAll(
                 genreTask,
                 achievementTask);
-
             return new Game
             {
                 AppId = g.appid,
                 Name = g.name,
                 HoursPlayed = g.playtime_forever / 60,
                 Genre = genreTask.Result,
-                Achievements = achievementTask.Result
+
+                AchievementsUnlocked = achievementTask.Result,
+                AchievementsTotal = 100
             };
         });
 
