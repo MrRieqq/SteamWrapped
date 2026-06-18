@@ -30,7 +30,7 @@
             ContentTemplate="{DataTemplate pages:Statspage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Wrapped" Icon="steam.png">
+    <FlyoutItem Title="Settings" Icon="steam.png">
         <ShellContent
             ContentTemplate="{DataTemplate pages:WrappedPage}" />
     </FlyoutItem>
