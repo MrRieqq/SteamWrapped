@@ -6,45 +6,29 @@
     BackgroundColor="#050B16">
 
     <Grid>
-
-        <!-- Фон -->
         <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="1,0">
-                <GradientStop Color="#050B16"
-                              Offset="0"/>
-                <GradientStop Color="#091A2A"
-                              Offset="1"/>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Color="#050B16" Offset="0"/>
+                <GradientStop Color="#091A2A" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-
         <ScrollView>
-
             <VerticalStackLayout
                 HorizontalOptions="Center"
                 Spacing="25"
                 Padding="0,80,0,40">
-
-                <!-- Подзаголовок -->
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
                     Spacing="10">
-
-                    <Label
-                        Text="🎮"
-                        FontSize="15"/>
-
+                    <Label Text="🎮" FontSize="15"/>
                     <Label
                         Text="ТВОЙ ИГРОВОЙ ГОД В ОДНОМ МЕСТЕ"
                         FontSize="16"
                         TextColor="#53B9FF"/>
                 </HorizontalStackLayout>
-
-                <!-- Заголовок -->
                 <VerticalStackLayout
                     HorizontalOptions="Center"
                     Spacing="-15">
-
                     <Label
                         Text="STEAM"
                         FontFamily="Orbitionblod"
@@ -52,7 +36,6 @@
                         FontAttributes="Bold"
                         HorizontalTextAlignment="Center"
                         TextColor="#B9E4FF"/>
-
                     <Label
                         Text="WRAPPED"
                         FontFamily="Orbitionblod"
@@ -60,95 +43,146 @@
                         FontAttributes="Bold"
                         HorizontalTextAlignment="Center"
                         TextColor="#8B79FF"/>
-
                 </VerticalStackLayout>
-
-                <!-- Описание -->
                 <Label
                     WidthRequest="500"
                     HorizontalTextAlignment="Center"
                     FontSize="20"
                     TextColor="#7E8DA2"
                     Text="Введи Steam ID и узнай всё о своих игровых привычках — часы, жанры, рекорды и многое другое."/>
+                <Grid
+                    WidthRequest="1200"
+                    ColumnDefinitions="550,620"
+                    ColumnSpacing="20"
+                    HorizontalOptions="Center">
 
-                <!-- Карточка -->
-                <Border
-                    WidthRequest="550"
-                    Padding="35"
-                    BackgroundColor="#09111D"
-                    Stroke="#1A2A40"
-                    StrokeThickness="1">
+                    <!-- Профиль слева -->
+                    <Border
+                        Grid.Column="0"
+                        BackgroundColor="#0D1726"
+                        Stroke="#1D3350"
+                        StrokeThickness="1"
+                        Padding="20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Grid
+                            ColumnDefinitions="140,*"
+                            ColumnSpacing="20">
 
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="20"/>
-                    </Border.StrokeShape>
+                            <!-- Аватар + ник -->
+                            <VerticalStackLayout
+                                Grid.Column="0"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Spacing="10">
+                                <Frame
+                                    WidthRequest="110"
+                                    HeightRequest="110"
+                                    CornerRadius="55"
+                                    Padding="0"
+                                    BorderColor="#4E8BE0"
+                                    IsClippedToBounds="True">
+                                    <Image
+                                        Source="{Binding AvatarUrl}"
+                                        Aspect="AspectFill"/>
+                                </Frame>
+                                <Label
+                                    Text="{Binding PlayerName}"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="White"/>
+                                <Border
+                                    BackgroundColor="#132033"
+                                    Padding="8,4">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8"/>
+                                    </Border.StrokeShape>
+                                    <Label
+                                        Text="{Binding SteamLevel, StringFormat='Уровень {0}'}"
+                                        TextColor="#53B9FF"
+                                        HorizontalTextAlignment="Center"
+                                        HorizontalOptions="Fill"/>
+                                </Border>
+                            </VerticalStackLayout>
 
-                    <VerticalStackLayout Spacing="25">
-
-                        <!-- Заголовок поля -->
-                        <Label
-                            Text="STEAM ID ИЛИ ССЫЛКА НА ПРОФИЛЬ"
-                            FontSize="13"
-                            TextColor="#6F8198"/>
-
-                        <!-- Поле -->
-                        <Border
-                            BackgroundColor="#050B16"
-                            Stroke="#1D3350">
-
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12"/>
-                            </Border.StrokeShape>
-
-                            <Entry
-                                Placeholder="7656119XXXXXXXXXX или /id/username"
-                                PlaceholderColor="#5E6C80"
+                            <!-- Статистика справа -->
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                Spacing="15">
+                                <Label
+                                    Text="{Binding TotalHours, StringFormat='⏱ Часы: {0}'}"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    TextColor="White"/>
+                                <Label
+                                    Text="{Binding GamesPlayed, StringFormat='🎮 Игр: {0}'}"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    TextColor="White"/>
+                                <Label
+                                    Text="{Binding TotalAchievements, StringFormat='🏆 Достижений: {0}'}"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    TextColor="White"/>
+                                <Label
+                                    Text="{Binding GamerRank, StringFormat='🚀 Ранг: {0}'}"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    TextColor="#53B9FF"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Форма справа -->
+                    <Border
+                        Grid.Column="1"
+                        Padding="35"
+                        BackgroundColor="#09111D"
+                        Stroke="#1A2A40"
+                        StrokeThickness="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="25">
+                            <Label
+                                Text="STEAM ID ИЛИ ССЫЛКА НА ПРОФИЛЬ"
+                                FontSize="13"
+                                TextColor="#6F8198"/>
+                            <Border BackgroundColor="#050B16" Stroke="#1D3350">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Entry
+                                    Placeholder="7656119XXXXXXXXXX или /id/username"
+                                    PlaceholderColor="#5E6C80"
+                                    TextColor="White"
+                                    BackgroundColor="Transparent"
+                                    Margin="20,8"
+                                    Text="{Binding SteamId}"/>
+                            </Border>
+                            <Label
+                                FontSize="14"
+                                TextColor="#6F8198"
+                                Text="Поддерживаются SteamID64 и ссылки на профиль."/>
+                            <Button
+                                HeightRequest="60"
+                                Text="⚡ Загрузить мой профиль"
+                                FontSize="20"
+                                FontAttributes="Bold"
                                 TextColor="White"
-                                BackgroundColor="Transparent"
-                                Margin="20,8"/>
-                        </Border>
-
-                        <!-- Текст -->
-                        <Label
-                            FontSize="14"
-                            TextColor="#6F8198"
-                            Text="Поддерживаются SteamID64 и ссылки на профиль."/>
-
-                        <!-- Кнопка -->
-                        <Button
-                            HeightRequest="60"
-                            Text="⚡ Загрузить мой профиль"
-                            FontSize="20"
-                            FontAttributes="Bold"
-                            TextColor="White"
-                            CornerRadius="12">
-
-                            <Button.Background>
-                                <LinearGradientBrush
-                                    StartPoint="0,0"
-                                    EndPoint="1,0">
-
-                                    <GradientStop
-                                        Color="#4E8BE0"
-                                        Offset="0"/>
-
-                                    <GradientStop
-                                        Color="#7A5AF8"
-                                        Offset="1"/>
-
-                                </LinearGradientBrush>
-                            </Button.Background>
-
-                        </Button>
-
-                    </VerticalStackLayout>
-
-                </Border>
-
+                                CornerRadius="12"
+                                Command="{Binding LoadSteamDataCommand}"/>
+                            <ActivityIndicator
+                                IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="#53B9FF"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
             </VerticalStackLayout>
-
         </ScrollView>
-
     </Grid>
-
 </ContentPage>
