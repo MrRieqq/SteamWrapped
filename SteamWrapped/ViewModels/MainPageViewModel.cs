@@ -9,6 +9,17 @@ namespace SteamWrapped.ViewModels;
 public partial class MainPageViewModel : ObservableObject
 {
     [ObservableProperty]
+    private string playerName;
+
+    [ObservableProperty]
+    private string avatarUrl;
+
+    [ObservableProperty]
+    private string steamStatus;
+
+    [ObservableProperty]
+    private int steamLevel;
+    [ObservableProperty]
     private string steamId = string.Empty;
 
     [ObservableProperty]
@@ -71,8 +82,17 @@ public partial class MainPageViewModel : ObservableObject
 
             var service = new WrappedService();
 
-            var report = await service.GenerateReport(SteamId);
+            // Получаем настоящий SteamID64
+            var realSteamId = await service.ResolveSteamId(SteamId);
 
+            // Используем только его
+            var report = await service.GenerateReport(realSteamId);
+
+            var player = await service.GetPlayerProfile(realSteamId);
+
+            var steamLevel = await service.GetSteamLevel(realSteamId);
+
+            AppData.SteamId = realSteamId;
             AppData.SteamId = SteamId;
             TotalHours = report.TotalHours;
             FavoriteGame = report.FavoriteGame;
@@ -87,6 +107,24 @@ public partial class MainPageViewModel : ObservableObject
             TopGame1 = report.TopGame1;
             TopGame2 = report.TopGame2;
             TopGame3 = report.TopGame3;
+            if (player != null)
+            {
+                PlayerName = player.PersonaName;
+                AvatarUrl = player.AvatarFull;
+
+                SteamStatus = player.PersonaState switch
+                {
+                    0 => "⚫ Не в сети",
+                    1 => "🟢 В сети",
+                    2 => "⛔ Занят",
+                    3 => "🟡 Нет на месте",
+                    4 => "🌙 Спит",
+                    5 => "🔄 Обмен",
+                    6 => "🎮 В игре",
+                    _ => "Неизвестно"
+                };
+                SteamLevel = steamLevel;
+            }
         }
         catch (Exception ex)
         {
