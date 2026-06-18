@@ -119,7 +119,7 @@ public class WrappedService
         });
 
         return (await Task.WhenAll(tasks)).ToList();
-    }
+    } 
 
     private async Task<string> GetGenre(int appId)
     {
