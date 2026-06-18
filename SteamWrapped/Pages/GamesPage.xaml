@@ -2,537 +2,276 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="SteamWrapped.Pages.GamesPage"
-    BackgroundColor="#0F1923">
+    x:Class="SteamWrapped.Pages.GamesPage">
 
-    <Grid RowDefinitions="Auto,Auto,*" Padding="28,24,28,0">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#050A14" Offset="0"/>
+            <GradientStop Color="#0D1525" Offset="1"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
 
-        <!-- ===== HEADER ROW ===== -->
-        <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" Margin="0,0,0,20">
+    <Grid Padding="16,24,16,0"
+          RowDefinitions="Auto,Auto,*">
 
-            <!-- Title -->
-            <Label
-                Text="Мои игры"
-                FontSize="30"
-                FontAttributes="Bold"
-                TextColor="White"
-                VerticalOptions="Center"/>
+        <!-- HEADER -->
 
-            <!-- Search Bar -->
-            <Border
-                Grid.Column="1"
-                WidthRequest="280"
-                HeightRequest="44"
-                BackgroundColor="#1A2535"
-                Stroke="#263244"
-                StrokeThickness="1"
-                StrokeShape="RoundRectangle 10"
-                Margin="0,0,12,0"
-                VerticalOptions="Center">
-                <Grid ColumnDefinitions="Auto,*" Padding="12,0">
-                    <Label
-                        Text="🔍"
-                        FontSize="15"
-                        TextColor="#5A6A82"
-                        VerticalOptions="Center"/>
-                    <Entry
-                        Grid.Column="1"
-                        Placeholder="Поиск игр..."
-                        PlaceholderColor="#5A6A82"
-                        TextColor="White"
-                        BackgroundColor="Transparent"
-                        FontSize="14"
-                        VerticalOptions="Center"/>
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,Auto,Auto"
+              Margin="0,0,0,20">
+
+            <Label Text="Мои игры"
+                   FontSize="38"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   VerticalOptions="Center"/>
+
+            <Border Grid.Column="1"
+                    WidthRequest="290"
+                    HeightRequest="46"
+                    Margin="0,0,12,0"
+                    BackgroundColor="#121B2B"
+                    Stroke="#1F2B40"
+                    StrokeShape="RoundRectangle 12">
+
+                <Grid ColumnDefinitions="Auto,*"
+                      Padding="12,0">
+
+                    <Label Text="🔍"
+                           FontSize="15"
+                           TextColor="#7E8AA4"
+                           VerticalOptions="Center"/>
+
+                    <Entry Grid.Column="1"
+                           Placeholder="Поиск игр..."
+                           PlaceholderColor="#7E8AA4"
+                           TextColor="White"
+                           BackgroundColor="Transparent"/>
                 </Grid>
             </Border>
 
-            <!-- Filter Button -->
-            <Border
-                Grid.Column="2"
-                WidthRequest="44"
-                HeightRequest="44"
-                BackgroundColor="#1A2535"
-                Stroke="#263244"
-                StrokeThickness="1"
-                StrokeShape="RoundRectangle 10"
-                VerticalOptions="Center">
-                <Label
-                    Text="⚙"
-                    FontSize="18"
-                    TextColor="#8A9BB8"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+            <Border Grid.Column="2"
+                    WidthRequest="46"
+                    HeightRequest="46"
+                    BackgroundColor="#121B2B"
+                    Stroke="#1F2B40"
+                    StrokeShape="RoundRectangle 12">
+
+                <Label Text="⚙"
+                       FontSize="18"
+                       TextColor="#A4B1C8"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
             </Border>
+
         </Grid>
 
-        <!-- ===== FILTER TABS + SORT ROW ===== -->
-        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="0,0,0,22">
+        <!-- FILTERS -->
 
-            <!-- Tabs -->
-            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,Auto"
+              Margin="0,0,0,24">
 
-                <!-- Все игры (active) -->
-                <Border
-                    Padding="16,9"
-                    BackgroundColor="#3D5AFE"
-                    StrokeThickness="0"
-                    StrokeShape="RoundRectangle 10">
-                    <HorizontalStackLayout Spacing="6">
-                        <Label Text="Все игры" TextColor="White" FontSize="14" FontAttributes="Bold"/>
-                        <Border
-                            Padding="5,2"
-                            BackgroundColor="#5571FF"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 6">
-                            <Label Text="24" TextColor="White" FontSize="12"/>
-                        </Border>
-                    </HorizontalStackLayout>
-                </Border>
+            <HorizontalStackLayout Spacing="10">
 
-                <!-- Недавние -->
-                <Border
-                    Padding="16,9"
-                    BackgroundColor="Transparent"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 10">
-                    <HorizontalStackLayout Spacing="6">
-                        <Label Text="Недавние" TextColor="#8A9BB8" FontSize="14"/>
-                        <Border
-                            Padding="5,2"
-                            BackgroundColor="#1A2535"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 6">
-                            <Label Text="8" TextColor="#8A9BB8" FontSize="12"/>
-                        </Border>
-                    </HorizontalStackLayout>
-                </Border>
+                <Border Padding="18,10"
+                        BackgroundColor="#355CFF"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 12">
 
-                <!-- Избранное -->
-                <Border
-                    Padding="16,9"
-                    BackgroundColor="Transparent"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 10">
-                    <HorizontalStackLayout Spacing="6">
-                        <Label Text="Избранное" TextColor="#8A9BB8" FontSize="14"/>
-                        <Border
-                            Padding="5,2"
-                            BackgroundColor="#1A2535"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 6">
-                            <Label Text="12" TextColor="#8A9BB8" FontSize="12"/>
-                        </Border>
-                    </HorizontalStackLayout>
-                </Border>
-
-                <!-- Пройденные -->
-                <Border
-                    Padding="16,9"
-                    BackgroundColor="Transparent"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 10">
-                    <HorizontalStackLayout Spacing="6">
-                        <Label Text="Пройденные" TextColor="#8A9BB8" FontSize="14"/>
-                        <Border
-                            Padding="5,2"
-                            BackgroundColor="#1A2535"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 6">
-                            <Label Text="7" TextColor="#8A9BB8" FontSize="12"/>
-                        </Border>
-                    </HorizontalStackLayout>
-                </Border>
-            </HorizontalStackLayout>
-
-            <!-- Sort + View Toggle -->
-            <HorizontalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Center">
-
-                <!-- Sort dropdown -->
-                <Border
-                    Padding="14,9"
-                    BackgroundColor="#1A2535"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 10">
                     <HorizontalStackLayout Spacing="8">
-                        <Label Text="Сортировка:" TextColor="#8A9BB8" FontSize="13"/>
-                        <Label Text="По алфавиту" TextColor="White" FontSize="13"/>
-                        <Label Text="▾" TextColor="#8A9BB8" FontSize="13"/>
+                        <Label Text="Все игры"
+                               TextColor="White"
+                               FontAttributes="Bold"/>
+
+                        <Label Text="24"
+                               TextColor="White"/>
                     </HorizontalStackLayout>
                 </Border>
 
-                <!-- Grid view (active) -->
-                <Border
-                    WidthRequest="40"
-                    HeightRequest="40"
-                    BackgroundColor="#3D5AFE"
-                    StrokeThickness="0"
-                    StrokeShape="RoundRectangle 10">
-                    <Label
-                        Text="⊞"
-                        FontSize="18"
-                        TextColor="White"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
+                <Border Padding="18,10"
+                        BackgroundColor="#121B2B"
+                        Stroke="#1F2B40"
+                        StrokeShape="RoundRectangle 12">
+
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="Недавние"
+                               TextColor="#9FB0CC"/>
+
+                        <Label Text="8"
+                               TextColor="#9FB0CC"/>
+                    </HorizontalStackLayout>
                 </Border>
 
-                <!-- List view -->
-                <Border
-                    WidthRequest="40"
-                    HeightRequest="40"
-                    BackgroundColor="#1A2535"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 10">
-                    <Label
-                        Text="≡"
-                        FontSize="18"
-                        TextColor="#8A9BB8"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
+                <Border Padding="18,10"
+                        BackgroundColor="#121B2B"
+                        Stroke="#1F2B40"
+                        StrokeShape="RoundRectangle 12">
+
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="Избранное"
+                               TextColor="#9FB0CC"/>
+
+                        <Label Text="12"
+                               TextColor="#9FB0CC"/>
+                    </HorizontalStackLayout>
                 </Border>
+
+                <Border Padding="18,10"
+                        BackgroundColor="#121B2B"
+                        Stroke="#1F2B40"
+                        StrokeShape="RoundRectangle 12">
+
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="Пройденные"
+                               TextColor="#9FB0CC"/>
+
+                        <Label Text="7"
+                               TextColor="#9FB0CC"/>
+                    </HorizontalStackLayout>
+                </Border>
+
             </HorizontalStackLayout>
+
+            <HorizontalStackLayout Grid.Column="1"
+                                   Spacing="10">
+
+                <Border Padding="16,10"
+                        BackgroundColor="#121B2B"
+                        Stroke="#1F2B40"
+                        StrokeShape="RoundRectangle 12">
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="Сортировка:"
+                               TextColor="#8D9AB4"/>
+
+                        <Label Text="По алфавиту"
+                               TextColor="White"/>
+
+                        <Label Text="▾"
+                               TextColor="#8D9AB4"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <Border WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#355CFF"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 12">
+
+                    <Label Text="⊞"
+                           TextColor="White"
+                           FontSize="18"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+
+                <Border WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#121B2B"
+                        Stroke="#1F2B40"
+                        StrokeShape="RoundRectangle 12">
+
+                    <Label Text="≡"
+                           TextColor="#8D9AB4"
+                           FontSize="18"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+
+            </HorizontalStackLayout>
+
         </Grid>
 
-        <!-- ===== GAME GRID ===== -->
-        <ScrollView Grid.Row="2">
-            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*,*,*" ColumnSpacing="18" RowSpacing="18" Padding="0,0,0,28">
+        <!-- GAMES -->
 
-                <!-- ROW 1 -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Games}"
+                        SelectionMode="None">
 
-                <!-- Sekiro -->
-                <Border
-                    Grid.Row="0" Grid.Column="0"
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16">
-                    <Grid RowDefinitions="180,*">
-                        <Grid>
-                            <Image Source="sekiro.jpg" Aspect="AspectFill"/>
-                            <BoxView Color="#33000000"/>
-                            <!-- Star (filled = favourite) -->
-                            <Border
-                                Margin="10"
-                                WidthRequest="30" HeightRequest="30"
-                                BackgroundColor="#33000000"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 8"
-                                HorizontalOptions="Start" VerticalOptions="Start">
-                                <Label Text="★" FontSize="15" TextColor="#3D5AFE" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <!-- Menu dots -->
-                            <Border
-                                Margin="10"
-                                WidthRequest="30" HeightRequest="30"
-                                BackgroundColor="#33000000"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 8"
-                                HorizontalOptions="End" VerticalOptions="Start">
-                                <Label Text="⋯" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                        </Grid>
-                        <VerticalStackLayout Grid.Row="1" Padding="14,12" Spacing="8">
-                            <Label Text="Sekiro: Shadows Die Twice" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Label Text="🕐" FontSize="12" TextColor="#8A9BB8"/>
-                                    <Label Text="62 ч." FontSize="12" TextColor="#8A9BB8"/>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    Orientation="Vertical"
+                    Span="4"
+                    HorizontalItemSpacing="20"
+                    VerticalItemSpacing="20"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border WidthRequest="260"
+                            HeightRequest="285"
+                            Margin="12"
+                            BackgroundColor="#101827"
+                            Stroke="#1F2B40"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 18">
+
+                        <Border.Shadow>
+                            <Shadow Brush="#355CFF"
+                                    Radius="18"
+                                    Opacity="0.15"
+                                    Offset="0,0"/>
+                        </Border.Shadow>
+
+                        <Grid RowDefinitions="145,140">
+
+                            <!-- ОБЛОЖКА -->
+                            <Image Grid.Row="0"
+           Source="{Binding ImageUrl}"
+           Aspect="AspectFill"/>
+
+                            <!-- ИНФА -->
+                            <VerticalStackLayout Grid.Row="1"
+                         Padding="12"
+                         Spacing="8">
+
+                                <Label Text="{Binding Name}"
+               TextColor="White"
+               FontSize="18"
+               FontAttributes="Bold"/>
+
+                                <HorizontalStackLayout Spacing="8">
+
+                                    <Label Text="{Binding HoursPlayed,StringFormat='{0} ч.'}"
+                   TextColor="#9FB0CC"
+                   FontSize="13"/>
+
+                                    <Border BackgroundColor="#1A2437"
+                    StrokeThickness="0"
+                    Padding="8,2">
+
+                                        <Label Text="{Binding Genre}"
+                       TextColor="White"
+                       FontSize="11"/>
+                                    </Border>
+
                                 </HorizontalStackLayout>
-                                <Border Padding="8,3" BackgroundColor="#1E293B" StrokeThickness="0" StrokeShape="RoundRectangle 6">
-                                    <Label Text="Экшен" FontSize="11" TextColor="#C3CEE3"/>
-                                </Border>
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Text="🏆" FontSize="13"/>
-                                <Label Grid.Column="1" Margin="6,0" Text="34 / 34" TextColor="White" FontSize="13"/>
-                                <Label Grid.Column="2" Text="100%" TextColor="#8A9BB8" FontSize="13"/>
-                            </Grid>
-                            <ProgressBar Progress="1.0" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
 
-                <!-- The Long Dark -->
-                <Border
-                    Grid.Row="0" Grid.Column="1"
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16">
-                    <Grid RowDefinitions="180,*">
-                        <Grid>
-                            <Image Source="thelongdark.jpg" Aspect="AspectFill"/>
-                            <BoxView Color="#33000000"/>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start">
-                                <Label Text="☆" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="End" VerticalOptions="Start">
-                                <Label Text="⋯" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <Label Text="{Binding AchievementText}"
+                   TextColor="#FFD54F"/>
+
+                                    <Label Grid.Column="1"
+                   Text="{Binding AchievementPercentText}"
+                   TextColor="White"/>
+                                </Grid>
+
+                                <ProgressBar Progress="{Binding AchievementPercent}"
+                     ProgressColor="#4C7CFF"
+                     HeightRequest="6"/>
+                            </VerticalStackLayout>
+
                         </Grid>
-                        <VerticalStackLayout Grid.Row="1" Padding="14,12" Spacing="8">
-                            <Label Text="The Long Dark" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Label Text="🕐" FontSize="12" TextColor="#8A9BB8"/>
-                                    <Label Text="41 ч." FontSize="12" TextColor="#8A9BB8"/>
-                                </HorizontalStackLayout>
-                                <Border Padding="8,3" BackgroundColor="#1E293B" StrokeThickness="0" StrokeShape="RoundRectangle 6">
-                                    <Label Text="Выживание" FontSize="11" TextColor="#C3CEE3"/>
-                                </Border>
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Text="🏆" FontSize="13"/>
-                                <Label Grid.Column="1" Margin="6,0" Text="18 / 45" TextColor="White" FontSize="13"/>
-                                <Label Grid.Column="2" Text="40%" TextColor="#8A9BB8" FontSize="13"/>
-                            </Grid>
-                            <ProgressBar Progress="0.40" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
+                    </Border>
 
-                <!-- OutDrive -->
-                <Border
-                    Grid.Row="0" Grid.Column="2"
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16">
-                    <Grid RowDefinitions="180,*">
-                        <Grid>
-                            <Image Source="outdrive.jpg" Aspect="AspectFill"/>
-                            <BoxView Color="#33000000"/>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start">
-                                <Label Text="★" FontSize="15" TextColor="#3D5AFE" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="End" VerticalOptions="Start">
-                                <Label Text="⋯" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                        </Grid>
-                        <VerticalStackLayout Grid.Row="1" Padding="14,12" Spacing="8">
-                            <Label Text="OutDrive" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Label Text="🕐" FontSize="12" TextColor="#8A9BB8"/>
-                                    <Label Text="24 ч." FontSize="12" TextColor="#8A9BB8"/>
-                                </HorizontalStackLayout>
-                                <Border Padding="8,3" BackgroundColor="#1E293B" StrokeThickness="0" StrokeShape="RoundRectangle 6">
-                                    <Label Text="Гонки" FontSize="11" TextColor="#C3CEE3"/>
-                                </Border>
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Text="🏆" FontSize="13"/>
-                                <Label Grid.Column="1" Margin="6,0" Text="12 / 30" TextColor="White" FontSize="13"/>
-                                <Label Grid.Column="2" Text="45%" TextColor="#8A9BB8" FontSize="13"/>
-                            </Grid>
-                            <ProgressBar Progress="0.45" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
 
-                <!-- STRIPE -->
-                <Border
-                    Grid.Row="0" Grid.Column="3"
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16">
-                    <Grid RowDefinitions="180,*">
-                        <Grid>
-                            <Image Source="stripe.jpg" Aspect="AspectFill"/>
-                            <BoxView Color="#33000000"/>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start">
-                                <Label Text="☆" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="End" VerticalOptions="Start">
-                                <Label Text="⋯" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                        </Grid>
-                        <VerticalStackLayout Grid.Row="1" Padding="14,12" Spacing="8">
-                            <Label Text="STRIPE" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Label Text="🕐" FontSize="12" TextColor="#8A9BB8"/>
-                                    <Label Text="7.4 ч." FontSize="12" TextColor="#8A9BB8"/>
-                                </HorizontalStackLayout>
-                                <Border Padding="8,3" BackgroundColor="#1E293B" StrokeThickness="0" StrokeShape="RoundRectangle 6">
-                                    <Label Text="Инди" FontSize="11" TextColor="#C3CEE3"/>
-                                </Border>
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Text="🏆" FontSize="13"/>
-                                <Label Grid.Column="1" Margin="6,0" Text="9 / 20" TextColor="White" FontSize="13"/>
-                                <Label Grid.Column="2" Text="45%" TextColor="#8A9BB8" FontSize="13"/>
-                            </Grid>
-                            <ProgressBar Progress="0.45" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-
-                <!-- ROW 2 -->
-
-                <!-- Rain World -->
-                <Border
-                    Grid.Row="1" Grid.Column="0"
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16">
-                    <Grid RowDefinitions="180,*">
-                        <Grid>
-                            <Image Source="rainworld.jpg" Aspect="AspectFill"/>
-                            <BoxView Color="#33000000"/>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start">
-                                <Label Text="☆" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="End" VerticalOptions="Start">
-                                <Label Text="⋯" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                        </Grid>
-                        <VerticalStackLayout Grid.Row="1" Padding="14,12" Spacing="8">
-                            <Label Text="Rain World" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Label Text="🕐" FontSize="12" TextColor="#8A9BB8"/>
-                                    <Label Text="28 ч." FontSize="12" TextColor="#8A9BB8"/>
-                                </HorizontalStackLayout>
-                                <Border Padding="8,3" BackgroundColor="#1E293B" StrokeThickness="0" StrokeShape="RoundRectangle 6">
-                                    <Label Text="Платформер" FontSize="11" TextColor="#C3CEE3"/>
-                                </Border>
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Text="🏆" FontSize="13"/>
-                                <Label Grid.Column="1" Margin="6,0" Text="20 / 32" TextColor="White" FontSize="13"/>
-                                <Label Grid.Column="2" Text="62%" TextColor="#8A9BB8" FontSize="13"/>
-                            </Grid>
-                            <ProgressBar Progress="0.62" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-
-                <!-- Robo Instructus -->
-                <Border
-                    Grid.Row="1" Grid.Column="1"
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16">
-                    <Grid RowDefinitions="180,*">
-                        <Grid>
-                            <Image Source="roboinstructus.jpg" Aspect="AspectFill"/>
-                            <BoxView Color="#33000000"/>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start">
-                                <Label Text="☆" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="End" VerticalOptions="Start">
-                                <Label Text="⋯" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                        </Grid>
-                        <VerticalStackLayout Grid.Row="1" Padding="14,12" Spacing="8">
-                            <Label Text="Robo Instructus" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Label Text="🕐" FontSize="12" TextColor="#8A9BB8"/>
-                                    <Label Text="13 ч." FontSize="12" TextColor="#8A9BB8"/>
-                                </HorizontalStackLayout>
-                                <Border Padding="8,3" BackgroundColor="#1E293B" StrokeThickness="0" StrokeShape="RoundRectangle 6">
-                                    <Label Text="Головоломка" FontSize="11" TextColor="#C3CEE3"/>
-                                </Border>
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Text="🏆" FontSize="13"/>
-                                <Label Grid.Column="1" Margin="6,0" Text="14 / 28" TextColor="White" FontSize="13"/>
-                                <Label Grid.Column="2" Text="50%" TextColor="#8A9BB8" FontSize="13"/>
-                            </Grid>
-                            <ProgressBar Progress="0.50" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-
-                <!-- Slay the Spire -->
-                <Border
-                    Grid.Row="1" Grid.Column="2"
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16">
-                    <Grid RowDefinitions="180,*">
-                        <Grid>
-                            <Image Source="slaythespire.jpg" Aspect="AspectFill"/>
-                            <BoxView Color="#33000000"/>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start">
-                                <Label Text="★" FontSize="15" TextColor="#3D5AFE" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="End" VerticalOptions="Start">
-                                <Label Text="⋯" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                        </Grid>
-                        <VerticalStackLayout Grid.Row="1" Padding="14,12" Spacing="8">
-                            <Label Text="Slay the Spire" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Label Text="🕐" FontSize="12" TextColor="#8A9BB8"/>
-                                    <Label Text="53 ч." FontSize="12" TextColor="#8A9BB8"/>
-                                </HorizontalStackLayout>
-                                <Border Padding="8,3" BackgroundColor="#1E293B" StrokeThickness="0" StrokeShape="RoundRectangle 6">
-                                    <Label Text="Рогалик" FontSize="11" TextColor="#C3CEE3"/>
-                                </Border>
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Text="🏆" FontSize="13"/>
-                                <Label Grid.Column="1" Margin="6,0" Text="27 / 46" TextColor="White" FontSize="13"/>
-                                <Label Grid.Column="2" Text="59%" TextColor="#8A9BB8" FontSize="13"/>
-                            </Grid>
-                            <ProgressBar Progress="0.59" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-
-                <!-- Firewatch -->
-                <Border
-                    Grid.Row="1" Grid.Column="3"
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16">
-                    <Grid RowDefinitions="180,*">
-                        <Grid>
-                            <Image Source="firewatch.jpg" Aspect="AspectFill"/>
-                            <BoxView Color="#33000000"/>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start">
-                                <Label Text="☆" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <Border Margin="10" WidthRequest="30" HeightRequest="30" BackgroundColor="#33000000" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="End" VerticalOptions="Start">
-                                <Label Text="⋯" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                        </Grid>
-                        <VerticalStackLayout Grid.Row="1" Padding="14,12" Spacing="8">
-                            <Label Text="Firewatch" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Label Text="🕐" FontSize="12" TextColor="#8A9BB8"/>
-                                    <Label Text="11 ч." FontSize="12" TextColor="#8A9BB8"/>
-                                </HorizontalStackLayout>
-                                <Border Padding="8,3" BackgroundColor="#1E293B" StrokeThickness="0" StrokeShape="RoundRectangle 6">
-                                    <Label Text="Приключение" FontSize="11" TextColor="#C3CEE3"/>
-                                </Border>
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Text="🏆" FontSize="13"/>
-                                <Label Grid.Column="1" Margin="6,0" Text="10 / 16" TextColor="White" FontSize="13"/>
-                                <Label Grid.Column="2" Text="63%" TextColor="#8A9BB8" FontSize="13"/>
-                            </Grid>
-                            <ProgressBar Progress="0.63" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-
-            </Grid>
-        </ScrollView>
+        </CollectionView>
 
     </Grid>
+
 </ContentPage>
