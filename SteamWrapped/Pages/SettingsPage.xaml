@@ -125,12 +125,12 @@
                                     StrokeThickness="2"
                                     StrokeShape="RoundRectangle 14">
                                     <Grid>
-                                        <Label
-                                            Text="☀"
-                                            FontSize="32"
-                                            TextColor="White"
-                                            HorizontalOptions="Center"
-                                            VerticalOptions="Center"/>
+                                        <Image
+                                             Source="sundark.png"
+                                             WidthRequest="40"  
+                                             HeightRequest="40"
+                                             HorizontalOptions="Center"
+                                             VerticalOptions="Center"/>
                                         <!-- Checkmark badge -->
                                         <Border
                                             WidthRequest="24"
@@ -166,12 +166,13 @@
                                     Stroke="#263244"
                                     StrokeThickness="1"
                                     StrokeShape="RoundRectangle 14">
-                                    <Label
-                                        Text="☀"
-                                        FontSize="32"
-                                        TextColor="#1A1A2E"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center"/>
+                                    <Image
+                                           Source="iconbackground.png"
+                                           WidthRequest="40"
+                                        
+                                           HeightRequest="40"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
                                 </Border>
                                 <Label
                                     Text="Светлая"
