@@ -8,11 +8,16 @@
     BackgroundColor="#171A21"
     ForegroundColor="White"
     TitleColor="White"
-    FlyoutBackgroundColor="#171A21">
+    FlyoutBackgroundColor="#171A21"
+    FlyoutIcon="logo.png">
+    
     <Shell.Resources>
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="White"/>
+            
         </Style>
+        
+        
     </Shell.Resources>
 
     <FlyoutItem Title="Главная" Icon="steam.png">
