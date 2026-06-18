@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SteamWrapped.Pages.WrappedPage"
+    Title="" BackgroundColor="#0F1923">
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,24" Spacing="20">
+
+            <!-- ===== HEADER ===== -->
+            <VerticalStackLayout Spacing="4" Margin="0,0,0,4">
+                <Label
+                    Text="Настройки"
+                    FontSize="28"
+                    FontAttributes="Bold"
+                    TextColor="White"/>
+                <Label
+                    Text="Управляйте своим профилем и параметрами приложения"
+                    FontSize="13"
+                    TextColor="#8A9BB8"/>
+            </VerticalStackLayout>
+
+            <!-- ===== PROFILE CARD ===== -->
+            <Border
+                BackgroundColor="#111827"
+                Stroke="#263244"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="20,18">
+                <HorizontalStackLayout Spacing="18" VerticalOptions="Center">
+
+                    <!-- Avatar -->
+                    <Border
+                        WidthRequest="72"
+                        HeightRequest="72"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#1E293B">
+                        <Image
+                            Source="avatar.png"
+                            Aspect="AspectFill"
+                            WidthRequest="72"
+                            HeightRequest="72"/>
+                    </Border>
+
+                    <!-- Name + SteamID -->
+                    <VerticalStackLayout Spacing="6" VerticalOptions="Center">
+                        <Label
+                            Text="SteamWrapped"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="White"/>
+                        <HorizontalStackLayout Spacing="8">
+                            <Label
+                                Text="🔵"
+                                FontSize="14"
+                                VerticalOptions="Center"/>
+                            <Label
+                                Text="steamid64: 76561197960043550"
+                                FontSize="13"
+                                TextColor="#8A9BB8"
+                                VerticalOptions="Center"/>
+                            <Border
+                                WidthRequest="28"
+                                HeightRequest="28"
+                                BackgroundColor="#1A2535"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 7"
+                                VerticalOptions="Center">
+                                <Label
+                                    Text="⎘"
+                                    FontSize="14"
+                                    TextColor="#8A9BB8"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                            </Border>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- ===== APPEARANCE CARD ===== -->
+            <Border
+                BackgroundColor="#111827"
+                Stroke="#263244"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="20,18">
+                <VerticalStackLayout Spacing="20">
+
+                    <Label
+                        Text="Оформление"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="White"/>
+
+                    <!-- Theme row -->
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="40" VerticalOptions="Center">
+
+                        <!-- Label -->
+                        <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
+                            <Label
+                                Text="Тема приложения"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="White"/>
+                            <Label
+                                Text="Выберите тему оформления приложения"
+                                FontSize="12"
+                                TextColor="#8A9BB8"/>
+                        </VerticalStackLayout>
+
+                        <!-- Theme options -->
+                        <HorizontalStackLayout Grid.Column="1" Spacing="14" VerticalOptions="Center">
+
+                            <!-- Тёмная (active) -->
+                            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                                <Border
+                                    WidthRequest="110"
+                                    HeightRequest="90"
+                                    BackgroundColor="#1A1A2E"
+                                    Stroke="#4F6FFF"
+                                    StrokeThickness="2"
+                                    StrokeShape="RoundRectangle 14">
+                                    <Grid>
+                                        <Label
+                                            Text="☀"
+                                            FontSize="32"
+                                            TextColor="White"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"/>
+                                        <!-- Checkmark badge -->
+                                        <Border
+                                            WidthRequest="24"
+                                            HeightRequest="24"
+                                            BackgroundColor="#4F6FFF"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 12"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="0,8,8,0">
+                                            <Label
+                                                Text="✓"
+                                                FontSize="13"
+                                                TextColor="White"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                                <Label
+                                    Text="Тёмная"
+                                    FontSize="13"
+                                    TextColor="White"
+                                    HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Светлая -->
+                            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                                <Border
+                                    WidthRequest="110"
+                                    HeightRequest="90"
+                                    BackgroundColor="#E8EAF0"
+                                    Stroke="#263244"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 14">
+                                    <Label
+                                        Text="☀"
+                                        FontSize="32"
+                                        TextColor="#1A1A2E"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"/>
+                                </Border>
+                                <Label
+                                    Text="Светлая"
+                                    FontSize="13"
+                                    TextColor="#8A9BB8"
+                                    HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+
+</ContentPage>
