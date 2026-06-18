@@ -81,4 +81,31 @@ public class SteamApiService
 
         return await SafeGetStringAsync(url);
     }
+    public async Task<string?> GetPlayerSummary(string steamId)
+    {
+        var url =
+            $"https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/" +
+            $"?key={ApiKey}" +
+            $"&steamids={steamId}";
+
+        return await SafeGetStringAsync(url);
+    }
+    public async Task<string?> GetSteamLevel(string steamId)
+    {
+        var url =
+            $"https://api.steampowered.com/IPlayerService/GetSteamLevel/v1/" +
+            $"?key={ApiKey}" +
+            $"&steamid={steamId}";
+
+        return await SafeGetStringAsync(url);
+    }
+    public async Task<string?> ResolveVanityUrl(string vanityName)
+    {
+        var url =
+            $"https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/" +
+            $"?key={ApiKey}" +
+            $"&vanityurl={vanityName}";
+
+        return await SafeGetStringAsync(url);
+    }
 }
