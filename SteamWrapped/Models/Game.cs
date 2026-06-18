@@ -15,10 +15,22 @@ public class Game
     public int Sessions { get; set; }
 
     public int Achievements { get; set; }
+    public int AchievementsUnlocked { get; set; }
 
+    public int AchievementsTotal { get; set; }
+
+    public string AchievementText =>
+        $"{AchievementsUnlocked} / {AchievementsTotal}";
+
+    public double AchievementPercent =>
+        AchievementsTotal == 0
+            ? 0
+            : (double)AchievementsUnlocked / AchievementsTotal;
     public int YearPlayed { get; set; }
     public string ImageUrl =>
-    $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/library_600x900.jpg";
+    $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/header.jpg";
+    public string AchievementPercentText =>
+    $"{AchievementPercent * 100:F0}%";
 }
 public class SteamResponse
 {
