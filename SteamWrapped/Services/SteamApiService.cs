@@ -108,4 +108,13 @@ public class SteamApiService
 
         return await SafeGetStringAsync(url);
     }
+    public async Task<string?> GetSchemaForGame(int appId)
+    {
+        var url =
+            $"https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/" +
+            $"?key={ApiKey}" +
+            $"&appid={appId}";
+
+        return await SafeGetStringAsync(url);
+    }
 }

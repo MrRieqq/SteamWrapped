@@ -102,10 +102,12 @@ public class WrappedService
         {
             var genreTask = GetGenre(g.appid);
             var achievementTask = GetAchievements(steamId, g.appid);
+            var achievementTotalTask = GetAchievementsTotal(g.appid);
 
             await Task.WhenAll(
                 genreTask,
-                achievementTask);
+                achievementTask,
+                achievementTotalTask);
 
             return new Game
             {
@@ -114,13 +116,13 @@ public class WrappedService
                 HoursPlayed = g.playtime_forever / 60,
                 Genre = await genreTask,
                 AchievementsUnlocked = await achievementTask,
-                AchievementsTotal = 100
+                AchievementsTotal = await achievementTotalTask
             };
         });
 
         return (await Task.WhenAll(tasks)).ToList();
     }
-
+    private static readonly Dictionary<int, int> AchievementTotalCache = new();
     private async Task<string> GetGenre(int appId)
     {
         if (GenreCache.TryGetValue(appId, out var cached))
@@ -303,5 +305,37 @@ public class WrappedService
         }
 
         throw new Exception("Неверный Steam ID");
+    }
+    private async Task<int> GetAchievementsTotal(int appId)
+    {
+        if (AchievementTotalCache.TryGetValue(appId, out var cached))
+            return cached;
+
+        try
+        {
+            var json = await _api.GetSchemaForGame(appId);
+
+            if (string.IsNullOrWhiteSpace(json))
+                return 0;
+
+            using var doc = JsonDocument.Parse(json);
+
+            if (doc.RootElement.TryGetProperty("game", out var game) &&
+                game.TryGetProperty("availableGameStats", out var stats) &&
+                stats.TryGetProperty("achievements", out var achievements))
+            {
+                var total = achievements.GetArrayLength();
+
+                AchievementTotalCache[appId] = total;
+
+                return total;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"TOTAL ACH ERROR {appId}: {ex.Message}");
+        }
+
+        return 0;
     }
 }
