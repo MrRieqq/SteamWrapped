@@ -95,17 +95,21 @@ public class WrappedService
 
         var topGames = steamData.response.games
             .OrderByDescending(x => x.playtime_forever)
-            .Take(50)
             .ToList();
 
         var tasks = topGames.Select(async g =>
         {
             var genreTask = GetGenre(g.appid);
-            var achievementTask = GetAchievements(steamId, g.appid);
+            var achievementTask = GetAchievements(
+                steamId,
+                g.appid);
 
             await Task.WhenAll(
                 genreTask,
                 achievementTask);
+
+            var achievementInfo =
+                await achievementTask;
 
             return new Game
             {
@@ -113,13 +117,13 @@ public class WrappedService
                 Name = g.name,
                 HoursPlayed = g.playtime_forever / 60,
                 Genre = await genreTask,
-                AchievementsUnlocked = await achievementTask,
-                AchievementsTotal = 100
+                AchievementsUnlocked = achievementInfo.Unlocked,
+                AchievementsTotal = achievementInfo.Total
             };
         });
 
         return (await Task.WhenAll(tasks)).ToList();
-    } 
+    }
 
     private async Task<string> GetGenre(int appId)
     {
@@ -174,19 +178,19 @@ public class WrappedService
         return "Unknown";
     }
 
-    private async Task<int> GetAchievements(
-        string steamId,
-        int appId)
+    private async Task<AchievementInfo> GetAchievements(
+    string steamId,
+    int appId)
     {
         try
         {
             var json =
-                    await _api.GetAchievementsJson(
+                await _api.GetAchievementsJson(
                     steamId,
                     appId);
 
             if (string.IsNullOrWhiteSpace(json))
-                return 0;
+                return new AchievementInfo();
 
             using var doc = JsonDocument.Parse(json);
 
@@ -198,21 +202,20 @@ public class WrappedService
                     "achievements",
                     out var achievements))
                 {
-                    int count = achievements
+                    var list =
+                        achievements
                         .EnumerateArray()
-                        .Count(a =>
+                        .ToList();
+
+                    return new AchievementInfo
+                    {
+                        Total = list.Count,
+                        Unlocked = list.Count(a =>
                             a.GetProperty("achieved")
-                            .GetInt32() == 1);
-
-                    Console.WriteLine(
-                        $"APPID {appId}: {count} achievements");
-
-                    return count;
+                            .GetInt32() == 1)
+                    };
                 }
             }
-
-            Console.WriteLine(
-                $"APPID {appId}: achievements not found");
         }
         catch (Exception ex)
         {
@@ -220,7 +223,7 @@ public class WrappedService
                 $"APPID {appId} ERROR: {ex.Message}");
         }
 
-        return 0;
+        return new AchievementInfo();
     }
     public async Task<SteamPlayer?> GetPlayerProfile(string steamId)
     {
