@@ -22,7 +22,7 @@ public class Game
     public string AchievementText =>
         AchievementsTotal == 0
             ? "Нет достижений"
-            : $"{AchievementsUnlocked} / {AchievementsTotal}";
+            : $"🏆{AchievementsUnlocked} / {AchievementsTotal}";
 
     public double AchievementPercent =>
         AchievementsTotal == 0
@@ -37,6 +37,12 @@ public class Game
             : $"{AchievementPercent * 100:F0}%"; 
     public bool HasAchievements =>
     AchievementsTotal > 0;
+
+}
+public class AchievementInfo
+{
+    public int Unlocked { get; set; }
+    public int Total { get; set; }
 }
 public class SteamResponse
 {
