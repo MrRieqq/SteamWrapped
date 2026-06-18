@@ -260,8 +260,9 @@
                                 </Grid>
 
                                 <ProgressBar Progress="{Binding AchievementPercent}"
-                     ProgressColor="#4C7CFF"
-                     HeightRequest="6"/>
+                                             IsVisible="{Binding HasAchievements}"
+                                             ProgressColor="#4C7CFF"
+                                             HeightRequest="6"/>
                             </VerticalStackLayout>
 
                         </Grid>
