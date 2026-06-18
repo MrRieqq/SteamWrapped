@@ -109,13 +109,13 @@
                             <!-- Нижняя панель -->
                             <Border
                                 VerticalOptions="End"
-                                HeightRequest="60"
+                                HeightRequest="80"
                                 BackgroundColor="#CC171A21"
                                 StrokeThickness="0">
 
                                 <VerticalStackLayout
                                     Padding="10,7"
-                                    Spacing="2">
+                                    Spacing="6">
 
                                     <Label
                                         Text="{Binding Name}"
