@@ -2,6 +2,7 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:SteamWrapped.Converters"
     x:Class="SteamWrapped.Pages.GamesPage">
 
     <ContentPage.Background>
@@ -10,22 +11,25 @@
             <GradientStop Color="#0D1525" Offset="1"/>
         </LinearGradientBrush>
     </ContentPage.Background>
-
-    <Grid Padding="16,24,16,0"
-          RowDefinitions="Auto,Auto,*">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FilterBackgroundConverter
+            x:Key="FilterBackgroundConverter"/>
+            <converters:FilterTextConverter
+            x:Key="FilterTextConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid Padding="16,24,16,0" RowDefinitions="Auto,Auto,*">
 
         <!-- HEADER -->
 
-        <Grid Grid.Row="0"
-              ColumnDefinitions="*,Auto,Auto"
-              Margin="0,0,0,20">
-
-            <Label Text="Мои игры"
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" Margin="0,0,0,20">
+            <Label Text="Ваши игры"
                    FontSize="38"
                    FontAttributes="Bold"
                    TextColor="White"
                    VerticalOptions="Center"/>
-
             <Border Grid.Column="1"
                     WidthRequest="290"
                     HeightRequest="46"
@@ -33,173 +37,231 @@
                     BackgroundColor="#121B2B"
                     Stroke="#1F2B40"
                     StrokeShape="RoundRectangle 12">
-
                 <Grid ColumnDefinitions="Auto,*"
                       Padding="12,0">
-
                     <Label Text="🔍"
                            FontSize="15"
                            TextColor="#7E8AA4"
-                           VerticalOptions="Center"/>
-
-                    <Entry Grid.Column="1"
-                           Placeholder="Поиск игр..."
-                           PlaceholderColor="#7E8AA4"
-                           TextColor="White"
-                           BackgroundColor="Transparent"/>
+                           VerticalOptions="Center"
+                           Margin="0,0,10,0"/>
+                    <Entry
+                        Grid.Column="1"
+                        Placeholder="Поиск игр..."
+                        PlaceholderColor="#7E8AA4"
+                        Text="{Binding SearchText}"
+                        TextColor="White"
+                        BackgroundColor="Transparent"/>
                 </Grid>
             </Border>
-
             <Border Grid.Column="2"
                     WidthRequest="46"
                     HeightRequest="46"
                     BackgroundColor="#121B2B"
                     Stroke="#1F2B40"
                     StrokeShape="RoundRectangle 12">
-
                 <Label Text="⚙"
                        FontSize="18"
                        TextColor="#A4B1C8"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"/>
             </Border>
-
         </Grid>
 
         <!-- FILTERS -->
 
-        <Grid Grid.Row="1"
-              ColumnDefinitions="*,Auto"
-              Margin="0,0,0,24">
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="0,0,0,24">
+
+            <!-- ФИЛЬТРЫ -->
 
             <HorizontalStackLayout Spacing="10">
 
-                <Border Padding="18,10"
-                        BackgroundColor="#355CFF"
+                <!-- Все игры -->
+
+                <Border Padding="12,6"
                         StrokeThickness="0"
-                        StrokeShape="RoundRectangle 12">
-
-                    <HorizontalStackLayout Spacing="8">
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="{Binding SelectedFilter, Converter={StaticResource FilterBackgroundConverter}, ConverterParameter=Все игры}"
+                        HeightRequest="35">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowAllCommand}" Tapped="FilterButtonTapped"/>
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6">
                         <Label Text="Все игры"
-                               TextColor="White"
-                               FontAttributes="Bold"/>
-
-                        <Label Text="24"
-                               TextColor="White"/>
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="{Binding SelectedFilter, Converter={StaticResource FilterTextConverter}, ConverterParameter=Все игры}"/>
+                        <Label Text="{Binding TotalGamesCount}"
+                               FontSize="13"
+                               TextColor="{Binding SelectedFilter, Converter={StaticResource FilterTextConverter}, ConverterParameter=Все игры}"/>
                     </HorizontalStackLayout>
                 </Border>
 
-                <Border Padding="18,10"
-                        BackgroundColor="#121B2B"
-                        Stroke="#1F2B40"
-                        StrokeShape="RoundRectangle 12">
+                <!-- Недавние -->
 
-                    <HorizontalStackLayout Spacing="8">
+                <Border Padding="12,6"
+                        Stroke="#1F2B40"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="{Binding SelectedFilter, Converter={StaticResource FilterBackgroundConverter}, ConverterParameter=Недавние}"
+                        HeightRequest="35">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowRecentCommand}" Tapped="FilterButtonTapped"/>
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6">
                         <Label Text="Недавние"
-                               TextColor="#9FB0CC"/>
-
-                        <Label Text="8"
-                               TextColor="#9FB0CC"/>
+                               FontSize="13"
+                               TextColor="{Binding SelectedFilter, Converter={StaticResource FilterTextConverter}, ConverterParameter=Недавние}"/>
+                        <Label Text="{Binding RecentGamesCount}"
+                               FontSize="13"
+                               TextColor="{Binding SelectedFilter, Converter={StaticResource FilterTextConverter}, ConverterParameter=Недавние}"/>
                     </HorizontalStackLayout>
                 </Border>
 
-                <Border Padding="18,10"
-                        BackgroundColor="#121B2B"
-                        Stroke="#1F2B40"
-                        StrokeShape="RoundRectangle 12">
+                <!-- Избранное -->
 
-                    <HorizontalStackLayout Spacing="8">
+                <Border Padding="12,6"
+                        Stroke="#1F2B40"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="{Binding SelectedFilter, Converter={StaticResource FilterBackgroundConverter}, ConverterParameter=Избранное}"
+                        HeightRequest="35">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowFavoritesCommand}" Tapped="FilterButtonTapped"/>
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6">
                         <Label Text="Избранное"
-                               TextColor="#9FB0CC"/>
-
-                        <Label Text="12"
-                               TextColor="#9FB0CC"/>
+                               FontSize="13"
+                               TextColor="{Binding SelectedFilter, Converter={StaticResource FilterTextConverter}, ConverterParameter=Избранное}"/>
+                        <Label Text="{Binding FavoriteGamesCount}"
+                               FontSize="13"
+                               TextColor="{Binding SelectedFilter, Converter={StaticResource FilterTextConverter}, ConverterParameter=Избранное}"/>
                     </HorizontalStackLayout>
                 </Border>
 
-                <Border Padding="18,10"
-                        BackgroundColor="#121B2B"
+                <!-- Пройденные -->
+
+                <Border Padding="12,6"
                         Stroke="#1F2B40"
-                        StrokeShape="RoundRectangle 12">
-
-                    <HorizontalStackLayout Spacing="8">
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="{Binding SelectedFilter, Converter={StaticResource FilterBackgroundConverter}, ConverterParameter=Пройденные}"
+                        HeightRequest="35">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowCompletedCommand}" Tapped="FilterButtonTapped"/>
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6">
                         <Label Text="Пройденные"
-                               TextColor="#9FB0CC"/>
-
-                        <Label Text="7"
-                               TextColor="#9FB0CC"/>
+                               FontSize="13"
+                               TextColor="{Binding SelectedFilter, Converter={StaticResource FilterTextConverter}, ConverterParameter=Пройденные}"/>
+                        <Label Text="{Binding CompletedGamesCount}"
+                               FontSize="13"
+                               TextColor="{Binding SelectedFilter, Converter={StaticResource FilterTextConverter}, ConverterParameter=Пройденные}"/>
                     </HorizontalStackLayout>
                 </Border>
-
             </HorizontalStackLayout>
+
+            <!-- СОРТИРОВКА -->
 
             <HorizontalStackLayout Grid.Column="1"
-                                   Spacing="10">
+                       Spacing="10"
+                       HeightRequest="35"
+                       VerticalOptions="Center">
 
-                <Border Padding="16,10"
-                        BackgroundColor="#121B2B"
+                <!-- Picker-кнопка -->
+
+                <Border BackgroundColor="#121B2B"
                         Stroke="#1F2B40"
-                        StrokeShape="RoundRectangle 12">
-
-                    <HorizontalStackLayout Spacing="6">
-                        <Label Text="Сортировка:"
-                               TextColor="#8D9AB4"/>
-
-                        <Label Text="По алфавиту"
-                               TextColor="White"/>
-
-                        <Label Text="▾"
-                               TextColor="#8D9AB4"/>
-                    </HorizontalStackLayout>
+                        StrokeShape="RoundRectangle 10"
+                        HeightRequest="35"
+                        Padding="10,0">
+                    <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
+                        <Label Text="Сортировка"
+                               TextColor="#8D9AB4"
+                               FontSize="14"
+                               VerticalOptions="Center"
+                               Margin="0,0,10,0"/>
+                        <Picker Grid.Column="1"
+                                ItemsSource="{Binding SortOptions}"
+                                SelectedItem="{Binding SelectedSort}"
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Fill"/>
+                    </Grid>
                 </Border>
 
-                <Border WidthRequest="44"
-                        HeightRequest="44"
-                        BackgroundColor="#355CFF"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 12">
-
+                <!-- Вид плиткой -->
+                
+                <Border WidthRequest="36"
+                        HeightRequest="36"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="#355CFF">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border"
+                                     Binding="{Binding IsGridView}"
+                                     Value="False">
+                            <Setter Property="BackgroundColor" Value="#121B2B"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SetGridViewCommand}" Tapped="FilterButtonTapped"/>
+                    </Border.GestureRecognizers>
                     <Label Text="⊞"
                            TextColor="White"
-                           FontSize="18"
                            HorizontalOptions="Center"
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding IsGridView}" Value="False">
+                                <Setter Property="TextColor" Value="#8D9AB4"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                 </Border>
 
-                <Border WidthRequest="44"
-                        HeightRequest="44"
-                        BackgroundColor="#121B2B"
-                        Stroke="#1F2B40"
-                        StrokeShape="RoundRectangle 12">
+                <!-- Вид списком -->
 
+                <Border WidthRequest="36"
+                        HeightRequest="36"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="#121B2B">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border"
+                                     Binding="{Binding IsGridView}"
+                                     Value="False">
+                            <Setter Property="BackgroundColor" Value="#355CFF"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SetListViewCommand}" Tapped="FilterButtonTapped"/>
+                    </Border.GestureRecognizers>
                     <Label Text="≡"
                            TextColor="#8D9AB4"
-                           FontSize="18"
                            HorizontalOptions="Center"
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding IsGridView}"
+                                         Value="False">
+                                <Setter Property="TextColor" Value="White"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                 </Border>
-
             </HorizontalStackLayout>
-
         </Grid>
-
+        
         <!-- GAMES -->
 
         <CollectionView Grid.Row="2"
                         ItemsSource="{Binding Games}"
-                        SelectionMode="None">
-
+                        SelectionMode="None"
+                        IsVisible="{Binding IsGridView}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
                     Orientation="Vertical"
                     Span="5"
-                    HorizontalItemSpacing="20"
+                    HorizontalItemSpacing="10"
                     VerticalItemSpacing="10"/>
             </CollectionView.ItemsLayout>
-
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-
                     <Border WidthRequest="260"
                             HeightRequest="285"
                             Margin="12"
@@ -207,72 +269,139 @@
                             Stroke="#1F2B40"
                             StrokeThickness="1"
                             StrokeShape="RoundRectangle 18">
-
                         <Border.Shadow>
                             <Shadow Brush="#355CFF"
                                     Radius="18"
                                     Opacity="0.15"
                                     Offset="0,0"/>
                         </Border.Shadow>
-
                         <Grid RowDefinitions="145,140">
 
                             <!-- ОБЛОЖКА -->
+
                             <Image Grid.Row="0"
-           Source="{Binding ImageUrl}"
-           Aspect="AspectFill"/>
+                                   Source="{Binding ImageUrl}"
+                                   Aspect="AspectFill"/>
 
                             <!-- ИНФА -->
+
                             <VerticalStackLayout Grid.Row="1"
-                         Padding="12"
-                         Spacing="8">
-
+                                                 Padding="12"
+                                                 Spacing="8">
                                 <Label Text="{Binding Name}"
-               TextColor="White"
-               FontSize="18"
-               FontAttributes="Bold"/>
-
+                                       TextColor="White"
+                                       FontSize="18"
+                                       FontAttributes="Bold"/>
                                 <HorizontalStackLayout Spacing="8">
-
                                     <Label Text="{Binding HoursPlayed,StringFormat='{0} ч.'}"
-                   TextColor="#9FB0CC"
-                   FontSize="13"/>
-
+                                           TextColor="#9FB0CC"
+                                           FontSize="13"/>
                                     <Border BackgroundColor="#1A2437"
-                    StrokeThickness="0"
-                    Padding="8,2">
-
+                                            StrokeThickness="0"
+                                            Padding="8,2">
                                         <Label Text="{Binding Genre}"
-                       TextColor="White"
-                       FontSize="11"/>
+                                               TextColor="White"
+                                               FontSize="11"/>
                                     </Border>
-
                                 </HorizontalStackLayout>
-
                                 <Grid ColumnDefinitions="*,Auto">
-
                                     <Label Text="{Binding AchievementText}"
-                   TextColor="#FFD54F"/>
-
+                                           TextColor="#FFD54F"/>
                                     <Label Grid.Column="1"
-                   Text="{Binding AchievementPercentText}"
-                   TextColor="White"/>
+                                           Text="{Binding AchievementPercentText}"
+                                           TextColor="White"/>
                                 </Grid>
-
                                 <ProgressBar Progress="{Binding AchievementPercent}"
                                              IsVisible="{Binding HasAchievements}"
                                              ProgressColor="#4C7CFF"
                                              HeightRequest="6"/>
                             </VerticalStackLayout>
-
                         </Grid>
                     </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <CollectionView Grid.Row="2"
+                ItemsSource="{Binding Games}"
+                SelectionMode="None"
+                IsVisible="{Binding IsListView}">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="4*,2*,1.5*" Margin="12,0,12,12">
+                    <Label Text="Название" TextColor="#8D9AB4"/>
+                    <Label Grid.Column="1"
+                           Text="Достижения"
+                           HorizontalTextAlignment="Center"
+                           TextColor="#8D9AB4"/>
+                    <Label Grid.Column="2"
+                           Text="Сыгранное время"
+                           HorizontalTextAlignment="Center"
+                           TextColor="#8D9AB4"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
 
+                    <Grid Padding="0,0,0,12">
+                        <Border
+                            Padding="12"
+                            BackgroundColor="#101827"
+                            Stroke="#1F2B40"
+                            StrokeShape="RoundRectangle 12">
+
+                            <Grid ColumnDefinitions="4*,2*,1.5*">
+
+                                <!-- Игра -->
+
+                                <HorizontalStackLayout Spacing="12">
+                                    <Image Source="{Binding ListImageUrl}"
+                                           WidthRequest="56"
+                                           HeightRequest="84"
+                                           Aspect="AspectFill"/>
+                                    <VerticalStackLayout VerticalOptions="Center">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="White"/>
+                                        <Label Text="{Binding Genre}"
+                                               FontSize="12"
+                                               TextColor="#8D9AB4"/>
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+
+                                <!-- Достижения -->
+                                <Grid Grid.Column="1"
+                                  Padding="12,0"
+                                  VerticalOptions="Center">
+                                    <VerticalStackLayout Spacing="4">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label Text="{Binding AchievementText}"
+                                                   TextColor="#FFD54F"
+                                                   FontSize="12"/>
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding AchievementPercentText}"
+                                                   TextColor="White"
+                                                   FontSize="12"/>
+                                        </Grid>
+                                        <ProgressBar Progress="{Binding AchievementPercent}"
+                                                     ProgressColor="#4C7CFF"
+                                                     HeightRequest="5"
+                                                     IsVisible="{Binding HasAchievements}"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+
+                                <!-- Время -->
+
+                                <Label Grid.Column="2"
+                                   Text="{Binding HoursPlayed,StringFormat='{0} ч.'}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   TextColor="White"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-
     </Grid>
-
 </ContentPage>
