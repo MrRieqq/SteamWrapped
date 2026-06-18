@@ -222,5 +222,86 @@ public class WrappedService
 
         return 0;
     }
+    public async Task<SteamPlayer?> GetPlayerProfile(string steamId)
+    {
+        var json = await _api.GetPlayerSummary(steamId);
 
+        if (string.IsNullOrWhiteSpace(json))
+            return null;
+
+        var profile =
+            JsonSerializer.Deserialize<SteamProfileResponse>(json);
+
+        return profile?
+            .Response?
+            .Players?
+            .FirstOrDefault();
+    }
+    public async Task<int> GetSteamLevel(string steamId)
+    {
+        try
+        {
+            var json = await _api.GetSteamLevel(steamId);
+
+            if (string.IsNullOrWhiteSpace(json))
+                return 0;
+
+            var level =
+                JsonSerializer.Deserialize<SteamLevelResponse>(json);
+
+            return level?.Response?.PlayerLevel ?? 0;
+        }
+        catch
+        {
+            return 0;
+        }
+    }
+    public async Task<string> ResolveSteamId(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return "";
+
+        input = input.Trim();
+
+        // Уже SteamID64
+        if (input.All(char.IsDigit))
+            return input;
+
+        // profiles/7656119...
+        if (input.Contains("/profiles/"))
+        {
+            var parts = input.Split('/');
+            return parts.Last(x => !string.IsNullOrWhiteSpace(x));
+        }
+
+        // id/username
+        if (input.Contains("/id/"))
+        {
+            var parts = input.Split('/');
+
+            var vanityName =
+                parts.SkipWhile(x => x != "id")
+                     .Skip(1)
+                     .FirstOrDefault();
+
+            if (string.IsNullOrWhiteSpace(vanityName))
+                throw new Exception("Неверная ссылка Steam");
+
+            var json =
+                await _api.ResolveVanityUrl(vanityName);
+
+            if (string.IsNullOrWhiteSpace(json))
+                throw new Exception("Не удалось получить SteamID");
+
+            var result =
+                JsonSerializer.Deserialize<ResolveVanityResponse>(json);
+
+            if (result?.Response?.Success != 1)
+                throw new Exception("Профиль не найден");
+
+            return result.Response.SteamId;
+        }
+
+        throw new Exception("Неверный Steam ID");
+    }
 }
