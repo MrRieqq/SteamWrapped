@@ -23,20 +23,18 @@ public partial class GamesPageViewModel : ObservableObject
             IsLoading = true;
 
             var steamGames =
-                    await _service.GetSteamGames(steamId);
+                await _service.GetSteamGames(steamId);
+
+            Games.Clear();
 
             foreach (var game in steamGames)
             {
-                Console.WriteLine($"NAME=[{game.Name}]");
-                Console.WriteLine($"GENRE=[{game.Genre}]");
+                Games.Add(game);
             }
-
-            Games.Clear();
         }
         finally
         {
             IsLoading = false;
         }
-
     }
 }

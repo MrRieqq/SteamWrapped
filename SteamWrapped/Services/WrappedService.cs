@@ -5,6 +5,7 @@ namespace SteamWrapped.Services;
 
 public class WrappedService
 {
+    private static readonly Dictionary<int, string> GenreCache = new();
     private readonly SteamApiService _api = new();
 
     public async Task<WrappedReport> GenerateReport(string steamId)
@@ -24,6 +25,9 @@ public class WrappedService
 
         var totalHours = games.Sum(g => g.HoursPlayed);
 
+        var totalAchievements =
+            games.Sum(g => g.AchievementsUnlocked);
+
         var favoriteGame = games
             .OrderByDescending(g => g.HoursPlayed)
             .FirstOrDefault()?.Name ?? "Нет данных";
@@ -37,8 +41,6 @@ public class WrappedService
         var averageHours = games.Average(g => g.HoursPlayed);
 
         var gamesCount = games.Count;
-
-        var totalAchievements = games.Sum(g => g.Achievements);
 
         var topGames = games
             .OrderByDescending(g => g.HoursPlayed)
@@ -82,7 +84,6 @@ public class WrappedService
     {
         var json = await _api.GetOwnedGamesJson(steamId);
 
-
         if (string.IsNullOrWhiteSpace(json))
             return new List<Game>();
 
@@ -92,44 +93,38 @@ public class WrappedService
         if (steamData?.response?.games == null)
             return new List<Game>();
 
-        var topGames =
-            steamData.response.games
+        var topGames = steamData.response.games
             .OrderByDescending(x => x.playtime_forever)
-            .Take(100)
+            .Take(50)
             .ToList();
 
         var tasks = topGames.Select(async g =>
         {
-            var genreTask =
-                GetGenre(g.appid);
-
-            var achievementTask =
-                GetAchievements(
-                    steamId,
-                    g.appid);
+            var genreTask = GetGenre(g.appid);
+            var achievementTask = GetAchievements(steamId, g.appid);
 
             await Task.WhenAll(
                 genreTask,
                 achievementTask);
+
             return new Game
             {
                 AppId = g.appid,
                 Name = g.name,
                 HoursPlayed = g.playtime_forever / 60,
-                Genre = genreTask.Result,
-
-                AchievementsUnlocked = achievementTask.Result,
+                Genre = await genreTask,
+                AchievementsUnlocked = await achievementTask,
                 AchievementsTotal = 100
             };
         });
 
-        return (await Task.WhenAll(tasks))
-            .ToList();
-
+        return (await Task.WhenAll(tasks)).ToList();
     }
 
     private async Task<string> GetGenre(int appId)
     {
+        if (GenreCache.TryGetValue(appId, out var cached))
+            return cached;
         try
         {
             var json = await _api.GetGameDetails(appId);
@@ -160,8 +155,12 @@ public class WrappedService
                         "description",
                         out var description))
                     {
-                        return description.GetString()
-                               ?? "Unknown";
+                        var genre =
+                            description.GetString() ?? "Unknown";
+
+                        GenreCache[appId] = genre;
+
+                        return genre;
                     }
                 }
             }
@@ -171,7 +170,7 @@ public class WrappedService
             Console.WriteLine(
                 $"GENRE ERROR {appId}: {ex.Message}");
         }
-
+        GenreCache[appId] = "Unknown";
         return "Unknown";
     }
 
