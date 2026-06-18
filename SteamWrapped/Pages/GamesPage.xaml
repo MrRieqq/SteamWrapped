@@ -192,9 +192,9 @@
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
                     Orientation="Vertical"
-                    Span="4"
+                    Span="5"
                     HorizontalItemSpacing="20"
-                    VerticalItemSpacing="20"/>
+                    VerticalItemSpacing="10"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
