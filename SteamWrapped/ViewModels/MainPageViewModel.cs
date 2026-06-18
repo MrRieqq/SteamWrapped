@@ -93,6 +93,7 @@ public partial class MainPageViewModel : ObservableObject
             var steamLevel = await service.GetSteamLevel(realSteamId);
 
             AppData.SteamId = realSteamId;
+            AppData.SteamId = SteamId;
             TotalHours = report.TotalHours;
             FavoriteGame = report.FavoriteGame;
             FavoriteGenre = report.FavoriteGenre;
