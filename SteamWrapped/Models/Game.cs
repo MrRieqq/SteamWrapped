@@ -34,7 +34,7 @@ public class Game
     public string AchievementPercentText =>
         AchievementsTotal == 0
             ? ""
-            : $"{AchievementPercent * 100:F0}%";
+            : $"{AchievementPercent * 100:F0}%"; 
     public bool HasAchievements =>
     AchievementsTotal > 0;
 }
