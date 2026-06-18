@@ -37,7 +37,8 @@ public class Game
             : $"{AchievementPercent * 100:F0}%"; 
     public bool HasAchievements =>
     AchievementsTotal > 0;
-
+    public string ListImageUrl =>
+    $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/library_600x900.jpg";
 }
 public class AchievementInfo
 {
