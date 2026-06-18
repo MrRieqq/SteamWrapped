@@ -20,7 +20,9 @@ public class Game
     public int AchievementsTotal { get; set; }
 
     public string AchievementText =>
-        $"{AchievementsUnlocked} / {AchievementsTotal}";
+        AchievementsTotal == 0
+            ? "Нет достижений"
+            : $"{AchievementsUnlocked} / {AchievementsTotal}";
 
     public double AchievementPercent =>
         AchievementsTotal == 0
@@ -30,7 +32,11 @@ public class Game
     public string ImageUrl =>
     $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/header.jpg";
     public string AchievementPercentText =>
-    $"{AchievementPercent * 100:F0}%";
+        AchievementsTotal == 0
+            ? ""
+            : $"{AchievementPercent * 100:F0}%";
+    public bool HasAchievements =>
+    AchievementsTotal > 0;
 }
 public class SteamResponse
 {
