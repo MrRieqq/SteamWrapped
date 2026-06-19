@@ -9,67 +9,82 @@
 
     <CollectionView
         ItemsSource="{Binding Achievements}"
-        Margin="20">
+        Margin="20"
+        SelectionMode="None">
 
         <CollectionView.ItemTemplate>
 
             <DataTemplate>
 
-                <Border
-                    BackgroundColor="{DynamicResource CardBackground}"
-                    Stroke="{DynamicResource CardStroke}"
-                    StrokeShape="RoundRectangle 12"
-                    Padding="12"
-                    Margin="0,0,0,12">
+                <Grid Padding="0,0,0,12">
 
-                    <Grid
-                        ColumnDefinitions="60,*,70"
-                        ColumnSpacing="12">
+                    <Border
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        Stroke="{DynamicResource CardStroke}"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="12">
 
-                        <Border
-                            WidthRequest="52"
-                            HeightRequest="52"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 8">
+                        <Grid
+                            ColumnDefinitions="60,*,70"
+                            ColumnSpacing="12">
 
-                            <Image
-                                Source="{Binding ListImageUrl}"
-                                Aspect="AspectFill"/>
+                            <!-- Иконка достижения -->
 
-                        </Border>
+                            <Border
+                                WidthRequest="52"
+                                HeightRequest="72"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 8">
 
-                        <VerticalStackLayout
-                            Grid.Column="1"
-                            Spacing="4">
+                                <Image
+                                    Source="{Binding ListImageUrl}"
+                                    Aspect="AspectFill"/>
+
+                            </Border>
+
+                            <!-- Информация -->
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                Spacing="4">
+
+                                <Label
+                                    Text="{Binding AchievementName}"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    TextColor="{DynamicResource TextPrimary}"
+                                    LineBreakMode="TailTruncation"/>
+
+                                <Label
+                                    Text="{Binding Description}"
+                                    FontSize="12"
+                                    TextColor="#C7D5E0"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="2"/>
+
+                                <Label
+                                    Text="{Binding GameName}"
+                                    FontSize="11"
+                                    TextColor="{DynamicResource TextSecondary}"/>
+
+                            </VerticalStackLayout>
+
+                            <!-- Дата -->
 
                             <Label
-                                Text="{Binding AchievementName}"
-                                FontSize="14"
-                                FontAttributes="Bold"
-                                TextColor="{DynamicResource TextPrimary}"/>
+                                Grid.Column="2"
+                                Text="{Binding UnlockDate,StringFormat='{0:dd.MM.yyyy}'}"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                TextColor="{DynamicResource TextSecondary}"
+                                FontSize="12"/>
 
-                            <Label
-                                Text="{Binding Description}"
-                                FontSize="12"
-                                TextColor="#C7D5E0"/>
+                        </Grid>
 
-                            <Label
-                                Text="{Binding GameName}"
-                                FontSize="11"
-                                TextColor="{DynamicResource TextSecondary}"/>
+                    </Border>
 
-                        </VerticalStackLayout>
-
-                        <Label
-                            Grid.Column="2"
-                            Text="{Binding UnlockDate,StringFormat='{0:dd.MM.yyyy}'}"
-                            HorizontalOptions="End"
-                            VerticalOptions="Center"
-                            TextColor="{DynamicResource TextSecondary}"/>
-
-                    </Grid>
-
-                </Border>
+                </Grid>
 
             </DataTemplate>
 

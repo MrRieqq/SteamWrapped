@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SteamWrapped.Pages.AllSessionsPage"
     Title="Все сессии"
-    BackgroundColor="{StaticResource Background}">
+    BackgroundColor="{DynamicResource PageBackground}">
 
     <CollectionView
         ItemsSource="{Binding Sessions}"
@@ -16,61 +16,78 @@
 
             <DataTemplate>
 
-                <Border
-                    StrokeThickness="0"
-                    Margin="0,0,0,16">
+                <Grid Padding="0,0,0,12">
 
-                    <Grid
-                        ColumnDefinitions="60,*,70"
-                        ColumnSpacing="12"
-                        Margin="0,0,0,18">
+                    <Border
+                Padding="12"
+                BackgroundColor="{DynamicResource GameCard}"
+                Stroke="{DynamicResource GameCardStroke}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12">
 
-                        <!-- Обложка -->
-                        <Border
-                            Grid.Column="0"
-                            WidthRequest="52"
-                            HeightRequest="72"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 8">
+                        <Border.Shadow>
+                            <Shadow
+                        Brush="#355CFF"
+                        Radius="12"
+                        Opacity="0.12"
+                        Offset="0,0"/>
+                        </Border.Shadow>
 
-                            <Image
-                                Source="{Binding ListImageUrl}"
-                                Aspect="AspectFill"/>
+                        <Grid
+                    ColumnDefinitions="60,*,70"
+                    ColumnSpacing="12">
 
-                        </Border>
+                            <!-- Обложка -->
 
-                        <!-- Информация -->
-                        <VerticalStackLayout
-                            Grid.Column="1"
-                            VerticalOptions="Center"
-                            Spacing="4">
+                            <Border
+                        Grid.Column="0"
+                        WidthRequest="52"
+                        HeightRequest="72"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 8">
+
+                                <Image
+                            Source="{Binding ListImageUrl}"
+                            Aspect="AspectFill"/>
+
+                            </Border>
+
+                            <!-- Информация -->
+
+                            <VerticalStackLayout
+                        Grid.Column="1"
+                        VerticalOptions="Center"
+                        Spacing="4">
+
+                                <Label
+                            Text="{Binding Name}"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="{DynamicResource TextPrimary}"
+                            LineBreakMode="TailTruncation"/>
+
+                                <Label
+                            Text="За последние 2 недели"
+                            FontSize="11"
+                            TextColor="{DynamicResource GameTextSub2}"/>
+
+                            </VerticalStackLayout>
+
+                            <!-- Часы -->
 
                             <Label
-                                Text="{Binding Name}"
-                                FontAttributes="Bold"
-                                FontSize="14"
-                                TextColor="{DynamicResource TextPrimary}"
-                                LineBreakMode="TailTruncation"/>
+                        Grid.Column="2"
+                        Text="{Binding HoursLast2Weeks,StringFormat='{0} ч.'}"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        FontSize="13"
+                        TextColor="{DynamicResource TextPrimary}"/>
 
-                            <Label
-                                Text="За последние 2 недели"
-                                FontSize="11"
-                                TextColor="{DynamicResource TextSecondary}"/>
+                        </Grid>
 
-                        </VerticalStackLayout>
+                    </Border>
 
-                        <!-- Часы -->
-                        <Label
-                            Grid.Column="2"
-                            Text="{Binding HoursLast2Weeks,StringFormat='{0} ч.'}"
-                            HorizontalOptions="End"
-                            VerticalOptions="Center"
-                            TextColor="{DynamicResource TextSecondary}"
-                            FontSize="13"/>
-
-                    </Grid>
-
-                </Border>
+                </Grid>
 
             </DataTemplate>
 

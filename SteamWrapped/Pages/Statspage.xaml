@@ -172,7 +172,7 @@
                                             <Border
                             Grid.Column="1"
                             WidthRequest="52"
-                            HeightRequest="52"
+                            HeightRequest="72"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 8">
 
@@ -264,7 +264,7 @@ StrokeShape="RoundRectangle 14">
                                             <!-- Номер -->
                                             <Label Grid.Column="0" Text="" TextColor="{DynamicResource TextSecondary}" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
                                             <!-- Картинка -->
-                                            <Border Grid.Column="1" WidthRequest="52" HeightRequest="52" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                                            <Border Grid.Column="1" WidthRequest="52" HeightRequest="72" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                                                 <Image Source="{Binding ListImageUrl}" Aspect="AspectFill"/>
                                             </Border>
                                             <!-- Информация -->
@@ -351,7 +351,7 @@ StrokeShape="RoundRectangle 14">
                                         <Border
                     Grid.Column="1"
                     WidthRequest="52"
-                    HeightRequest="52"
+                    HeightRequest="72"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 8">
 
