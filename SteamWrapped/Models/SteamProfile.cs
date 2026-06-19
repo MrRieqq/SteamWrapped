@@ -24,6 +24,13 @@ public class SteamPlayer
 
     [JsonPropertyName("personastate")]
     public int PersonaState { get; set; }
+
+    [JsonPropertyName("gameextrainfo")]
+    public string? GameExtraInfo { get; set; }
+
+    [JsonPropertyName("gameid")]
+    public string? GameId { get; set; }
+
 }
 public class SteamLevelResponse
 {
