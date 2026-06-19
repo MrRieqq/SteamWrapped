@@ -8,6 +8,8 @@ namespace SteamWrapped.Services;
 public class WrappedService
 {
     private static readonly Dictionary<int, string> GenreCache = new();
+    private static readonly Dictionary<int, AchievementInfo>
+    AchievementCache = new();
     private readonly SteamApiService _api = new();
 
     public async Task<WrappedReport> GenerateReport(string steamId)
@@ -184,6 +186,9 @@ public class WrappedService
     string steamId,
     int appId)
     {
+        if (AchievementCache.TryGetValue(appId, out var cached))
+            return cached;
+
         try
         {
             var json =
@@ -192,7 +197,13 @@ public class WrappedService
                     appId);
 
             if (string.IsNullOrWhiteSpace(json))
-                return new AchievementInfo();
+            {
+                var empty = new AchievementInfo();
+
+                AchievementCache[appId] = empty;
+
+                return empty;
+            }
 
             using var doc = JsonDocument.Parse(json);
 
@@ -209,13 +220,18 @@ public class WrappedService
                         .EnumerateArray()
                         .ToList();
 
-                    return new AchievementInfo
-                    {
-                        Total = list.Count,
-                        Unlocked = list.Count(a =>
-                            a.GetProperty("achieved")
-                            .GetInt32() == 1)
-                    };
+                    var achievementInfo =
+                        new AchievementInfo
+                        {
+                            Total = list.Count,
+                            Unlocked = list.Count(a =>
+                                a.GetProperty("achieved")
+                                 .GetInt32() == 1)
+                        };
+
+                    AchievementCache[appId] = achievementInfo;
+
+                    return achievementInfo;
                 }
             }
         }
@@ -225,7 +241,11 @@ public class WrappedService
                 $"APPID {appId} ERROR: {ex.Message}");
         }
 
-        return new AchievementInfo();
+        var result = new AchievementInfo();
+
+        AchievementCache[appId] = result;
+
+        return result;
     }
     public async Task<SteamPlayer?> GetPlayerProfile(string steamId)
     {

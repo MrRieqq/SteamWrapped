@@ -86,11 +86,18 @@ public partial class MainPageViewModel : ObservableObject
             var realSteamId = await service.ResolveSteamId(SteamId);
 
             // Используем только его
-            var report = await service.GenerateReport(realSteamId);
+            var reportTask = service.GenerateReport(realSteamId);
+            var playerTask = service.GetPlayerProfile(realSteamId);
+            var levelTask = service.GetSteamLevel(realSteamId);
 
-            var player = await service.GetPlayerProfile(realSteamId);
+            await Task.WhenAll(
+                reportTask,
+                playerTask,
+                levelTask);
 
-            var steamLevel = await service.GetSteamLevel(realSteamId);
+            var report = await reportTask;
+            var player = await playerTask;
+            var steamLevel = await levelTask;
 
             AppData.SteamId = realSteamId;
             TotalHours = report.TotalHours;
