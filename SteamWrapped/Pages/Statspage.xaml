@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SteamWrapped.Pages.Statspage"
     Title=""
-    BackgroundColor="{StaticResource Background}">
+    BackgroundColor="{DynamicResource PageBackground}">
 
     <ScrollView>
         <VerticalStackLayout Padding="24,20" Spacing="16">
@@ -49,8 +49,14 @@
                             </Border>
                             <Label Text="Общее время в играх" FontSize="12" TextColor="#8A9BB8" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
-                        <Label Text="1 234 ч." FontSize="26" FontAttributes="Bold" TextColor="White"/>
-                        <Label Text="≈ 51 день" FontSize="12" TextColor="#8A9BB8"/>
+                        <Label Text="{Binding TotalHoursText}"
+       FontSize="26"
+       FontAttributes="Bold"
+       TextColor="White"/>
+
+                        <Label Text="{Binding TotalDaysText}"
+       FontSize="12"
+       TextColor="#8A9BB8"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -63,7 +69,10 @@
                             </Border>
                             <Label Text="Всего игр" FontSize="12" TextColor="#8A9BB8" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
-                        <Label Text="87" FontSize="26" FontAttributes="Bold" TextColor="White"/>
+                        <Label Text="{Binding TotalGames}"
+       FontSize="26"
+       FontAttributes="Bold"
+       TextColor="White"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -77,11 +86,14 @@
                             <Label Text="Всего достижений" FontSize="12" TextColor="#8A9BB8" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                         <HorizontalStackLayout Spacing="4">
-                            <Label Text="324" FontSize="26" FontAttributes="Bold" TextColor="White"/>
-                            <Label Text="/ 1 247" FontSize="18" TextColor="#8A9BB8" VerticalOptions="End" Margin="0,0,0,3"/>
+                            <Label Text="{Binding UnlockedAchievements}" />
+
+                            <Label Text="{Binding TotalAchievements,
+              StringFormat='/ {0}'}" />
                         </HorizontalStackLayout>
-                        <ProgressBar Progress="0.26" HeightRequest="5" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                        <Label Text="26% завершено" FontSize="11" TextColor="#8A9BB8"/>
+                        <ProgressBar Progress="{Binding AchievementProgress}" />
+
+                        <Label Text="{Binding AchievementPercentText}" />
                     </VerticalStackLayout>
                 </Border>
 
@@ -94,8 +106,19 @@
                             </Border>
                             <Label Text="Среднее время за игру" FontSize="12" TextColor="#8A9BB8" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
-                        <Label Text="14,2 ч." FontSize="26" FontAttributes="Bold" TextColor="White"/>
-                        <Label Text="на одну игру" FontSize="12" TextColor="#8A9BB8"/>
+                        <Label Text="{Binding AverageHoursText}"
+       FontSize="26"
+       FontAttributes="Bold"
+       TextColor="White"/>
+
+                        <ProgressBar Progress="{Binding AchievementProgress}"
+             HeightRequest="5"
+             ProgressColor="#4F6FFF"
+             BackgroundColor="#1E293B"/>
+
+                        <Label Text="{Binding AchievementPercentText}"
+       FontSize="11"
+       TextColor="#8A9BB8"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -103,235 +126,301 @@
 
             <!-- ===== MIDDLE ROW ===== -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
+                <Border
+    Grid.Column="0"
+    BackgroundColor="#111827"
+    Stroke="#263244"
+    StrokeThickness="1"
+    StrokeShape="RoundRectangle 14">
 
-                <!-- LEFT: Самые популярные игры -->
-                <Border Grid.Column="0" BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
-                    <VerticalStackLayout Spacing="0">
-                        <Label Text="Самые популярные игры" FontSize="15" FontAttributes="Bold" TextColor="White" Margin="0,0,0,14"/>
+                    <Grid RowDefinitions="Auto,*,Auto">
 
-                        <!-- Row 1: Elden Ring -->
-                        <Grid ColumnDefinitions="24,44,*,Auto" RowDefinitions="44" ColumnSpacing="10" Margin="0,0,0,10">
-                            <Label Grid.Column="0" Text="1" FontSize="13" TextColor="#8A9BB8" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                                <Image Source="eldenring.jpg" Aspect="AspectFill"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4">
-                                <Label Text="Elden Ring" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <ProgressBar Progress="1.0" HeightRequest="4" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="3" Text="187 ч." TextColor="#8A9BB8" FontSize="13" VerticalOptions="Center"/>
+                        <Label
+            Grid.Row="0"
+            Text="Самые популярные игры"
+            Margin="16,16,16,12"
+            FontSize="15"
+            FontAttributes="Bold"
+            TextColor="White"/>
+
+                        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding TopGames}"
+            SelectionMode="None"
+            Margin="16,0">
+
+                            <CollectionView.ItemTemplate>
+
+                                <DataTemplate>
+                                    <Border
+        StrokeThickness="0"
+        Margin="0,0,0,16">
+
+                                        <Grid
+                        ColumnDefinitions="30,60,*,70"
+                        ColumnSpacing="12"
+                        Margin="0,0,0,18">
+
+                                            <Label
+                            Grid.Column="0"
+                            Text="{Binding Rank}"
+                            TextColor="#8A9BB8"
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+
+                                            <Border
+                            Grid.Column="1"
+                            WidthRequest="52"
+                            HeightRequest="52"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 8">
+
+                                                <Image
+                                Source="{Binding ListImageUrl}"
+                                Aspect="AspectFill"/>
+
+                                            </Border>
+
+                                            <VerticalStackLayout
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            Spacing="6">
+
+                                                <Label
+                                Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                TextColor="White"
+                                LineBreakMode="TailTruncation"/>
+
+                                                <ProgressBar
+                                Progress="{Binding PlaytimeProgress}"
+                                HeightRequest="4"
+                                ProgressColor="#4F6FFF"
+                                BackgroundColor="#1E293B"/>
+
+                                            </VerticalStackLayout>
+
+                                            <Label
+                            Grid.Column="3"
+                            Text="{Binding HoursPlayed,StringFormat='{0} ч.'}"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            TextColor="#8A9BB8"
+                            FontSize="13"/>
+
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+
+                        <Grid
+            Grid.Row="2"
+            HeightRequest="50">
+
+                            <BoxView
+                HeightRequest="1"
+                Color="#263244"
+                VerticalOptions="Start"/>
+
+                            <Label
+                Text="Все игры"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="#8A9BB8">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                        Command="{Binding OpenAllGamesCommand}" />
+                                </Label.GestureRecognizers>
+
+                            </Label>
+
                         </Grid>
 
-                        <!-- Row 2: The Witcher 3 -->
-                        <Grid ColumnDefinitions="24,44,*,Auto" RowDefinitions="44" ColumnSpacing="10" Margin="0,0,0,10">
-                            <Label Grid.Column="0" Text="2" FontSize="13" TextColor="#8A9BB8" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                                <Image Source="witcher3.jpg" Aspect="AspectFill"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4">
-                                <Label Text="The Witcher 3: Wild Hunt" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <ProgressBar Progress="0.76" HeightRequest="4" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="3" Text="142 ч." TextColor="#8A9BB8" FontSize="13" VerticalOptions="Center"/>
-                        </Grid>
+                    </Grid>
 
-                        <!-- Row 3: Cyberpunk 2077 -->
-                        <Grid ColumnDefinitions="24,44,*,Auto" RowDefinitions="44" ColumnSpacing="10" Margin="0,0,0,10">
-                            <Label Grid.Column="0" Text="3" FontSize="13" TextColor="#8A9BB8" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                                <Image Source="cyberpunk.jpg" Aspect="AspectFill"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4">
-                                <Label Text="Cyberpunk 2077" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <ProgressBar Progress="0.52" HeightRequest="4" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="3" Text="98 ч." TextColor="#8A9BB8" FontSize="13" VerticalOptions="Center"/>
-                        </Grid>
-
-                        <!-- Row 4: RDR2 -->
-                        <Grid ColumnDefinitions="24,44,*,Auto" RowDefinitions="44" ColumnSpacing="10" Margin="0,0,0,10">
-                            <Label Grid.Column="0" Text="4" FontSize="13" TextColor="#8A9BB8" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                                <Image Source="rdr2.jpg" Aspect="AspectFill"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4">
-                                <Label Text="Red Dead Redemption 2" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <ProgressBar Progress="0.46" HeightRequest="4" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="3" Text="87 ч." TextColor="#8A9BB8" FontSize="13" VerticalOptions="Center"/>
-                        </Grid>
-
-                        <!-- Row 5: Dota 2 -->
-                        <Grid ColumnDefinitions="24,44,*,Auto" RowDefinitions="44" ColumnSpacing="10" Margin="0,0,0,14">
-                            <Label Grid.Column="0" Text="5" FontSize="13" TextColor="#8A9BB8" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                                <Image Source="dota2.jpg" Aspect="AspectFill"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4">
-                                <Label Text="Dota 2" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <ProgressBar Progress="0.36" HeightRequest="4" ProgressColor="#4F6FFF" BackgroundColor="#1E293B"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="3" Text="68 ч." TextColor="#8A9BB8" FontSize="13" VerticalOptions="Center"/>
-                        </Grid>
-
-                        <!-- All games link -->
-                        <BoxView HeightRequest="1" Color="#263244" Margin="0,0,0,10"/>
-                        <Label Text="Все игры" FontSize="13" TextColor="#8A9BB8" HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
                 </Border>
-
                 <!-- RIGHT: Недавние достижения -->
-                <Border Grid.Column="1" BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
-                    <VerticalStackLayout Spacing="0">
-                        <Label Text="Недавние достижения" FontSize="15" FontAttributes="Bold" TextColor="White" Margin="0,0,0,14"/>
+                <Border
+Grid.Column="1"
+BackgroundColor="#111827"
+Stroke="#263244"
+StrokeThickness="1"
+StrokeShape="RoundRectangle 14">
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <!-- Заголовок -->
+                        <Label Grid.Row="0" Text="Недавние достижения" Margin="16,16,16,12" FontSize="15" FontAttributes="Bold" TextColor="White"/>
+                        <!-- Список достижений -->
+                        <CollectionView Grid.Row="1" ItemsSource="{Binding RecentAchievements}" SelectionMode="None" Margin="16,0">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeThickness="0" Margin="0,0,0,16">
+                                        <Grid ColumnDefinitions="30,60,*,70" ColumnSpacing="12" Margin="0,0,0,18">
+                                            <!-- Номер -->
+                                            <Label Grid.Column="0" Text="" TextColor="#8A9BB8" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <!-- Картинка -->
+                                            <Border Grid.Column="1" WidthRequest="52" HeightRequest="52" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                                                <Image Source="{Binding ListImageUrl}" Aspect="AspectFill"/>
+                                            </Border>
+                                            <!-- Информация -->
+                                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4">
+                                                <Label Text="{Binding AchievementName}" FontAttributes="Bold" FontSize="14" TextColor="White" LineBreakMode="TailTruncation"/>
+                                                <Label Text="{Binding Description}" FontSize="11" TextColor="#C7D5E0" MaxLines="2" LineBreakMode="TailTruncation"/>
+                                                <Label Text="{Binding GameName}" FontSize="11" TextColor="#8A9BB8" LineBreakMode="TailTruncation"/>
+                                            </VerticalStackLayout>
+                                            <!-- Дата -->
+                                            <Label Grid.Column="3" Text="{Binding UnlockDate,StringFormat='{0:dd.MM}'}" HorizontalOptions="End" VerticalOptions="Center" TextColor="#8A9BB8" FontSize="13"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <!-- Нижняя кнопка -->
+                        <Grid Grid.Row="2" HeightRequest="50">
+                            <BoxView HeightRequest="1" Color="#263244" VerticalOptions="Start"/>
+                            <Label
+    Text="Все достижения"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
+    TextColor="#8A9BB8">
 
-                        <!-- Achievement 1 -->
-                        <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12" Margin="0,0,0,14">
-                            <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#1A2535">
-                                <Label Text="🏆" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Владыка Колец" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <Label Text="Получить все достижения" TextColor="#8A9BB8" FontSize="12"/>
-                                <Label Text="Elden Ring" TextColor="#8A9BB8" FontSize="11"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="2 ч. назад" FontSize="11" TextColor="#8A9BB8" VerticalOptions="Start"/>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+            Command="{Binding OpenAllAchievementsCommand}" />
+                                </Label.GestureRecognizers>
+
+                            </Label>
                         </Grid>
-
-                        <BoxView HeightRequest="1" Color="#1E293B" Margin="0,0,0,14"/>
-
-                        <!-- Achievement 2 -->
-                        <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12" Margin="0,0,0,14">
-                            <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#1A2535">
-                                <Label Text="⚔️" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="По следам Цири" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <Label Text="Завершить основную историю" TextColor="#8A9BB8" FontSize="12"/>
-                                <Label Text="The Witcher 3: Wild Hunt" TextColor="#8A9BB8" FontSize="11"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="Вчера" FontSize="11" TextColor="#8A9BB8" VerticalOptions="Start"/>
-                        </Grid>
-
-                        <BoxView HeightRequest="1" Color="#1E293B" Margin="0,0,0,14"/>
-
-                        <!-- Achievement 3 -->
-                        <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12" Margin="0,0,0,14">
-                            <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#1A2535">
-                                <Label Text="🌟" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Живая легенда" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <Label Text="Достичь уровня 50" TextColor="#8A9BB8" FontSize="12"/>
-                                <Label Text="Cyberpunk 2077" TextColor="#8A9BB8" FontSize="11"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="2 дн. назад" FontSize="11" TextColor="#8A9BB8" VerticalOptions="Start"/>
-                        </Grid>
-
-                        <BoxView HeightRequest="1" Color="#1E293B" Margin="0,0,0,14"/>
-
-                        <!-- Achievement 4 -->
-                        <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12" Margin="0,0,0,14">
-                            <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#1A2535">
-                                <Label Text="🛡️" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Выживание любой ценой" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                                <Label Text="Пройти 10 волн в выживании" TextColor="#8A9BB8" FontSize="12"/>
-                                <Label Text="Vampire Survivors" TextColor="#8A9BB8" FontSize="11"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="3 дн. назад" FontSize="11" TextColor="#8A9BB8" VerticalOptions="Start"/>
-                        </Grid>
-
-                        <BoxView HeightRequest="1" Color="#263244" Margin="0,0,0,10"/>
-                        <Label Text="Все достижения" FontSize="13" TextColor="#8A9BB8" HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
+                    </Grid>
                 </Border>
             </Grid>
 
             <!-- ===== BOTTOM ROW ===== -->
-            <Border BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14" HorizontalOptions="Center" WidthRequest="600">
-                <VerticalStackLayout Spacing="0">
-                    <Label Text="Недавние игровые сессии" FontSize="15" FontAttributes="Bold" TextColor="White" Margin="0,0,0,14"/>
+            <Border
+    BackgroundColor="#111827"
+    Stroke="#263244"
+    StrokeThickness="1"
+    StrokeShape="RoundRectangle 14">
 
-                    <!-- Session header -->
-                    <Grid ColumnDefinitions="44,*,*,Auto" ColumnSpacing="10" Margin="0,0,0,10">
-                        <BoxView Grid.Column="0" Color="Transparent"/>
-                        <Label Grid.Column="1" Text="" TextColor="#8A9BB8" FontSize="11"/>
-                        <Label Grid.Column="2" Text="" TextColor="#8A9BB8" FontSize="11" HorizontalOptions="Center"/>
-                        <Label Grid.Column="3" Text="" TextColor="#8A9BB8" FontSize="11" HorizontalOptions="End"/>
+                <Grid RowDefinitions="Auto,*,Auto">
+
+                    <!-- Заголовок -->
+                    <Label
+            Grid.Row="0"
+            Text="Недавние игровые сессии"
+            Margin="16,16,16,12"
+            FontSize="15"
+            FontAttributes="Bold"
+            TextColor="White"/>
+
+                    <!-- Список -->
+                    <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding RecentGames}"
+            SelectionMode="None"
+            Margin="16,0">
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+            StrokeThickness="0"
+            Margin="0,0,0,16">
+
+                                    <Grid
+                ColumnDefinitions="30,60,*,70"
+                ColumnSpacing="12"
+                Margin="0,0,0,18">
+
+                                        <!-- Пустая колонка как в популярных играх -->
+                                        <Label
+    Grid.Column="0"
+    Text="{Binding Rank}"
+    TextColor="#8A9BB8"
+    FontSize="14"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"/>
+
+                                        <!-- Обложка -->
+                                        <Border
+                    Grid.Column="1"
+                    WidthRequest="52"
+                    HeightRequest="52"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 8">
+
+                                            <Image
+    Source="{Binding ListImageUrl}"
+    Aspect="AspectFill"/>
+
+                                        </Border>
+
+                                        <!-- Информация -->
+                                        <VerticalStackLayout
+                    Grid.Column="2"
+                    VerticalOptions="Center"
+                    Spacing="4">
+
+                                            <Label
+                        Text="{Binding Name}"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        TextColor="White"
+                        LineBreakMode="TailTruncation"/>
+
+                                            <Label
+                        Text="За последние 2 недели"
+                        FontSize="11"
+                        TextColor="#8A9BB8"/>
+
+                                        </VerticalStackLayout>
+
+                                        <!-- Часы -->
+                                        <Label
+                    Grid.Column="3"
+                    Text="{Binding HoursLast2Weeks,StringFormat='{0} ч.'}"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    TextColor="#8A9BB8"
+                    FontSize="13"/>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                    <!-- Кнопка -->
+                    <Grid
+            Grid.Row="2"
+            HeightRequest="50">
+
+                        <BoxView
+                HeightRequest="1"
+                Color="#263244"
+                VerticalOptions="Start"/>
+
+                        <Label
+                Text="Все сессии"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="#8A9BB8"/>
+
                     </Grid>
 
-                    <!-- Session 1: Elden Ring -->
-                    <Grid ColumnDefinitions="44,*,*,Auto" ColumnSpacing="10" Margin="0,0,0,12">
-                        <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                            <Image Source="eldenring.jpg" Aspect="AspectFill"/>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text="Elden Ring" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                            <Label Text="Сегодня, 15:24" TextColor="#8A9BB8" FontSize="11"/>
-                        </VerticalStackLayout>
-                        <BoxView Grid.Column="2" Color="Transparent"/>
-                        <Label Grid.Column="3" Text="2 ч. 18 мин." TextColor="#8A9BB8" FontSize="12" VerticalOptions="Center"/>
-                    </Grid>
+                </Grid>
 
-                    <!-- Session 2: Cyberpunk -->
-                    <Grid ColumnDefinitions="44,*,*,Auto" ColumnSpacing="10" Margin="0,0,0,12">
-                        <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                            <Image Source="cyberpunk.jpg" Aspect="AspectFill"/>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text="Cyberpunk 2077" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                            <Label Text="Вчера, 20:11" TextColor="#8A9BB8" FontSize="11"/>
-                        </VerticalStackLayout>
-                        <BoxView Grid.Column="2" Color="Transparent"/>
-                        <Label Grid.Column="3" Text="1 ч. 45 мин." TextColor="#8A9BB8" FontSize="12" VerticalOptions="Center"/>
-                    </Grid>
-
-                    <!-- Session 3: Witcher -->
-                    <Grid ColumnDefinitions="44,*,*,Auto" ColumnSpacing="10" Margin="0,0,0,12">
-                        <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                            <Image Source="witcher3.jpg" Aspect="AspectFill"/>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text="The Witcher 3: Wild Hunt" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                            <Label Text="Вчера, 17:32" TextColor="#8A9BB8" FontSize="11"/>
-                        </VerticalStackLayout>
-                        <BoxView Grid.Column="2" Color="Transparent"/>
-                        <Label Grid.Column="3" Text="3 ч. 02 мин." TextColor="#8A9BB8" FontSize="12" VerticalOptions="Center"/>
-                    </Grid>
-
-                    <!-- Session 4: RDR2 -->
-                    <Grid ColumnDefinitions="44,*,*,Auto" ColumnSpacing="10" Margin="0,0,0,12">
-                        <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                            <Image Source="rdr2.jpg" Aspect="AspectFill"/>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text="Red Dead Redemption 2" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                            <Label Text="16 май, 21:47" TextColor="#8A9BB8" FontSize="11"/>
-                        </VerticalStackLayout>
-                        <BoxView Grid.Column="2" Color="Transparent"/>
-                        <Label Grid.Column="3" Text="1 ч. 36 мин." TextColor="#8A9BB8" FontSize="12" VerticalOptions="Center"/>
-                    </Grid>
-
-                    <!-- Session 5: Dota 2 -->
-                    <Grid ColumnDefinitions="44,*,*,Auto" ColumnSpacing="10" Margin="0,0,0,14">
-                        <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="#1E293B">
-                            <Image Source="dota2.jpg" Aspect="AspectFill"/>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text="Dota 2" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                            <Label Text="15 май, 18:05" TextColor="#8A9BB8" FontSize="11"/>
-                        </VerticalStackLayout>
-                        <BoxView Grid.Column="2" Color="Transparent"/>
-                        <Label Grid.Column="3" Text="45 мин." TextColor="#8A9BB8" FontSize="12" VerticalOptions="Center"/>
-                    </Grid>
-
-                    <BoxView HeightRequest="1" Color="#263244" Margin="0,0,0,10"/>
-                    <Label Text="Все сессии" FontSize="13" TextColor="#8A9BB8" HorizontalOptions="Center"/>
-                </VerticalStackLayout>
             </Border>
-
         </VerticalStackLayout>
     </ScrollView>
 
