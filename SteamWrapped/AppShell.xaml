@@ -40,9 +40,10 @@
             ContentTemplate="{DataTemplate pages:MainPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Мои игры" Icon="steam.png">
+    <FlyoutItem Title="Ваши игры" Icon="steam.png">
         <ShellContent
-            ContentTemplate="{DataTemplate pages:GamesPage}" />
+        Route="gamespage"
+        ContentTemplate="{DataTemplate pages:GamesPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Аналитика" Icon="steam.png">
