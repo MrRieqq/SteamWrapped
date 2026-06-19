@@ -46,12 +46,12 @@
         ContentTemplate="{DataTemplate pages:GamesPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Аналитика" Icon="steam.png">
+    <FlyoutItem Title="Статистика" Icon="steam.png">
         <ShellContent
             ContentTemplate="{DataTemplate pages:Statspage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Settings" Icon="steam.png">
+    <FlyoutItem Title="Настройки" Icon="steam.png">
         <ShellContent
             ContentTemplate="{DataTemplate pages:WrappedPage}" />
     </FlyoutItem>
