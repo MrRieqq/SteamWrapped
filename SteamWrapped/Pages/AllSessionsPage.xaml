@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SteamWrapped.Pages.AllSessionsPage"
+    Title="Все сессии"
+    BackgroundColor="{StaticResource Background}">
+
+    <CollectionView
+        ItemsSource="{Binding Sessions}"
+        Margin="20"
+        SelectionMode="None">
+
+        <CollectionView.ItemTemplate>
+
+            <DataTemplate>
+
+                <Border
+                    StrokeThickness="0"
+                    Margin="0,0,0,16">
+
+                    <Grid
+                        ColumnDefinitions="60,*,70"
+                        ColumnSpacing="12"
+                        Margin="0,0,0,18">
+
+                        <!-- Обложка -->
+                        <Border
+                            Grid.Column="0"
+                            WidthRequest="52"
+                            HeightRequest="72"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 8">
+
+                            <Image
+                                Source="{Binding ListImageUrl}"
+                                Aspect="AspectFill"/>
+
+                        </Border>
+
+                        <!-- Информация -->
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            Spacing="4">
+
+                            <Label
+                                Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                TextColor="{DynamicResource TextPrimary}"
+                                LineBreakMode="TailTruncation"/>
+
+                            <Label
+                                Text="За последние 2 недели"
+                                FontSize="11"
+                                TextColor="{DynamicResource TextSecondary}"/>
+
+                        </VerticalStackLayout>
+
+                        <!-- Часы -->
+                        <Label
+                            Grid.Column="2"
+                            Text="{Binding HoursLast2Weeks,StringFormat='{0} ч.'}"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            TextColor="{DynamicResource TextSecondary}"
+                            FontSize="13"/>
+
+                    </Grid>
+
+                </Border>
+
+            </DataTemplate>
+
+        </CollectionView.ItemTemplate>
+
+    </CollectionView>
+
+</ContentPage>
