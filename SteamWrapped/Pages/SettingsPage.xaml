@@ -30,30 +30,84 @@
                 StrokeShape="RoundRectangle 16"
                 Padding="20,18">
                 <HorizontalStackLayout Spacing="18" VerticalOptions="Center">
-                    <Border
-                        WidthRequest="72" HeightRequest="72"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 14"
-                        BackgroundColor="#1E293B">
-                        <Image Source="avatar.png" Aspect="AspectFill"
-                               WidthRequest="72" HeightRequest="72"/>
+
+                    <!-- Аватар -->
+                    <Border WidthRequest="72"
+            HeightRequest="72"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 14"
+            BackgroundColor="#1E293B">
+
+                        <Image x:Name="ProfileAvatar"
+               Aspect="AspectFill"/>
+
                     </Border>
-                    <VerticalStackLayout Spacing="6" VerticalOptions="Center">
-                        <Label Text="SteamWrapped" FontSize="20" FontAttributes="Bold"
-                               TextColor="{DynamicResource TextPrimary}"/>
-                        <HorizontalStackLayout Spacing="8">
-                            <Label Text="🔵" FontSize="14" VerticalOptions="Center"/>
-                            <Label Text="steamid64: 76561197960043550" FontSize="13"
-                                   TextColor="{DynamicResource TextSecondary}" VerticalOptions="Center"/>
-                            <Border WidthRequest="28" HeightRequest="28"
-                                    BackgroundColor="#1A2535" StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 7" VerticalOptions="Center">
-                                <Label Text="⎘" FontSize="14"
-                                       TextColor="{DynamicResource TextSecondary}"
-                                       HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                        </HorizontalStackLayout>
+
+                    <!-- Информация -->
+                    <VerticalStackLayout Spacing="6"
+                         VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand">
+
+                        <Label x:Name="ProfileName"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="{DynamicResource TextPrimary}"/>
+
+                        <VerticalStackLayout Spacing="2">
+
+                            <HorizontalStackLayout Spacing="8">
+
+                                <Border x:Name="StatusIndicator"
+                        WidthRequest="10"
+                        HeightRequest="10"
+                        StrokeThickness="0">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5"/>
+                                    </Border.StrokeShape>
+
+                                </Border>
+
+                                <Label x:Name="StatusText"
+                       FontSize="13"
+                       TextColor="{DynamicResource TextSecondary}"/>
+
+                            </HorizontalStackLayout>
+
+                            <Label x:Name="CurrentGameText"
+                   FontSize="12"
+                   TextColor="{DynamicResource TextSecondary}"
+                   IsVisible="False"/>
+
+                            <Label x:Name="ProfileSteamId"
+                   FontSize="13"
+                   TextColor="{DynamicResource TextSecondary}"/>
+
+                        </VerticalStackLayout>
+
                     </VerticalStackLayout>
+
+                    <!-- Кнопка Steam -->
+                    <Border x:Name="SteamProfileButton"
+        WidthRequest="36"
+        HeightRequest="36"
+        BackgroundColor="{DynamicResource CardBackground}"
+        Stroke="{DynamicResource CardStroke}"
+        StrokeThickness="1"
+        StrokeShape="RoundRectangle 8"
+        VerticalOptions="Center">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OpenSteamProfileTapped"/>
+                        </Border.GestureRecognizers>
+
+                        <Label Text="↗"
+           FontSize="18"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           TextColor="{DynamicResource TextPrimary}"/>
+                    </Border>
+
                 </HorizontalStackLayout>
             </Border>
 

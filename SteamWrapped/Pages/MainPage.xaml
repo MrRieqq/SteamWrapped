@@ -15,8 +15,8 @@
         <ScrollView>
             <VerticalStackLayout
                 HorizontalOptions="Center"
-                Spacing="25"
-                Padding="0,80,0,40">
+                Spacing="10"
+                Padding="0,20,0,40">
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
                     Spacing="10">
