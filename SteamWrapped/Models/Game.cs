@@ -37,8 +37,32 @@ public class Game
             : $"{AchievementPercent * 100:F0}%"; 
     public bool HasAchievements =>
     AchievementsTotal > 0;
+    public int Rank { get; set; }
+
+    public double PlaytimeProgress { get; set; }
     public string ListImageUrl =>
     $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/library_600x900.jpg";
+    public class RecentAchievement
+    {
+        public string GameName { get; set; } = "";
+
+        public string AchievementName { get; set; } = "";
+
+        public string Description { get; set; } = "";
+
+        public int AppId { get; set; }
+
+        public long UnlockTime { get; set; }
+
+        public string ImageUrl =>
+            $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/header.jpg";
+        public string ListImageUrl =>
+   $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/library_600x900.jpg";
+        public DateTime UnlockDate =>
+            DateTimeOffset
+                .FromUnixTimeSeconds(UnlockTime)
+                .LocalDateTime;
+    }
 }
 public class AchievementInfo
 {
