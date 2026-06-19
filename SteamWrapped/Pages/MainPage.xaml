@@ -24,7 +24,7 @@
                     <Label
                         Text="ТВОЙ ИГРОВОЙ ГОД В ОДНОМ МЕСТЕ"
                         FontSize="16"
-                        TextColor="#53B9FF"/>
+                        TextColor="{DynamicResource MainAccent}"/>
                 </HorizontalStackLayout>
                 <VerticalStackLayout
                     HorizontalOptions="Center"
@@ -35,20 +35,20 @@
                         FontSize="82"
                         FontAttributes="Bold"
                         HorizontalTextAlignment="Center"
-                        TextColor="#B9E4FF"/>
+                        TextColor="{DynamicResource MainAccent2}"/>
                     <Label
                         Text="WRAPPED"
                         FontFamily="Orbitionblod"
                         FontSize="82"
                         FontAttributes="Bold"
                         HorizontalTextAlignment="Center"
-                        TextColor="#8B79FF"/>
+                        TextColor="{DynamicResource MainAccent3}"/>
                 </VerticalStackLayout>
                 <Label
                     WidthRequest="500"
                     HorizontalTextAlignment="Center"
                     FontSize="20"
-                    TextColor="#7E8DA2"
+                    TextColor="{DynamicResource MainSubText}"
                     Text="Введи Steam ID и узнай всё о своих игровых привычках — часы, жанры, рекорды и многое другое."/>
                 <Grid
                     WidthRequest="1200"
@@ -59,8 +59,8 @@
                     <!-- Профиль слева -->
                     <Border
                         Grid.Column="0"
-                        BackgroundColor="#0D1726"
-                        Stroke="#1D3350"
+                        BackgroundColor="{DynamicResource MainCard}"
+                        Stroke="{DynamicResource MainCardStroke}"
                         StrokeThickness="1"
                         Padding="20">
                         <Border.StrokeShape>
@@ -92,16 +92,16 @@
                                     FontSize="20"
                                     FontAttributes="Bold"
                                     HorizontalTextAlignment="Center"
-                                    TextColor="White"/>
+                                    TextColor="{DynamicResource TextPrimary}"/>
                                 <Border
-                                    BackgroundColor="#132033"
+                                    BackgroundColor="{DynamicResource MainCardInner}"
                                     Padding="8,4">
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="8"/>
                                     </Border.StrokeShape>
                                     <Label
                                         Text="{Binding SteamLevel, StringFormat='Уровень {0}'}"
-                                        TextColor="#53B9FF"
+                                        TextColor="{DynamicResource MainAccent}"
                                         HorizontalTextAlignment="Center"
                                         HorizontalOptions="Fill"/>
                                 </Border>
@@ -116,22 +116,22 @@
                                     Text="{Binding TotalHours, StringFormat='⏱ Часы: {0}'}"
                                     FontSize="20"
                                     FontAttributes="Bold"
-                                    TextColor="White"/>
+                                    TextColor="{DynamicResource TextPrimary}"/>
                                 <Label
                                     Text="{Binding GamesPlayed, StringFormat='🎮 Игр: {0}'}"
                                     FontSize="20"
                                     FontAttributes="Bold"
-                                    TextColor="White"/>
+                                    TextColor="{DynamicResource TextPrimary}"/>
                                 <Label
                                     Text="{Binding TotalAchievements, StringFormat='🏆 Достижений: {0}'}"
                                     FontSize="20"
                                     FontAttributes="Bold"
-                                    TextColor="White"/>
+                                    TextColor="{DynamicResource TextPrimary}"/>
                                 <Label
                                     Text="{Binding GamerRank, StringFormat='🚀 Ранг: {0}'}"
                                     FontSize="20"
                                     FontAttributes="Bold"
-                                    TextColor="#53B9FF"/>
+                                    TextColor="{DynamicResource MainAccent}"/>
                             </VerticalStackLayout>
                         </Grid>
                     </Border>
@@ -140,8 +140,8 @@
                     <Border
                         Grid.Column="1"
                         Padding="35"
-                        BackgroundColor="#09111D"
-                        Stroke="#1A2A40"
+                        BackgroundColor="{DynamicResource MainCard2}"
+                        Stroke="{DynamicResource MainCard2Stroke}"
                         StrokeThickness="1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
@@ -150,29 +150,29 @@
                             <Label
                                 Text="STEAM ID ИЛИ ССЫЛКА НА ПРОФИЛЬ"
                                 FontSize="13"
-                                TextColor="#6F8198"/>
-                            <Border BackgroundColor="{DynamicResource PageBackground}" Stroke="#1D3350">
+                                TextColor="{DynamicResource MainSubText2}"/>
+                            <Border BackgroundColor="{DynamicResource PageBackground}" Stroke="{DynamicResource MainCardStroke}">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12"/>
                                 </Border.StrokeShape>
                                 <Entry
                                     Placeholder="7656119XXXXXXXXXX или /id/username"
                                     PlaceholderColor="#5E6C80"
-                                    TextColor="White"
+                                    TextColor="{DynamicResource TextPrimary}"
                                     BackgroundColor="Transparent"
                                     Margin="20,8"
                                     Text="{Binding SteamId}"/>
                             </Border>
                             <Label
                                 FontSize="14"
-                                TextColor="#6F8198"
+                                TextColor="{DynamicResource MainSubText2}"
                                 Text="Поддерживаются SteamID64 и ссылки на профиль."/>
                             <Button
                                 HeightRequest="60"
                                 Text="⚡ Загрузить мой профиль"
                                 FontSize="20"
                                 FontAttributes="Bold"
-                                TextColor="White"
+                                TextColor="{DynamicResource TextPrimary}"
                                 CornerRadius="12"
                                 Command="{Binding LoadSteamDataCommand}"/>
                             <ActivityIndicator

@@ -11,12 +11,12 @@
 
             <!-- ===== HEADER ===== -->
             <VerticalStackLayout Spacing="2" Margin="0,0,0,4">
-                <Label Text="О приложении" FontSize="26" FontAttributes="Bold" TextColor="White"/>
-                <Label Text="Информация о приложении SteamWrapped" FontSize="13" TextColor="#8A9BB8"/>
+                <Label Text="О приложении" FontSize="26" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"/>
+                <Label Text="Информация о приложении SteamWrapped" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
             </VerticalStackLayout>
 
             <!-- ===== PROFILE CARD ===== -->
-            <Border BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
+            <Border BackgroundColor="{DynamicResource CardBackground}" Stroke="{DynamicResource CardStroke}" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
                 <VerticalStackLayout Spacing="0">
 
                     <Grid ColumnDefinitions="80,*" ColumnSpacing="16" Margin="0,0,0,16">
@@ -24,37 +24,37 @@
                             <Image Source="logo.png" Aspect="AspectFit" Margin="6"/>
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
-                            <Label Text="SteamWrapped" FontSize="20" FontAttributes="Bold" TextColor="White"/>
-                            <Label Text="Аналитика вашей игровой активности в Steam" FontSize="12" TextColor="#8A9BB8"/>
+                            <Label Text="SteamWrapped" FontSize="20" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"/>
+                            <Label Text="Аналитика вашей игровой активности в Steam" FontSize="12" TextColor="{DynamicResource TextSecondary}"/>
                         </VerticalStackLayout>
                     </Grid>
 
-                    <BoxView HeightRequest="1" Color="#263244" Margin="0,0,0,12"/>
+                    <BoxView HeightRequest="1" Color="{DynamicResource Divider}" Margin="0,0,0,12"/>
 
                     <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
-                        <Label Text="Версия приложения" FontSize="13" TextColor="#8A9BB8"/>
-                        <Label Grid.Column="1" Text="1.2.0" FontSize="13" TextColor="White"/>
+                        <Label Text="Версия приложения" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
+                        <Label Grid.Column="1" Text="1.2.0" FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
-                        <Label Text="Сборка" FontSize="13" TextColor="#8A9BB8"/>
-                        <Label Grid.Column="1" Text="120" FontSize="13" TextColor="White"/>
+                        <Label Text="Сборка" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
+                        <Label Grid.Column="1" Text="120" FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="Дата установки" FontSize="13" TextColor="#8A9BB8"/>
-                        <Label Grid.Column="1" Text="15 мая 2024 г." FontSize="13" TextColor="White"/>
+                        <Label Text="Дата установки" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
+                        <Label Grid.Column="1" Text="15 мая 2024 г." FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
                     </Grid>
                 </VerticalStackLayout>
             </Border>
 
             <!-- ===== О ПРИЛОЖЕНИИ ===== -->
-            <Border BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
+            <Border BackgroundColor="{DynamicResource CardBackground}" Stroke="{DynamicResource CardStroke}" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
                 <VerticalStackLayout Spacing="14">
-                    <Label Text="О приложении" FontSize="15" FontAttributes="Bold" TextColor="White"/>
-                    <Label FontSize="13" TextColor="#8A9BB8" LineBreakMode="WordWrap">
+                    <Label Text="О приложении" FontSize="15" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"/>
+                    <Label FontSize="13" TextColor="{DynamicResource TextSecondary}" LineBreakMode="WordWrap">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="SteamWrapped" TextColor="White" FontAttributes="Bold"/>
-                                <Span Text=" помогает вам анализировать вашу игровую активность в Steam. Отслеживайте время в играх, достижения, любимые жанры и многое другое." TextColor="#8A9BB8"/>
+                                <Span Text="SteamWrapped" TextColor="{DynamicResource TextPrimary}" FontAttributes="Bold"/>
+                                <Span Text=" помогает вам анализировать вашу игровую активность в Steam. Отслеживайте время в играх, достижения, любимые жанры и многое другое." TextColor="{DynamicResource TextSecondary}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -62,31 +62,31 @@
                     <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
 
                         <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="8">
-                            <Border WidthRequest="54" HeightRequest="54" BackgroundColor="#2D1B69" StrokeThickness="0" StrokeShape="RoundRectangle 14" HorizontalOptions="Center">
+                            <Border WidthRequest="54" HeightRequest="54" BackgroundColor="{DynamicResource CardInner2}" StrokeThickness="0" StrokeShape="RoundRectangle 14" HorizontalOptions="Center">
                                 <Image Source="static.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
-                            <Label Text="Детальная&#10;статистика" FontSize="11" TextColor="#8A9BB8" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                            <Label Text="Детальная&#10;статистика" FontSize="11" TextColor="{DynamicResource TextSecondary}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="8">
-                            <Border WidthRequest="54" HeightRequest="54" BackgroundColor="#1B3A69" StrokeThickness="0" StrokeShape="RoundRectangle 14" HorizontalOptions="Center">
+                            <Border WidthRequest="54" HeightRequest="54" BackgroundColor="{DynamicResource CardInner}" StrokeThickness="0" StrokeShape="RoundRectangle 14" HorizontalOptions="Center">
                                 <Image Source="achivets.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
-                            <Label Text="Достижения&#10;и прогресс" FontSize="11" TextColor="#8A9BB8" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                            <Label Text="Достижения&#10;и прогресс" FontSize="11" TextColor="{DynamicResource TextSecondary}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="8">
-                            <Border WidthRequest="54" HeightRequest="54" BackgroundColor="#1B4A3A" StrokeThickness="0" StrokeShape="RoundRectangle 14" HorizontalOptions="Center">
+                            <Border WidthRequest="54" HeightRequest="54" BackgroundColor="{DynamicResource CardInner}" StrokeThickness="0" StrokeShape="RoundRectangle 14" HorizontalOptions="Center">
                                 <Image Source="analitikas.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
-                            <Label Text="Аналитика&#10;по играм" FontSize="11" TextColor="#8A9BB8" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                            <Label Text="Аналитика&#10;по играм" FontSize="11" TextColor="{DynamicResource TextSecondary}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="8">
-                            <Border WidthRequest="54" HeightRequest="54" BackgroundColor="#2D1B69" StrokeThickness="0" StrokeShape="RoundRectangle 14" HorizontalOptions="Center">
+                            <Border WidthRequest="54" HeightRequest="54" BackgroundColor="{DynamicResource CardInner2}" StrokeThickness="0" StrokeShape="RoundRectangle 14" HorizontalOptions="Center">
                                 <Image Source="cartochki.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
-                            <Label Text="Красивые&#10;карточки" FontSize="11" TextColor="#8A9BB8" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                            <Label Text="Красивые&#10;карточки" FontSize="11" TextColor="{DynamicResource TextSecondary}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
 
                     </Grid>
@@ -94,18 +94,18 @@
             </Border>
 
             <!-- ===== ТЕХНОЛОГИИ ===== -->
-            <Border BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
+            <Border BackgroundColor="{DynamicResource CardBackground}" Stroke="{DynamicResource CardStroke}" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
                 <VerticalStackLayout Spacing="0">
-                    <Label Text="Технологии" FontSize="15" FontAttributes="Bold" TextColor="White" Margin="0,0,0,14"/>
+                    <Label Text="Технологии" FontSize="15" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}" Margin="0,0,0,14"/>
 
                     <!-- Steam Web API -->
                     <Grid ColumnDefinitions="36,*,Auto" ColumnSpacing="12" Margin="0,0,0,14">
-                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="#1A2535" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{DynamicResource CardInner}" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                             <Image Source="steam.png" Aspect="AspectFit" Margin="4"/>
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text="Steam Web API" FontSize="13" FontAttributes="Bold" TextColor="White"/>
-                            <Label Text="Информация о вашем профиле и играх" FontSize="11" TextColor="#8A9BB8"/>
+                            <Label Text="Steam Web API" FontSize="13" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"/>
+                            <Label Text="Информация о вашем профиле и играх" FontSize="11" TextColor="{DynamicResource TextSecondary}"/>
                         </VerticalStackLayout>
                         <Label Grid.Column="2" VerticalOptions="Center">
                             <Label.FormattedText>
@@ -120,16 +120,16 @@
                         </Label>
                     </Grid>
 
-                    <BoxView HeightRequest="1" Color="#1E293B" Margin="0,0,0,14"/>
+                    <BoxView HeightRequest="1" Color="{DynamicResource CardInner3}" Margin="0,0,0,14"/>
 
                     <!-- .NET MAUI -->
                     <Grid ColumnDefinitions="36,*,Auto" ColumnSpacing="12">
-                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="#1A2535" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{DynamicResource CardInner}" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                             <Label Text=".NET" FontSize="11" FontAttributes="Bold" TextColor="#512BD4" HorizontalOptions="Center" VerticalOptions="Center"/>
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text=".NET MAUI" FontSize="13" FontAttributes="Bold" TextColor="White"/>
-                            <Label Text="Фреймворк для создания приложений" FontSize="11" TextColor="#8A9BB8"/>
+                            <Label Text=".NET MAUI" FontSize="13" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"/>
+                            <Label Text="Фреймворк для создания приложений" FontSize="11" TextColor="{DynamicResource TextSecondary}"/>
                         </VerticalStackLayout>
                         <Label Grid.Column="2" VerticalOptions="Center">
                             <Label.FormattedText>
@@ -148,18 +148,18 @@
             </Border>
 
             <!-- ===== ПОДДЕРЖКА ===== -->
-            <Border BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
+            <Border BackgroundColor="{DynamicResource CardBackground}" Stroke="{DynamicResource CardStroke}" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
                 <VerticalStackLayout Spacing="0">
-                    <Label Text="Поддержка" FontSize="15" FontAttributes="Bold" TextColor="White" Margin="0,0,0,14"/>
+                    <Label Text="Поддержка" FontSize="15" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}" Margin="0,0,0,14"/>
 
                     <!-- FAQ -->
                     <Grid ColumnDefinitions="36,*,Auto" ColumnSpacing="12" Margin="0,0,0,14">
-                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="#1A2535" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{DynamicResource CardInner}" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                             <Image Source="tgph.png" HorizontalOptions="Center" VerticalOptions="Center"></Image>
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text="Часто задаваемые вопросы" FontSize="13" FontAttributes="Bold" TextColor="White"/>
-                            <Label Text="Ответы на популярные вопросы" FontSize="11" TextColor="#8A9BB8"/>
+                            <Label Text="Часто задаваемые вопросы" FontSize="13" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"/>
+                            <Label Text="Ответы на популярные вопросы" FontSize="11" TextColor="{DynamicResource TextSecondary}"/>
                         </VerticalStackLayout>
                         <Label Grid.Column="2" Text="Перейти к FAQ" TextColor="#6A5ACD" FontSize="12" VerticalOptions="Center">
                             <Label.GestureRecognizers>
@@ -168,16 +168,16 @@
                         </Label>
                     </Grid>
 
-                    <BoxView HeightRequest="1" Color="#1E293B" Margin="0,0,0,14"/>
+                    <BoxView HeightRequest="1" Color="{DynamicResource CardInner3}" Margin="0,0,0,14"/>
 
                     <!-- Связаться с нами -->
                     <Grid ColumnDefinitions="36,*,Auto" ColumnSpacing="12">
-                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="#1A2535" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{DynamicResource CardInner}" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                             <Image Source="github.png" HorizontalOptions="Center" VerticalOptions="Center"></Image>
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                            <Label Text="Связаться с нами" FontSize="13" FontAttributes="Bold" TextColor="White"/>
-                            <Label Text="Написать в службу поддержки" FontSize="11" TextColor="#8A9BB8"/>
+                            <Label Text="Связаться с нами" FontSize="13" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"/>
+                            <Label Text="Написать в службу поддержки" FontSize="11" TextColor="{DynamicResource TextSecondary}"/>
                         </VerticalStackLayout>
                         <Label Grid.Column="2" Text="Написать" TextColor="#6A5ACD" FontSize="12" VerticalOptions="Center">
                             <Label.GestureRecognizers>
@@ -193,7 +193,7 @@
             <Label
                 Text="© 2024 SteamWrapped. Все права защищены."
                 FontSize="12"
-                TextColor="#8A9BB8"
+                TextColor="{DynamicResource TextSecondary}"
                 HorizontalOptions="Center"
                 Margin="0,0,0,10"/>
 

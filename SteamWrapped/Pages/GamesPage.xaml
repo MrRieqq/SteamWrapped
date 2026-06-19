@@ -19,7 +19,7 @@
             x:Key="FilterTextConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <Grid Padding="16,24,16,0" RowDefinitions="Auto,Auto,*">
 
         <!-- HEADER -->
@@ -28,20 +28,20 @@
             <Label Text="Ваши игры"
                    FontSize="38"
                    FontAttributes="Bold"
-                   TextColor="White"
+                   TextColor="{DynamicResource TextPrimary}"
                    VerticalOptions="Center"/>
             <Border Grid.Column="1"
                     WidthRequest="290"
                     HeightRequest="46"
                     Margin="0,0,12,0"
-                    BackgroundColor="#121B2B"
-                    Stroke="#1F2B40"
+                    BackgroundColor="{DynamicResource GameSearchBg}"
+                    Stroke="{DynamicResource GameCardStroke}"
                     StrokeShape="RoundRectangle 12">
                 <Grid ColumnDefinitions="Auto,*"
                       Padding="12,0">
                     <Label Text="🔍"
                            FontSize="15"
-                           TextColor="#7E8AA4"
+                           TextColor="{DynamicResource GameTextSub}"
                            VerticalOptions="Center"
                            Margin="0,0,10,0"/>
                     <Entry
@@ -49,11 +49,11 @@
                         Placeholder="Поиск игр..."
                         PlaceholderColor="#7E8AA4"
                         Text="{Binding SearchText}"
-                        TextColor="White"
+                        TextColor="{DynamicResource TextPrimary}"
                         BackgroundColor="Transparent"/>
                 </Grid>
             </Border>
-            
+
         </Grid>
 
         <!-- FILTERS -->
@@ -88,7 +88,7 @@
                 <!-- Недавние -->
 
                 <Border Padding="12,6"
-                        Stroke="#1F2B40"
+                        Stroke="{DynamicResource GameCardStroke}"
                         StrokeShape="RoundRectangle 10"
                         BackgroundColor="{Binding SelectedFilter, Converter={StaticResource FilterBackgroundConverter}, ConverterParameter=Недавние}"
                         HeightRequest="35">
@@ -108,7 +108,7 @@
                 <!-- Избранное -->
 
                 <Border Padding="12,6"
-                        Stroke="#1F2B40"
+                        Stroke="{DynamicResource GameCardStroke}"
                         StrokeShape="RoundRectangle 10"
                         BackgroundColor="{Binding SelectedFilter, Converter={StaticResource FilterBackgroundConverter}, ConverterParameter=Избранное}"
                         HeightRequest="35">
@@ -128,7 +128,7 @@
                 <!-- Пройденные -->
 
                 <Border Padding="12,6"
-                        Stroke="#1F2B40"
+                        Stroke="{DynamicResource GameCardStroke}"
                         StrokeShape="RoundRectangle 10"
                         BackgroundColor="{Binding SelectedFilter, Converter={StaticResource FilterBackgroundConverter}, ConverterParameter=Пройденные}"
                         HeightRequest="35">
@@ -155,21 +155,21 @@
 
                 <!-- Picker-кнопка -->
 
-                <Border BackgroundColor="#121B2B"
-                        Stroke="#1F2B40"
+                <Border BackgroundColor="{DynamicResource GameSearchBg}"
+                        Stroke="{DynamicResource GameCardStroke}"
                         StrokeShape="RoundRectangle 10"
                         HeightRequest="35"
                         Padding="10,0">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
                         <Label Text="Сортировка"
-                               TextColor="#8D9AB4"
+                               TextColor="{DynamicResource GameTextSub2}"
                                FontSize="14"
                                VerticalOptions="Center"
                                Margin="0,0,10,0"/>
                         <Picker Grid.Column="1"
                                 ItemsSource="{Binding SortOptions}"
                                 SelectedItem="{Binding SelectedSort}"
-                                TextColor="White"
+                                TextColor="{DynamicResource TextPrimary}"
                                 BackgroundColor="Transparent"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Fill"/>
@@ -177,7 +177,7 @@
                 </Border>
 
                 <!-- Вид плиткой -->
-                
+
                 <Border WidthRequest="36"
                         HeightRequest="36"
                         StrokeShape="RoundRectangle 10"
@@ -193,7 +193,7 @@
                         <TapGestureRecognizer Command="{Binding SetGridViewCommand}" Tapped="FilterButtonTapped"/>
                     </Border.GestureRecognizers>
                     <Label Text="⊞"
-                           TextColor="White"
+                           TextColor="{DynamicResource TextPrimary}"
                            HorizontalOptions="Center"
                            VerticalOptions="Center">
                         <Label.Triggers>
@@ -209,7 +209,7 @@
                 <Border WidthRequest="36"
                         HeightRequest="36"
                         StrokeShape="RoundRectangle 10"
-                        BackgroundColor="#121B2B">
+                        BackgroundColor="{DynamicResource GameSearchBg}">
                     <Border.Triggers>
                         <DataTrigger TargetType="Border"
                                      Binding="{Binding IsGridView}"
@@ -221,7 +221,7 @@
                         <TapGestureRecognizer Command="{Binding SetListViewCommand}" Tapped="FilterButtonTapped"/>
                     </Border.GestureRecognizers>
                     <Label Text="≡"
-                           TextColor="#8D9AB4"
+                           TextColor="{DynamicResource GameTextSub2}"
                            HorizontalOptions="Center"
                            VerticalOptions="Center">
                         <Label.Triggers>
@@ -235,7 +235,7 @@
                 </Border>
             </HorizontalStackLayout>
         </Grid>
-        
+
         <!-- GAMES -->
 
         <CollectionView Grid.Row="2"
@@ -254,8 +254,8 @@
                     <Border WidthRequest="260"
                             HeightRequest="285"
                             Margin="12"
-                            BackgroundColor="#101827"
-                            Stroke="#1F2B40"
+                            BackgroundColor="{DynamicResource GameCard}"
+                            Stroke="{DynamicResource GameCardStroke}"
                             StrokeThickness="1"
                             StrokeShape="RoundRectangle 18">
                         <Border.Shadow>
@@ -278,18 +278,18 @@
                                                  Padding="12"
                                                  Spacing="8">
                                 <Label Text="{Binding Name}"
-                                       TextColor="White"
+                                       TextColor="{DynamicResource TextPrimary}"
                                        FontSize="18"
                                        FontAttributes="Bold"/>
                                 <HorizontalStackLayout Spacing="8">
                                     <Label Text="{Binding HoursPlayed,StringFormat='{0} ч.'}"
-                                           TextColor="#9FB0CC"
+                                           TextColor="{DynamicResource GameTextSub3}"
                                            FontSize="13"/>
-                                    <Border BackgroundColor="#1A2437"
+                                    <Border BackgroundColor="{DynamicResource GameCardInner}"
                                             StrokeThickness="0"
                                             Padding="8,2">
                                         <Label Text="{Binding Genre}"
-                                               TextColor="White"
+                                               TextColor="{DynamicResource TextPrimary}"
                                                FontSize="11"/>
                                     </Border>
                                 </HorizontalStackLayout>
@@ -298,7 +298,7 @@
                                            TextColor="#FFD54F"/>
                                     <Label Grid.Column="1"
                                            Text="{Binding AchievementPercentText}"
-                                           TextColor="White"/>
+                                           TextColor="{DynamicResource TextPrimary}"/>
                                 </Grid>
                                 <ProgressBar Progress="{Binding AchievementPercent}"
                                              IsVisible="{Binding HasAchievements}"
@@ -316,15 +316,15 @@
                 IsVisible="{Binding IsListView}">
             <CollectionView.Header>
                 <Grid ColumnDefinitions="4*,2*,1.5*" Margin="12,0,12,12">
-                    <Label Text="Название" TextColor="#8D9AB4"/>
+                    <Label Text="Название" TextColor="{DynamicResource GameTextSub2}"/>
                     <Label Grid.Column="1"
                            Text="Достижения"
                            HorizontalTextAlignment="Center"
-                           TextColor="#8D9AB4"/>
+                           TextColor="{DynamicResource GameTextSub2}"/>
                     <Label Grid.Column="2"
                            Text="Сыгранное время"
                            HorizontalTextAlignment="Center"
-                           TextColor="#8D9AB4"/>
+                           TextColor="{DynamicResource GameTextSub2}"/>
                 </Grid>
             </CollectionView.Header>
             <CollectionView.ItemTemplate>
@@ -333,8 +333,8 @@
                     <Grid Padding="0,0,0,12">
                         <Border
                             Padding="12"
-                            BackgroundColor="#101827"
-                            Stroke="#1F2B40"
+                            BackgroundColor="{DynamicResource GameCard}"
+                            Stroke="{DynamicResource GameCardStroke}"
                             StrokeShape="RoundRectangle 12">
 
                             <Grid ColumnDefinitions="4*,2*,1.5*">
@@ -350,10 +350,10 @@
                                         <Label Text="{Binding Name}"
                                                FontSize="16"
                                                FontAttributes="Bold"
-                                               TextColor="White"/>
+                                               TextColor="{DynamicResource TextPrimary}"/>
                                         <Label Text="{Binding Genre}"
                                                FontSize="12"
-                                               TextColor="#8D9AB4"/>
+                                               TextColor="{DynamicResource GameTextSub2}"/>
                                     </VerticalStackLayout>
                                 </HorizontalStackLayout>
 
@@ -368,7 +368,7 @@
                                                    FontSize="12"/>
                                             <Label Grid.Column="1"
                                                    Text="{Binding AchievementPercentText}"
-                                                   TextColor="White"
+                                                   TextColor="{DynamicResource TextPrimary}"
                                                    FontSize="12"/>
                                         </Grid>
                                         <ProgressBar Progress="{Binding AchievementPercent}"
@@ -384,7 +384,7 @@
                                    Text="{Binding HoursPlayed,StringFormat='{0} ч.'}"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
-                                   TextColor="White"/>
+                                   TextColor="{DynamicResource TextPrimary}"/>
                             </Grid>
                         </Border>
                     </Grid>
