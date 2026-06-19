@@ -411,10 +411,17 @@ StrokeShape="RoundRectangle 14">
                 VerticalOptions="Start"/>
 
                         <Label
-                Text="Все сессии"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                TextColor="{DynamicResource TextSecondary}"/>
+    Text="Все сессии"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
+    TextColor="{DynamicResource TextSecondary}">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+            Command="{Binding OpenAllSessionsCommand}" />
+                            </Label.GestureRecognizers>
+
+                        </Label>
 
                     </Grid>
 
