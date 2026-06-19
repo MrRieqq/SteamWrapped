@@ -58,7 +58,8 @@
 
     <FlyoutItem Title="О приложении" Icon="steam.png">
         <ShellContent
-            ContentTemplate="{DataTemplate pages:AboutPage}" />
+            Route="allsessionspage"
+            ContentTemplate="{DataTemplate pages:GamesPage}" />
     </FlyoutItem>
 
 </Shell>
