@@ -1,5 +1,7 @@
-﻿using System.Text.Json;
-using SteamWrapped.Models;
+﻿using SteamWrapped.Models;
+using System.Text.Json;
+using static SteamWrapped.Models.Game;
+using static SteamWrapped.Services.SteamApiService;
 
 namespace SteamWrapped.Services;
 
@@ -306,5 +308,143 @@ public class WrappedService
         }
 
         throw new Exception("Неверный Steam ID");
+    }
+    public async Task<List<RecentGame>> GetRecentGames(string steamId)
+    {
+        var json =
+            await _api.GetRecentlyPlayedGames(steamId);
+
+        if (string.IsNullOrWhiteSpace(json))
+            return [];
+
+        using var doc = JsonDocument.Parse(json);
+
+        if (!doc.RootElement
+            .GetProperty("response")
+            .TryGetProperty("games", out var games))
+            return [];
+
+        return games
+            .EnumerateArray()
+            .Select(x => new RecentGame
+            {
+                AppId = x.GetProperty("appid").GetInt32(),
+                Name = x.GetProperty("name").GetString() ?? "",
+                MinutesLast2Weeks =
+                    x.GetProperty("playtime_2weeks").GetInt32()
+            })
+            .ToList();
+    }
+    public async Task<List<RecentAchievement>>
+    GetRecentAchievements(string steamId)
+    {
+        var games = await GetSteamGames(steamId);
+
+        var result = new List<RecentAchievement>();
+
+        foreach (var game in games.Take(20))
+        {
+            var schema =
+    await GetAchievementSchema(game.AppId);
+            var achievements =
+                await _api.GetAchievementsJson(
+                    steamId,
+                    game.AppId);
+
+            if (string.IsNullOrWhiteSpace(achievements))
+                continue;
+
+            using var doc =
+                JsonDocument.Parse(achievements);
+
+            if (!doc.RootElement.TryGetProperty(
+                    "playerstats",
+                    out var playerstats))
+                continue;
+
+            if (!playerstats.TryGetProperty(
+                    "achievements",
+                    out var achs))
+                continue;
+
+            foreach (var a in achs.EnumerateArray())
+            {
+                if (a.GetProperty("achieved")
+                    .GetInt32() != 1)
+                    continue;
+
+                if (!a.TryGetProperty(
+                        "unlocktime",
+                        out var unlock))
+                    continue;
+                var apiName =
+    a.GetProperty("apiname").GetString() ?? "";
+
+                string achievementName =
+                    schema.TryGetValue(apiName, out var info)
+                        ? info.Name
+                        : apiName;
+
+                string description =
+                    schema.TryGetValue(apiName, out info)
+                        ? info.Description
+                        : "";
+
+                result.Add(new RecentAchievement
+                {
+                    AppId = game.AppId,
+                    GameName = game.Name,
+                    AchievementName = achievementName,
+                    Description = description,
+                    UnlockTime = unlock.GetInt64()
+                });
+            }
+        }
+
+        return result
+            .OrderByDescending(x => x.UnlockTime)
+            .ToList();
+    }
+    private async Task<Dictionary<string, (string Name, string Description)>>
+GetAchievementSchema(int appId)
+    {
+        var json = await _api.GetGameSchema(appId);
+
+        var result =
+            new Dictionary<string, (string, string)>();
+
+        if (string.IsNullOrWhiteSpace(json))
+            return result;
+
+        using var doc = JsonDocument.Parse(json);
+
+        if (!doc.RootElement
+            .GetProperty("game")
+            .TryGetProperty("availableGameStats", out var stats))
+            return result;
+
+        if (!stats.TryGetProperty("achievements", out var achs))
+            return result;
+
+        foreach (var ach in achs.EnumerateArray())
+        {
+            var apiName =
+                ach.GetProperty("name").GetString() ?? "";
+
+            var displayName =
+                ach.TryGetProperty("displayName", out var dn)
+                ? dn.GetString() ?? ""
+                : "";
+
+            var description =
+                ach.TryGetProperty("description", out var desc)
+                ? desc.GetString() ?? ""
+                : "";
+
+            result[apiName] =
+                (displayName, description);
+        }
+
+        return result;
     }
 }
