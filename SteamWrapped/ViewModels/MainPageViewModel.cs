@@ -110,7 +110,11 @@ public partial class MainPageViewModel : ObservableObject
             {
                 PlayerName = player.PersonaName;
                 AvatarUrl = player.AvatarFull;
-
+                AppData.PlayerName = player.PersonaName;
+                AppData.AvatarUrl = player.AvatarFull;
+                AppData.SteamId = realSteamId;
+                AppData.PersonaState = player.PersonaState;
+                AppData.CurrentGame = player.GameExtraInfo ?? "";
                 SteamStatus = player.PersonaState switch
                 {
                     0 => "⚫ Не в сети",
