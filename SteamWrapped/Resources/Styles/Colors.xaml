@@ -6,15 +6,12 @@
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
     <Color x:Key="Primary">#66C0F4</Color>
-    <!-- зеленый акцент -->
     <Color x:Key="PrimaryDark">#ac99ea</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#2196F3</Color>
-    <!-- синий -->
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="Accent">#FF9800</Color>
-    <!-- оранжевый -->
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
@@ -35,23 +32,26 @@
     <Color x:Key="Danger">#E53935</Color>
 
     <Color x:Key="Background">#101822</Color>
-    <Color x:Key="CardBackground">#1B2838</Color>
 
+    <!-- ═══ Dynamic theme keys — overwritten at runtime by ThemeService ═══ -->
+    <!-- Default = dark theme -->
+    <Color x:Key="PageBackground">#0F1923</Color>
+    <Color x:Key="CardBackground">#111827</Color>
+    <Color x:Key="CardStroke">#263244</Color>
     <Color x:Key="TextPrimary">#FFFFFF</Color>
-    <Color x:Key="TextSecondary">#A7BACC</Color>
+    <Color x:Key="TextSecondary">#8A9BB8</Color>
+    <Color x:Key="ShellBackground">#171A21</Color>
 
-    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimary}"/>
+    <!-- Brushes (reference the Color keys above) -->
+    <SolidColorBrush x:Key="TextPrimaryBrush"   Color="{StaticResource TextPrimary}"/>
     <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondary}"/>
-
-
-    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource Background}"/>
-    <SolidColorBrush x:Key="CardBrush" Color="{StaticResource CardBackground}"/>
-
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
-    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
-    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
-    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
-    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+    <SolidColorBrush x:Key="BackgroundBrush"    Color="{StaticResource Background}"/>
+    <SolidColorBrush x:Key="CardBrush"          Color="{StaticResource CardBackground}"/>
+    <SolidColorBrush x:Key="PrimaryBrush"       Color="{StaticResource Primary}"/>
+    <SolidColorBrush x:Key="SecondaryBrush"     Color="{StaticResource Secondary}"/>
+    <SolidColorBrush x:Key="TertiaryBrush"      Color="{StaticResource Tertiary}"/>
+    <SolidColorBrush x:Key="WhiteBrush"         Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="BlackBrush"         Color="{StaticResource Black}"/>
 
     <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
     <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
@@ -61,4 +61,5 @@
     <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
     <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
 </ResourceDictionary>
