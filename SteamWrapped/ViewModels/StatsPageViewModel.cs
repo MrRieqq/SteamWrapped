@@ -26,6 +26,12 @@ public partial class StatsPageViewModel : ObservableObject
         await Shell.Current.GoToAsync(
             nameof(AlAchievementsPage));
     }
+    [RelayCommand]
+    private async Task OpenAllSessions()
+    {
+        await Shell.Current.GoToAsync(
+            nameof(AllSessionsPage));
+    }
     private readonly WrappedService _service = new();
     [ObservableProperty]
     private ObservableCollection<RecentGame> recentGames = [];
