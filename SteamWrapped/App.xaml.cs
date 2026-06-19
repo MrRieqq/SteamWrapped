@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SteamWrapped.Services;
 
 namespace SteamWrapped
 {
@@ -7,6 +8,8 @@ namespace SteamWrapped
         public App()
         {
             InitializeComponent();
+            ThemeService.LoadAndApply();
+
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
