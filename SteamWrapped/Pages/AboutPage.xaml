@@ -191,7 +191,7 @@
 
             <!-- ===== FOOTER ===== -->
             <Label
-                Text="© 2024 SteamWrapped. Все права защищены."
+                Text="© 2026 SteamWrapped. Все права защищены."
                 FontSize="12"
                 TextColor="{DynamicResource TextSecondary}"
                 HorizontalOptions="Center"

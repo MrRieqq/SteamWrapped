@@ -4,9 +4,9 @@ using Microsoft.Maui.ApplicationModel;
 
 namespace SteamWrapped.Pages;
 
-public partial class WrappedPage : ContentPage
+public partial class SettingsPage : ContentPage
 {
-    public WrappedPage()
+    public SettingsPage()
     {
         InitializeComponent();
     }

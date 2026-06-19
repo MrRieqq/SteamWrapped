@@ -4,32 +4,24 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:SteamWrapped.Pages"
-    Title=""
-    BackgroundColor="#171A21"
-    ForegroundColor="White"
-    TitleColor="White">
+    Title="">
+    
     <Shell.TitleView>
-        <HorizontalStackLayout
-        Spacing="8"
-        VerticalOptions="Center">
+        <HorizontalStackLayout Spacing="8">
 
             <Image
             Source="logo.png"
-            WidthRequest="24"
-            HeightRequest="24"
-            VerticalOptions="Center"/>
+            WidthRequest="20"
+            HeightRequest="20"/>
 
             <Label
             Text="SteamWrapped"
-            FontSize="16"
-            VerticalOptions="Center"
-            TextColor="White"/>
+            VerticalOptions="Center"/>
         </HorizontalStackLayout>
     </Shell.TitleView>
     <Shell.Resources>
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="White"/>
-            
         </Style>
         
         
@@ -48,18 +40,18 @@
 
     <FlyoutItem Title="Статистика" Icon="steam.png">
         <ShellContent
+            Route="allsessionspage"
             ContentTemplate="{DataTemplate pages:Statspage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Настройки" Icon="steam.png">
         <ShellContent
-            ContentTemplate="{DataTemplate pages:WrappedPage}" />
+            ContentTemplate="{DataTemplate pages:SettingsPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="О приложении" Icon="steam.png">
         <ShellContent
-            Route="allsessionspage"
-            ContentTemplate="{DataTemplate pages:GamesPage}" />
+            ContentTemplate="{DataTemplate pages:AboutPage}" />
     </FlyoutItem>
 
 </Shell>
