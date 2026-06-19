@@ -14,25 +14,25 @@
                 <!-- Icon + Title -->
                 <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
                     <HorizontalStackLayout Spacing="10">
-                        
-                        <Label Text="Статистика" FontSize="22" FontAttributes="Bold" TextColor="White" VerticalOptions="Center"/>
+
+                        <Label Text="Статистика" FontSize="22" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}" VerticalOptions="Center"/>
                     </HorizontalStackLayout>
-                    <Label Text="Обзор вашей игровой активности в Steam" FontSize="13" TextColor="#8A9BB8" />
+                    <Label Text="Обзор вашей игровой активности в Steam" FontSize="13" TextColor="{DynamicResource TextSecondary}" />
                 </VerticalStackLayout>
 
                 <!-- Dropdown -->
                 <Border
                     Grid.Column="2"
                     Padding="14,8"
-                    BackgroundColor="#1A2535"
-                    Stroke="#263244"
+                    BackgroundColor="{DynamicResource CardInner}"
+                    Stroke="{DynamicResource CardStroke}"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 10"
                     VerticalOptions="Center"
                     Margin="0,0,0,0">
                     <HorizontalStackLayout Spacing="10">
-                        <Label Text="Все игры" TextColor="White" FontSize="14" VerticalOptions="Center"/>
-                        <Label Text="▾" TextColor="#8A9BB8" FontSize="14" VerticalOptions="Center"/>
+                        <Label Text="Все игры" TextColor="{DynamicResource TextPrimary}" FontSize="14" VerticalOptions="Center"/>
+                        <Label Text="▾" TextColor="{DynamicResource TextSecondary}" FontSize="14" VerticalOptions="Center"/>
                     </HorizontalStackLayout>
                 </Border>
             </Grid>
@@ -41,49 +41,49 @@
             <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="14">
 
                 <!-- Общее время -->
-                <Border Grid.Column="0" BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
+                <Border Grid.Column="0" BackgroundColor="{DynamicResource CardBackground}" Stroke="{DynamicResource CardStroke}" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
                     <VerticalStackLayout Spacing="6">
                         <HorizontalStackLayout Spacing="8">
-                            <Border WidthRequest="32" HeightRequest="32" BackgroundColor="#1E2D45" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                            <Border WidthRequest="32" HeightRequest="32" BackgroundColor="{DynamicResource CardInner2}" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                                 <Label Text="🕐" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
-                            <Label Text="Общее время в играх" FontSize="12" TextColor="#8A9BB8" VerticalOptions="Center"/>
+                            <Label Text="Общее время в играх" FontSize="12" TextColor="{DynamicResource TextSecondary}" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                         <Label Text="{Binding TotalHoursText}"
        FontSize="26"
        FontAttributes="Bold"
-       TextColor="White"/>
+       TextColor="{DynamicResource TextPrimary}"/>
 
                         <Label Text="{Binding TotalDaysText}"
        FontSize="12"
-       TextColor="#8A9BB8"/>
+       TextColor="{DynamicResource TextSecondary}"/>
                     </VerticalStackLayout>
                 </Border>
 
                 <!-- Всего игр -->
-                <Border Grid.Column="1" BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
+                <Border Grid.Column="1" BackgroundColor="{DynamicResource CardBackground}" Stroke="{DynamicResource CardStroke}" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
                     <VerticalStackLayout Spacing="6">
                         <HorizontalStackLayout Spacing="8">
-                            <Border WidthRequest="32" HeightRequest="32" BackgroundColor="#1E2D45" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                            <Border WidthRequest="32" HeightRequest="32" BackgroundColor="{DynamicResource CardInner2}" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                                 <Label Text="🎮" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
-                            <Label Text="Всего игр" FontSize="12" TextColor="#8A9BB8" VerticalOptions="Center"/>
+                            <Label Text="Всего игр" FontSize="12" TextColor="{DynamicResource TextSecondary}" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                         <Label Text="{Binding TotalGames}"
        FontSize="26"
        FontAttributes="Bold"
-       TextColor="White"/>
+       TextColor="{DynamicResource TextPrimary}"/>
                     </VerticalStackLayout>
                 </Border>
 
                 <!-- Всего достижений -->
-                <Border Grid.Column="2" BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
+                <Border Grid.Column="2" BackgroundColor="{DynamicResource CardBackground}" Stroke="{DynamicResource CardStroke}" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
                     <VerticalStackLayout Spacing="6">
                         <HorizontalStackLayout Spacing="8">
-                            <Border WidthRequest="32" HeightRequest="32" BackgroundColor="#1E2D45" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                            <Border WidthRequest="32" HeightRequest="32" BackgroundColor="{DynamicResource CardInner2}" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                                 <Label Text="🏆" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
-                            <Label Text="Всего достижений" FontSize="12" TextColor="#8A9BB8" VerticalOptions="Center"/>
+                            <Label Text="Всего достижений" FontSize="12" TextColor="{DynamicResource TextSecondary}" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                         <HorizontalStackLayout Spacing="4">
                             <Label Text="{Binding UnlockedAchievements}" />
@@ -98,27 +98,27 @@
                 </Border>
 
                 <!-- Среднее время -->
-                <Border Grid.Column="3" BackgroundColor="#111827" Stroke="#263244" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
+                <Border Grid.Column="3" BackgroundColor="{DynamicResource CardBackground}" Stroke="{DynamicResource CardStroke}" StrokeThickness="1" StrokeShape="RoundRectangle 14" Padding="16,14">
                     <VerticalStackLayout Spacing="6">
                         <HorizontalStackLayout Spacing="8">
-                            <Border WidthRequest="32" HeightRequest="32" BackgroundColor="#1E2D45" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                            <Border WidthRequest="32" HeightRequest="32" BackgroundColor="{DynamicResource CardInner2}" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                                 <Label Text="📈" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
-                            <Label Text="Среднее время за игру" FontSize="12" TextColor="#8A9BB8" VerticalOptions="Center"/>
+                            <Label Text="Среднее время за игру" FontSize="12" TextColor="{DynamicResource TextSecondary}" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                         <Label Text="{Binding AverageHoursText}"
        FontSize="26"
        FontAttributes="Bold"
-       TextColor="White"/>
+       TextColor="{DynamicResource TextPrimary}"/>
 
                         <ProgressBar Progress="{Binding AchievementProgress}"
              HeightRequest="5"
              ProgressColor="#4F6FFF"
-             BackgroundColor="#1E293B"/>
+             BackgroundColor="{DynamicResource CardInner3}"/>
 
                         <Label Text="{Binding AchievementPercentText}"
        FontSize="11"
-       TextColor="#8A9BB8"/>
+       TextColor="{DynamicResource TextSecondary}"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -128,8 +128,8 @@
             <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
                 <Border
     Grid.Column="0"
-    BackgroundColor="#111827"
-    Stroke="#263244"
+    BackgroundColor="{DynamicResource CardBackground}"
+    Stroke="{DynamicResource CardStroke}"
     StrokeThickness="1"
     StrokeShape="RoundRectangle 14">
 
@@ -141,7 +141,7 @@
             Margin="16,16,16,12"
             FontSize="15"
             FontAttributes="Bold"
-            TextColor="White"/>
+            TextColor="{DynamicResource TextPrimary}"/>
 
                         <CollectionView
             Grid.Row="1"
@@ -164,7 +164,7 @@
                                             <Label
                             Grid.Column="0"
                             Text="{Binding Rank}"
-                            TextColor="#8A9BB8"
+                            TextColor="{DynamicResource TextSecondary}"
                             FontSize="14"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"/>
@@ -191,14 +191,14 @@
                                 Text="{Binding Name}"
                                 FontAttributes="Bold"
                                 FontSize="14"
-                                TextColor="White"
+                                TextColor="{DynamicResource TextPrimary}"
                                 LineBreakMode="TailTruncation"/>
 
                                                 <ProgressBar
                                 Progress="{Binding PlaytimeProgress}"
                                 HeightRequest="4"
                                 ProgressColor="#4F6FFF"
-                                BackgroundColor="#1E293B"/>
+                                BackgroundColor="{DynamicResource CardInner3}"/>
 
                                             </VerticalStackLayout>
 
@@ -207,7 +207,7 @@
                             Text="{Binding HoursPlayed,StringFormat='{0} ч.'}"
                             HorizontalOptions="End"
                             VerticalOptions="Center"
-                            TextColor="#8A9BB8"
+                            TextColor="{DynamicResource TextSecondary}"
                             FontSize="13"/>
 
                                         </Grid>
@@ -224,14 +224,14 @@
 
                             <BoxView
                 HeightRequest="1"
-                Color="#263244"
+                Color="{DynamicResource Divider}"
                 VerticalOptions="Start"/>
 
                             <Label
                 Text="Все игры"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                TextColor="#8A9BB8">
+                TextColor="{DynamicResource TextSecondary}">
 
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer
@@ -248,13 +248,13 @@
                 <!-- RIGHT: Недавние достижения -->
                 <Border
 Grid.Column="1"
-BackgroundColor="#111827"
-Stroke="#263244"
+BackgroundColor="{DynamicResource CardBackground}"
+Stroke="{DynamicResource CardStroke}"
 StrokeThickness="1"
 StrokeShape="RoundRectangle 14">
                     <Grid RowDefinitions="Auto,*,Auto">
                         <!-- Заголовок -->
-                        <Label Grid.Row="0" Text="Недавние достижения" Margin="16,16,16,12" FontSize="15" FontAttributes="Bold" TextColor="White"/>
+                        <Label Grid.Row="0" Text="Недавние достижения" Margin="16,16,16,12" FontSize="15" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"/>
                         <!-- Список достижений -->
                         <CollectionView Grid.Row="1" ItemsSource="{Binding RecentAchievements}" SelectionMode="None" Margin="16,0">
                             <CollectionView.ItemTemplate>
@@ -262,19 +262,19 @@ StrokeShape="RoundRectangle 14">
                                     <Border StrokeThickness="0" Margin="0,0,0,16">
                                         <Grid ColumnDefinitions="30,60,*,70" ColumnSpacing="12" Margin="0,0,0,18">
                                             <!-- Номер -->
-                                            <Label Grid.Column="0" Text="" TextColor="#8A9BB8" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Grid.Column="0" Text="" TextColor="{DynamicResource TextSecondary}" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
                                             <!-- Картинка -->
                                             <Border Grid.Column="1" WidthRequest="52" HeightRequest="52" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                                                 <Image Source="{Binding ListImageUrl}" Aspect="AspectFill"/>
                                             </Border>
                                             <!-- Информация -->
                                             <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4">
-                                                <Label Text="{Binding AchievementName}" FontAttributes="Bold" FontSize="14" TextColor="White" LineBreakMode="TailTruncation"/>
+                                                <Label Text="{Binding AchievementName}" FontAttributes="Bold" FontSize="14" TextColor="{DynamicResource TextPrimary}" LineBreakMode="TailTruncation"/>
                                                 <Label Text="{Binding Description}" FontSize="11" TextColor="#C7D5E0" MaxLines="2" LineBreakMode="TailTruncation"/>
-                                                <Label Text="{Binding GameName}" FontSize="11" TextColor="#8A9BB8" LineBreakMode="TailTruncation"/>
+                                                <Label Text="{Binding GameName}" FontSize="11" TextColor="{DynamicResource TextSecondary}" LineBreakMode="TailTruncation"/>
                                             </VerticalStackLayout>
                                             <!-- Дата -->
-                                            <Label Grid.Column="3" Text="{Binding UnlockDate,StringFormat='{0:dd.MM}'}" HorizontalOptions="End" VerticalOptions="Center" TextColor="#8A9BB8" FontSize="13"/>
+                                            <Label Grid.Column="3" Text="{Binding UnlockDate,StringFormat='{0:dd.MM}'}" HorizontalOptions="End" VerticalOptions="Center" TextColor="{DynamicResource TextSecondary}" FontSize="13"/>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -282,12 +282,12 @@ StrokeShape="RoundRectangle 14">
                         </CollectionView>
                         <!-- Нижняя кнопка -->
                         <Grid Grid.Row="2" HeightRequest="50">
-                            <BoxView HeightRequest="1" Color="#263244" VerticalOptions="Start"/>
+                            <BoxView HeightRequest="1" Color="{DynamicResource Divider}" VerticalOptions="Start"/>
                             <Label
     Text="Все достижения"
     HorizontalOptions="Center"
     VerticalOptions="Center"
-    TextColor="#8A9BB8">
+    TextColor="{DynamicResource TextSecondary}">
 
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer
@@ -302,8 +302,8 @@ StrokeShape="RoundRectangle 14">
 
             <!-- ===== BOTTOM ROW ===== -->
             <Border
-    BackgroundColor="#111827"
-    Stroke="#263244"
+    BackgroundColor="{DynamicResource CardBackground}"
+    Stroke="{DynamicResource CardStroke}"
     StrokeThickness="1"
     StrokeShape="RoundRectangle 14">
 
@@ -316,7 +316,7 @@ StrokeShape="RoundRectangle 14">
             Margin="16,16,16,12"
             FontSize="15"
             FontAttributes="Bold"
-            TextColor="White"/>
+            TextColor="{DynamicResource TextPrimary}"/>
 
                     <!-- Список -->
                     <CollectionView
@@ -342,7 +342,7 @@ StrokeShape="RoundRectangle 14">
                                         <Label
     Grid.Column="0"
     Text="{Binding Rank}"
-    TextColor="#8A9BB8"
+    TextColor="{DynamicResource TextSecondary}"
     FontSize="14"
     HorizontalOptions="Center"
     VerticalOptions="Center"/>
@@ -371,13 +371,13 @@ StrokeShape="RoundRectangle 14">
                         Text="{Binding Name}"
                         FontAttributes="Bold"
                         FontSize="14"
-                        TextColor="White"
+                        TextColor="{DynamicResource TextPrimary}"
                         LineBreakMode="TailTruncation"/>
 
                                             <Label
                         Text="За последние 2 недели"
                         FontSize="11"
-                        TextColor="#8A9BB8"/>
+                        TextColor="{DynamicResource TextSecondary}"/>
 
                                         </VerticalStackLayout>
 
@@ -387,7 +387,7 @@ StrokeShape="RoundRectangle 14">
                     Text="{Binding HoursLast2Weeks,StringFormat='{0} ч.'}"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
-                    TextColor="#8A9BB8"
+                    TextColor="{DynamicResource TextSecondary}"
                     FontSize="13"/>
 
                                     </Grid>
@@ -407,14 +407,14 @@ StrokeShape="RoundRectangle 14">
 
                         <BoxView
                 HeightRequest="1"
-                Color="#263244"
+                Color="{DynamicResource Divider}"
                 VerticalOptions="Start"/>
 
                         <Label
                 Text="Все сессии"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                TextColor="#8A9BB8"/>
+                TextColor="{DynamicResource TextSecondary}"/>
 
                     </Grid>
 

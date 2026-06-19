@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SteamWrapped.Pages.AlAchievementsPage"
     Title="Все достижения"
-    BackgroundColor="{StaticResource Background}">
+    BackgroundColor="{DynamicResource PageBackground}">
 
     <CollectionView
         ItemsSource="{Binding Achievements}"
@@ -16,8 +16,8 @@
             <DataTemplate>
 
                 <Border
-                    BackgroundColor="#111827"
-                    Stroke="#263244"
+                    BackgroundColor="{DynamicResource CardBackground}"
+                    Stroke="{DynamicResource CardStroke}"
                     StrokeShape="RoundRectangle 12"
                     Padding="12"
                     Margin="0,0,0,12">
@@ -46,7 +46,7 @@
                                 Text="{Binding AchievementName}"
                                 FontSize="14"
                                 FontAttributes="Bold"
-                                TextColor="White"/>
+                                TextColor="{DynamicResource TextPrimary}"/>
 
                             <Label
                                 Text="{Binding Description}"
@@ -56,7 +56,7 @@
                             <Label
                                 Text="{Binding GameName}"
                                 FontSize="11"
-                                TextColor="#8A9BB8"/>
+                                TextColor="{DynamicResource TextSecondary}"/>
 
                         </VerticalStackLayout>
 
@@ -65,7 +65,7 @@
                             Text="{Binding UnlockDate,StringFormat='{0:dd.MM.yyyy}'}"
                             HorizontalOptions="End"
                             VerticalOptions="Center"
-                            TextColor="#8A9BB8"/>
+                            TextColor="{DynamicResource TextSecondary}"/>
 
                     </Grid>
 
