@@ -24,5 +24,6 @@ public partial class AboutPage : ContentPage
             await Launcher.OpenAsync("https://github.com/MrRieqq/SteamWrapped"));
 
         BindingContext = this;
+        BindingContext = new AboutViewModel();
     }
 }

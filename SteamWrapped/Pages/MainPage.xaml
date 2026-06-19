@@ -22,7 +22,7 @@
                     Spacing="10">
                     <Label Text="🎮" FontSize="15"/>
                     <Label
-                        Text="ТВОЙ ИГРОВОЙ ГОД В ОДНОМ МЕСТЕ"
+                        Text="ТВОЯ ИГРОВАЯ ИНФОРМАЦИЯ В ОДНОМ МЕСТЕ"
                         FontSize="16"
                         TextColor="{DynamicResource MainAccent}"/>
                 </HorizontalStackLayout>
@@ -49,7 +49,7 @@
                     HorizontalTextAlignment="Center"
                     FontSize="20"
                     TextColor="{DynamicResource MainSubText}"
-                    Text="Введи Steam ID и узнай всё о своих игровых привычках — часы, жанры, рекорды и многое другое."/>
+                    Text="Введи Steam ID или свой профиль Steam и узнай всё о своих игровых привычках — часы, жанры и многое другое."/>
                 <Grid
                     WidthRequest="1200"
                     ColumnDefinitions="550,620"

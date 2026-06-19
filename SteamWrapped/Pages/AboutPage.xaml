@@ -33,15 +33,18 @@
 
                     <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
                         <Label Text="Версия приложения" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
-                        <Label Grid.Column="1" Text="1.2.0" FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
+                        <Label Grid.Column="1" Text="1.5.0" FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
                         <Label Text="Сборка" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
-                        <Label Grid.Column="1" Text="120" FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
+                        <Label Grid.Column="1" Text="127" FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,Auto">
                         <Label Text="Дата установки" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
-                        <Label Grid.Column="1" Text="15 мая 2024 г." FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
+                        <Label Grid.Column="1"
+       Text="{Binding BuildDate}"
+       FontSize="13"
+       TextColor="{DynamicResource TextPrimary}" />
                     </Grid>
                 </VerticalStackLayout>
             </Border>
