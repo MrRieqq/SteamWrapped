@@ -120,10 +120,7 @@
                                     </Border.GestureRecognizers>
                                     <Grid>
                                         <!-- Звёздочки для полночного превью -->
-                                        <Label Text="✦  ✦" FontSize="18"
-                                               TextColor="#7B6FC4"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center"/>
+                                        <Image Source="midnight.png" HorizontalOptions="Center" VerticalOptions="Center"></Image>
                                         <Border x:Name="MidnightCheckmark"
                                                 WidthRequest="24" HeightRequest="24"
                                                 BackgroundColor="#6C5CE7" StrokeThickness="0"
@@ -136,7 +133,7 @@
                                         </Border>
                                     </Grid>
                                 </Border>
-                                <Label x:Name="MidnightLabel" Text="Полночная" FontSize="13"
+                                <Label x:Name="MidnightLabel" Text="Полуночная" FontSize="13"
                                        TextColor="#9B8FCC" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
 
