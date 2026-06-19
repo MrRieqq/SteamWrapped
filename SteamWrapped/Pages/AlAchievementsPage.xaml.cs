@@ -2,15 +2,14 @@ using SteamWrapped.ViewModels;
 
 namespace SteamWrapped.Pages;
 
-public partial class Statspage : ContentPage
+public partial class AlAchievementsPage : ContentPage
 {
-    private readonly StatsPageViewModel _vm;
+    private readonly AllAchievementsViewModel _vm =
+        new();
 
-    public Statspage()
+    public AlAchievementsPage()
     {
         InitializeComponent();
-
-        _vm = new StatsPageViewModel();
 
         BindingContext = _vm;
     }

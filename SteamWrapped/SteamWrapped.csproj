@@ -46,6 +46,11 @@
 
 	<ItemGroup>
 		<Compile Remove="Models\SteamResponse.cs" />
+		<Compile Remove="Pages\AllAchievementsPage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="Pages\AllAchievementsPage.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -58,6 +63,12 @@
 		<Compile Update="Pages\SettingsPage.xaml.cs">
 			<DependentUpon>SettingsPage.xaml</DependentUpon>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\AlAchievementsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

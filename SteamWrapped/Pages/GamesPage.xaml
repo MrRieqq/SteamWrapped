@@ -7,8 +7,8 @@
 
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#050A14" Offset="0"/>
-            <GradientStop Color="#0D1525" Offset="1"/>
+            <GradientStop Color="{DynamicResource PageBackground}" Offset="0"/>
+            <GradientStop Color="{DynamicResource PageBackground}" Offset="1"/>
         </LinearGradientBrush>
     </ContentPage.Background>
     <ContentPage.Resources>
@@ -53,18 +53,7 @@
                         BackgroundColor="Transparent"/>
                 </Grid>
             </Border>
-            <Border Grid.Column="2"
-                    WidthRequest="46"
-                    HeightRequest="46"
-                    BackgroundColor="#121B2B"
-                    Stroke="#1F2B40"
-                    StrokeShape="RoundRectangle 12">
-                <Label Text="⚙"
-                       FontSize="18"
-                       TextColor="#A4B1C8"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"/>
-            </Border>
+            
         </Grid>
 
         <!-- FILTERS -->

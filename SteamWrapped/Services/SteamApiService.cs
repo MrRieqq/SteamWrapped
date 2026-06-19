@@ -108,4 +108,38 @@ public class SteamApiService
 
         return await SafeGetStringAsync(url);
     }
+    public async Task<string?> GetRecentlyPlayedGames(string steamId)
+    {
+        var url =
+            $"https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/" +
+            $"?key={ApiKey}" +
+            $"&steamid={steamId}";
+
+        return await SafeGetStringAsync(url);
+    }
+    public class RecentGame
+    {
+        public int AppId { get; set; }
+
+        public string Name { get; set; } = "";
+
+        public int MinutesLast2Weeks { get; set; }
+        public int Rank { get; set; }
+        public double HoursLast2Weeks =>
+            Math.Round(MinutesLast2Weeks / 60.0, 1);
+        public string ListImageUrl =>
+    $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/library_600x900.jpg";
+        public string ImageUrl =>
+            $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/header.jpg";
+    }
+    public async Task<string?> GetGameSchema(int appId)
+    {
+        var url =
+            $"https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/" +
+            $"?key={ApiKey}" +
+            $"&appid={appId}" +
+            $"&l=russian";
+
+        return await SafeGetStringAsync(url);
+    }
 }
