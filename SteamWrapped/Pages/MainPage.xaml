@@ -3,13 +3,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SteamWrapped.Pages.MainPage"
-    BackgroundColor="#050B16">
+    BackgroundColor="{DynamicResource PageBackground}">
 
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                <GradientStop Color="#050B16" Offset="0"/>
-                <GradientStop Color="#091A2A" Offset="1"/>
+                <GradientStop Color="{DynamicResource PageBackground}" Offset="0"/>
+                <GradientStop Color="{DynamicResource PageBackground}" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <ScrollView>
@@ -135,7 +135,7 @@
                             </VerticalStackLayout>
                         </Grid>
                     </Border>
-                    
+
                     <!-- Форма справа -->
                     <Border
                         Grid.Column="1"
@@ -151,7 +151,7 @@
                                 Text="STEAM ID ИЛИ ССЫЛКА НА ПРОФИЛЬ"
                                 FontSize="13"
                                 TextColor="#6F8198"/>
-                            <Border BackgroundColor="#050B16" Stroke="#1D3350">
+                            <Border BackgroundColor="{DynamicResource PageBackground}" Stroke="#1D3350">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12"/>
                                 </Border.StrokeShape>

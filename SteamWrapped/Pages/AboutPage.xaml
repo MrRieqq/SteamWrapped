@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SteamWrapped.Pages.AboutPage"
     Title="О приложении"
-    BackgroundColor="{StaticResource Background}">
+    BackgroundColor="{DynamicResource PageBackground}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20,24" Spacing="20">

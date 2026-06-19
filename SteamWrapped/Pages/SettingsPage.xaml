@@ -3,8 +3,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SteamWrapped.Pages.WrappedPage"
-    Title="" BackgroundColor="#0F1923">
-
+    Title=""
+    BackgroundColor="{DynamicResource PageBackground}">
 
     <ScrollView>
         <VerticalStackLayout Padding="28,24" Spacing="20">
@@ -15,66 +15,42 @@
                     Text="Настройки"
                     FontSize="28"
                     FontAttributes="Bold"
-                    TextColor="White"/>
+                    TextColor="{DynamicResource TextPrimary}"/>
                 <Label
                     Text="Управляйте своим профилем и параметрами приложения"
                     FontSize="13"
-                    TextColor="#8A9BB8"/>
+                    TextColor="{DynamicResource TextSecondary}"/>
             </VerticalStackLayout>
 
             <!-- ===== PROFILE CARD ===== -->
             <Border
-                BackgroundColor="#111827"
-                Stroke="#263244"
+                BackgroundColor="{DynamicResource CardBackground}"
+                Stroke="{DynamicResource CardStroke}"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 16"
                 Padding="20,18">
                 <HorizontalStackLayout Spacing="18" VerticalOptions="Center">
-
-                    <!-- Avatar -->
                     <Border
-                        WidthRequest="72"
-                        HeightRequest="72"
+                        WidthRequest="72" HeightRequest="72"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 14"
                         BackgroundColor="#1E293B">
-                        <Image
-                            Source="avatar.png"
-                            Aspect="AspectFill"
-                            WidthRequest="72"
-                            HeightRequest="72"/>
+                        <Image Source="avatar.png" Aspect="AspectFill"
+                               WidthRequest="72" HeightRequest="72"/>
                     </Border>
-
-                    <!-- Name + SteamID -->
                     <VerticalStackLayout Spacing="6" VerticalOptions="Center">
-                        <Label
-                            Text="SteamWrapped"
-                            FontSize="20"
-                            FontAttributes="Bold"
-                            TextColor="White"/>
+                        <Label Text="SteamWrapped" FontSize="20" FontAttributes="Bold"
+                               TextColor="{DynamicResource TextPrimary}"/>
                         <HorizontalStackLayout Spacing="8">
-                            <Label
-                                Text="🔵"
-                                FontSize="14"
-                                VerticalOptions="Center"/>
-                            <Label
-                                Text="steamid64: 76561197960043550"
-                                FontSize="13"
-                                TextColor="#8A9BB8"
-                                VerticalOptions="Center"/>
-                            <Border
-                                WidthRequest="28"
-                                HeightRequest="28"
-                                BackgroundColor="#1A2535"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 7"
-                                VerticalOptions="Center">
-                                <Label
-                                    Text="⎘"
-                                    FontSize="14"
-                                    TextColor="#8A9BB8"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"/>
+                            <Label Text="🔵" FontSize="14" VerticalOptions="Center"/>
+                            <Label Text="steamid64: 76561197960043550" FontSize="13"
+                                   TextColor="{DynamicResource TextSecondary}" VerticalOptions="Center"/>
+                            <Border WidthRequest="28" HeightRequest="28"
+                                    BackgroundColor="#1A2535" StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 7" VerticalOptions="Center">
+                                <Label Text="⎘" FontSize="14"
+                                       TextColor="{DynamicResource TextSecondary}"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Border>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
@@ -83,102 +59,85 @@
 
             <!-- ===== APPEARANCE CARD ===== -->
             <Border
-                BackgroundColor="#111827"
-                Stroke="#263244"
+                BackgroundColor="{DynamicResource CardBackground}"
+                Stroke="{DynamicResource CardStroke}"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 16"
                 Padding="20,18">
                 <VerticalStackLayout Spacing="20">
 
-                    <Label
-                        Text="Оформление"
-                        FontSize="16"
-                        FontAttributes="Bold"
-                        TextColor="White"/>
+                    <Label Text="Оформление" FontSize="16" FontAttributes="Bold"
+                           TextColor="{DynamicResource TextPrimary}"/>
 
-                    <!-- Theme row -->
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="40" VerticalOptions="Center">
 
-                        <!-- Label -->
                         <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
-                            <Label
-                                Text="Тема приложения"
-                                FontSize="14"
-                                FontAttributes="Bold"
-                                TextColor="White"/>
-                            <Label
-                                Text="Выберите тему оформления приложения"
-                                FontSize="12"
-                                TextColor="#8A9BB8"/>
+                            <Label Text="Тема приложения" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}"/>
+                            <Label Text="Выберите тему оформления приложения" FontSize="12"
+                                   TextColor="{DynamicResource TextSecondary}"/>
                         </VerticalStackLayout>
 
-                        <!-- Theme options -->
                         <HorizontalStackLayout Grid.Column="1" Spacing="14" VerticalOptions="Center">
 
-                            <!-- Тёмная (active) -->
+                            <!-- Тёмная -->
                             <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                                <Border
-                                    WidthRequest="110"
-                                    HeightRequest="90"
-                                    BackgroundColor="#1A1A2E"
-                                    Stroke="#4F6FFF"
-                                    StrokeThickness="2"
-                                    StrokeShape="RoundRectangle 14">
+                                <Border x:Name="DarkBorder"
+                                        WidthRequest="110" HeightRequest="90"
+                                        BackgroundColor="#1A1A2E"
+                                        Stroke="#4F6FFF" StrokeThickness="2"
+                                        StrokeShape="RoundRectangle 14">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDarkThemeTapped"/>
+                                    </Border.GestureRecognizers>
                                     <Grid>
-                                        <Image
-                                             Source="sundark.png"
-                                             WidthRequest="40"  
-                                             HeightRequest="40"
-                                             HorizontalOptions="Center"
-                                             VerticalOptions="Center"/>
-                                        <!-- Checkmark badge -->
-                                        <Border
-                                            WidthRequest="24"
-                                            HeightRequest="24"
-                                            BackgroundColor="#4F6FFF"
-                                            StrokeThickness="0"
-                                            StrokeShape="RoundRectangle 12"
-                                            HorizontalOptions="End"
-                                            VerticalOptions="Start"
-                                            Margin="0,8,8,0">
-                                            <Label
-                                                Text="✓"
-                                                FontSize="13"
-                                                TextColor="White"
-                                                HorizontalOptions="Center"
-                                                VerticalOptions="Center"/>
+                                        <Image Source="sundark.png" WidthRequest="40" HeightRequest="40"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <Border x:Name="DarkCheckmark"
+                                                WidthRequest="24" HeightRequest="24"
+                                                BackgroundColor="#4F6FFF" StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 12"
+                                                HorizontalOptions="End" VerticalOptions="Start"
+                                                Margin="0,8,8,0">
+                                            <Label Text="✓" FontSize="13" TextColor="White"
+                                                   HorizontalOptions="Center" VerticalOptions="Center"/>
                                         </Border>
                                     </Grid>
                                 </Border>
-                                <Label
-                                    Text="Тёмная"
-                                    FontSize="13"
-                                    TextColor="White"
-                                    HorizontalOptions="Center"/>
+                                <Label x:Name="DarkLabel" Text="Тёмная" FontSize="13"
+                                       TextColor="White" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
 
-                            <!-- Светлая -->
+                            <!-- Полночная -->
                             <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                                <Border
-                                    WidthRequest="110"
-                                    HeightRequest="90"
-                                    BackgroundColor="#E8EAF0"
-                                    Stroke="#263244"
-                                    StrokeThickness="1"
-                                    StrokeShape="RoundRectangle 14">
-                                    <Image
-                                           Source="iconbackground.png"
-                                           WidthRequest="40"
-                                        
-                                           HeightRequest="40"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                                <Border x:Name="MidnightBorder"
+                                        WidthRequest="110" HeightRequest="90"
+                                        BackgroundColor="#0D0B1E"
+                                        Stroke="#2E2660" StrokeThickness="1"
+                                        StrokeShape="RoundRectangle 14">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnMidnightThemeTapped"/>
+                                    </Border.GestureRecognizers>
+                                    <Grid>
+                                        <!-- Звёздочки для полночного превью -->
+                                        <Label Text="✦  ✦" FontSize="18"
+                                               TextColor="#7B6FC4"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        <Border x:Name="MidnightCheckmark"
+                                                WidthRequest="24" HeightRequest="24"
+                                                BackgroundColor="#6C5CE7" StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 12"
+                                                HorizontalOptions="End" VerticalOptions="Start"
+                                                Margin="0,8,8,0"
+                                                IsVisible="False">
+                                            <Label Text="✓" FontSize="13" TextColor="White"
+                                                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </Border>
+                                    </Grid>
                                 </Border>
-                                <Label
-                                    Text="Светлая"
-                                    FontSize="13"
-                                    TextColor="#8A9BB8"
-                                    HorizontalOptions="Center"/>
+                                <Label x:Name="MidnightLabel" Text="Полночная" FontSize="13"
+                                       TextColor="#9B8FCC" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
 
                         </HorizontalStackLayout>
@@ -189,6 +148,5 @@
 
         </VerticalStackLayout>
     </ScrollView>
-
 
 </ContentPage>
