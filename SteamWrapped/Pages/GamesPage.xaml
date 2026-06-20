@@ -181,12 +181,12 @@
                 <Border WidthRequest="36"
                         HeightRequest="36"
                         StrokeShape="RoundRectangle 10"
-                        BackgroundColor="#355CFF">
+                        BackgroundColor="{DynamicResource FilterActive}">
                     <Border.Triggers>
                         <DataTrigger TargetType="Border"
                                      Binding="{Binding IsGridView}"
                                      Value="False">
-                            <Setter Property="BackgroundColor" Value="#121B2B"/>
+                            <Setter Property="BackgroundColor" Value="{DynamicResource FilterInactive}"/>
                         </DataTrigger>
                     </Border.Triggers>
                     <Border.GestureRecognizers>
@@ -214,7 +214,7 @@
                         <DataTrigger TargetType="Border"
                                      Binding="{Binding IsGridView}"
                                      Value="False">
-                            <Setter Property="BackgroundColor" Value="#355CFF"/>
+                            <Setter Property="BackgroundColor" Value="{DynamicResource FilterActive}"/>
                         </DataTrigger>
                     </Border.Triggers>
                     <Border.GestureRecognizers>
