@@ -33,6 +33,11 @@ public static class ThemeService
         ["GameTextSub"] = Color.FromArgb("#7E8AA4"),
         ["GameTextSub2"] = Color.FromArgb("#8D9AB4"),
         ["GameTextSub3"] = Color.FromArgb("#9FB0CC"),
+        // Filter / view-mode button colours
+        ["FilterActive"] = Color.FromArgb("#355CFF"),
+        ["FilterInactive"] = Color.FromArgb("#121B2B"),
+        ["FilterActiveText"] = Colors.White,
+        ["FilterInactiveText"] = Color.FromArgb("#8D9AB4"),
     };
 
     private static readonly Dictionary<string, Color> MidnightColors = new()
@@ -64,6 +69,11 @@ public static class ThemeService
         ["GameTextSub"] = Color.FromArgb("#7B6FB5"),
         ["GameTextSub2"] = Color.FromArgb("#8B7FC0"),
         ["GameTextSub3"] = Color.FromArgb("#9B90CC"),
+        // Filter / view-mode button colours  (midnight = purple accent)
+        ["FilterActive"] = Color.FromArgb("#7C3AED"),
+        ["FilterInactive"] = Color.FromArgb("#13102B"),
+        ["FilterActiveText"] = Color.FromArgb("#EAE6FF"),
+        ["FilterInactiveText"] = Color.FromArgb("#9B8FCC"),
     };
 
     public static bool IsDark { get; private set; } = true;
