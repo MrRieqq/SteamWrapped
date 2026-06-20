@@ -7,60 +7,65 @@
     BackgroundColor="{DynamicResource PageBackground}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="28,24" Spacing="20">
+        <VerticalStackLayout Padding="{OnIdiom Phone='16,20', Default='28,24'}"
+                         Spacing="20">
 
             <!-- ===== HEADER ===== -->
-            <VerticalStackLayout Spacing="4" Margin="0,0,0,4">
-                <Label
-                    Text="Настройки"
-                    FontSize="28"
-                    FontAttributes="Bold"
-                    TextColor="{DynamicResource TextPrimary}"/>
-                <Label
-                    Text="Управляйте своим профилем и параметрами приложения"
-                    FontSize="13"
-                    TextColor="{DynamicResource TextSecondary}"/>
+            <VerticalStackLayout Spacing="4"
+                             Margin="0,0,0,4">
+
+                <Label Text="Настройки"
+                   FontSize="{OnIdiom Phone=24, Default=28}"
+                   FontAttributes="Bold"
+                   TextColor="{DynamicResource TextPrimary}" />
+
+                <Label Text="Управляйте своим профилем и параметрами приложения"
+                   FontSize="{OnIdiom Phone=12, Default=13}"
+                   TextColor="{DynamicResource TextSecondary}" />
+
             </VerticalStackLayout>
 
             <!-- ===== PROFILE CARD ===== -->
-            <Border
-                BackgroundColor="{DynamicResource CardBackground}"
+            <Border BackgroundColor="{DynamicResource CardBackground}"
                 Stroke="{DynamicResource CardStroke}"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 16"
-                Padding="20,18">
-                <HorizontalStackLayout Spacing="18" VerticalOptions="Center">
+                Padding="{OnIdiom Phone='14,14', Default='20,18'}">
+
+                <HorizontalStackLayout Spacing="{OnIdiom Phone=12, Default=18}"
+                                   VerticalOptions="Center">
 
                     <!-- Аватар -->
-                    <Border WidthRequest="72"
-            HeightRequest="72"
-            StrokeThickness="0"
-            StrokeShape="RoundRectangle 14"
-            BackgroundColor="#1E293B">
+                    <Border WidthRequest="{OnIdiom Phone=56, Default=72}"
+                        HeightRequest="{OnIdiom Phone=56, Default=72}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#1E293B">
 
                         <Image x:Name="ProfileAvatar"
-               Aspect="AspectFill"/>
+                           Aspect="AspectFill"/>
 
                     </Border>
 
                     <!-- Информация -->
-                    <VerticalStackLayout Spacing="6"
-                         VerticalOptions="Center"
-                         HorizontalOptions="FillAndExpand">
+                    <VerticalStackLayout Spacing="4"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="FillAndExpand">
 
                         <Label x:Name="ProfileName"
-               FontSize="20"
-               FontAttributes="Bold"
-               TextColor="{DynamicResource TextPrimary}"/>
+                           FontSize="{OnIdiom Phone=16, Default=20}"
+                           FontAttributes="Bold"
+                           LineBreakMode="TailTruncation"
+                           TextColor="{DynamicResource TextPrimary}" />
 
                         <VerticalStackLayout Spacing="2">
 
                             <HorizontalStackLayout Spacing="8">
 
                                 <Border x:Name="StatusIndicator"
-                        WidthRequest="10"
-                        HeightRequest="10"
-                        StrokeThickness="0">
+                                    WidthRequest="10"
+                                    HeightRequest="10"
+                                    StrokeThickness="0">
 
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="5"/>
@@ -69,19 +74,23 @@
                                 </Border>
 
                                 <Label x:Name="StatusText"
-                       FontSize="13"
-                       TextColor="{DynamicResource TextSecondary}"/>
+                                   FontSize="{OnIdiom Phone=12, Default=13}"
+                                   LineBreakMode="TailTruncation"
+                                   TextColor="{DynamicResource TextSecondary}" />
 
                             </HorizontalStackLayout>
 
                             <Label x:Name="CurrentGameText"
-                   FontSize="12"
-                   TextColor="{DynamicResource TextSecondary}"
-                   IsVisible="False"/>
+                               FontSize="{OnIdiom Phone=11, Default=12}"
+                               LineBreakMode="TailTruncation"
+                               TextColor="{DynamicResource TextSecondary}"
+                               IsVisible="False" />
 
                             <Label x:Name="ProfileSteamId"
-                   FontSize="13"
-                   TextColor="{DynamicResource TextSecondary}"/>
+                               FontSize="{OnIdiom Phone=11, Default=13}"
+                               MaxLines="1"
+                               LineBreakMode="TailTruncation"
+                               TextColor="{DynamicResource TextSecondary}" />
 
                         </VerticalStackLayout>
 
@@ -89,112 +98,184 @@
 
                     <!-- Кнопка Steam -->
                     <Border x:Name="SteamProfileButton"
-        WidthRequest="36"
-        HeightRequest="36"
-        BackgroundColor="{DynamicResource CardBackground}"
-        Stroke="{DynamicResource CardStroke}"
-        StrokeThickness="1"
-        StrokeShape="RoundRectangle 8"
-        VerticalOptions="Center">
+                        WidthRequest="{OnIdiom Phone=30, Default=36}"
+                        HeightRequest="{OnIdiom Phone=30, Default=36}"
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        Stroke="{DynamicResource CardStroke}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        VerticalOptions="Center">
 
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OpenSteamProfileTapped"/>
                         </Border.GestureRecognizers>
 
                         <Label Text="↗"
-           FontSize="18"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           TextColor="{DynamicResource TextPrimary}"/>
+                           FontSize="18"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="{DynamicResource TextPrimary}"/>
+
                     </Border>
 
                 </HorizontalStackLayout>
+
             </Border>
 
             <!-- ===== APPEARANCE CARD ===== -->
-            <Border
-                BackgroundColor="{DynamicResource CardBackground}"
+            <Border BackgroundColor="{DynamicResource CardBackground}"
                 Stroke="{DynamicResource CardStroke}"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 16"
-                Padding="20,18">
-                <VerticalStackLayout Spacing="20">
+                Padding="{OnIdiom Phone='14,14', Default='20,18'}">
 
-                    <Label Text="Оформление" FontSize="16" FontAttributes="Bold"
-                           TextColor="{DynamicResource TextPrimary}"/>
+                <VerticalStackLayout Spacing="18">
 
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="40" VerticalOptions="Center">
+                    <Label Text="Оформление"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource TextPrimary}" />
 
-                        <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
-                            <Label Text="Тема приложения" FontSize="14" FontAttributes="Bold"
-                                   TextColor="{DynamicResource TextPrimary}"/>
-                            <Label Text="Выберите тему оформления приложения" FontSize="12"
-                                   TextColor="{DynamicResource TextSecondary}"/>
+                    <FlexLayout Direction="Row"
+                            Wrap="Wrap"
+                            AlignItems="Center"
+                            JustifyContent="Start">
+
+                        <VerticalStackLayout Spacing="4"
+                                         VerticalOptions="Center"
+                                         FlexLayout.Basis="{OnIdiom Phone='100%', Default='Auto'}">
+
+                            <Label Text="Тема приложения"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource TextPrimary}" />
+
+                            <Label Text="Выберите тему оформления приложения"
+                               FontSize="12"
+                               TextColor="{DynamicResource TextSecondary}" />
+
                         </VerticalStackLayout>
 
-                        <HorizontalStackLayout Grid.Column="1" Spacing="14" VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="{OnIdiom Phone=8, Default=14}"
+                                           VerticalOptions="Center"
+                                           FlexLayout.Basis="{OnIdiom Phone='100%', Default='Auto'}"
+                                           Margin="{OnIdiom Phone='0,12,0,0', Default='40,0,0,0'}">
 
                             <!-- Тёмная -->
-                            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <VerticalStackLayout Spacing="6"
+                                             HorizontalOptions="Center">
+
                                 <Border x:Name="DarkBorder"
-                                        WidthRequest="110" HeightRequest="90"
-                                        BackgroundColor="#1A1A2E"
-                                        Stroke="#4F6FFF" StrokeThickness="2"
-                                        StrokeShape="RoundRectangle 14">
+                                    WidthRequest="{OnIdiom Phone=88, Default=110}"
+                                    HeightRequest="{OnIdiom Phone=74, Default=90}"
+                                    BackgroundColor="#1A1A2E"
+                                    Stroke="#4F6FFF"
+                                    StrokeThickness="2"
+                                    StrokeShape="RoundRectangle 14">
+
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="OnDarkThemeTapped"/>
                                     </Border.GestureRecognizers>
+
                                     <Grid>
-                                        <Image Source="sundark.png" WidthRequest="40" HeightRequest="40"
-                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                                        <Image Source="sundark.png"
+                                           WidthRequest="{OnIdiom Phone=34, Default=40}"
+                                           HeightRequest="{OnIdiom Phone=34, Default=40}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+
                                         <Border x:Name="DarkCheckmark"
-                                                WidthRequest="24" HeightRequest="24"
-                                                BackgroundColor="#4F6FFF" StrokeThickness="0"
-                                                StrokeShape="RoundRectangle 12"
-                                                HorizontalOptions="End" VerticalOptions="Start"
-                                                Margin="0,8,8,0">
-                                            <Label Text="✓" FontSize="13" TextColor="White"
-                                                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            WidthRequest="22"
+                                            HeightRequest="22"
+                                            BackgroundColor="#4F6FFF"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 12"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="0,6,6,0">
+
+                                            <Label Text="✓"
+                                               FontSize="12"
+                                               TextColor="White"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+
                                         </Border>
+
                                     </Grid>
+
                                 </Border>
-                                <Label x:Name="DarkLabel" Text="Тёмная" FontSize="13"
-                                       TextColor="White" HorizontalOptions="Center"/>
+
+                                <Label x:Name="DarkLabel"
+                                   Text="Тёмная"
+                                   FontSize="{OnIdiom Phone=11, Default=13}"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"/>
+
                             </VerticalStackLayout>
 
-                            <!-- Полночная -->
-                            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <!-- Полуночная -->
+                            <VerticalStackLayout Spacing="6"
+                                             HorizontalOptions="Center">
+
                                 <Border x:Name="MidnightBorder"
-                                        WidthRequest="110" HeightRequest="90"
-                                        BackgroundColor="#0D0B1E"
-                                        Stroke="#2E2660" StrokeThickness="1"
-                                        StrokeShape="RoundRectangle 14">
+                                    WidthRequest="{OnIdiom Phone=88, Default=110}"
+                                    HeightRequest="{OnIdiom Phone=74, Default=90}"
+                                    BackgroundColor="#0D0B1E"
+                                    Stroke="#2E2660"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 14">
+
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="OnMidnightThemeTapped"/>
                                     </Border.GestureRecognizers>
+
                                     <Grid>
-                                        <!-- Звёздочки для полночного превью -->
-                                        <Image Source="midnight.png" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+
+                                        <Image Source="midnight.png"
+                                           WidthRequest="{OnIdiom Phone=34, Default=40}"
+                                           HeightRequest="{OnIdiom Phone=34, Default=40}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+
                                         <Border x:Name="MidnightCheckmark"
-                                                WidthRequest="24" HeightRequest="24"
-                                                BackgroundColor="#6C5CE7" StrokeThickness="0"
-                                                StrokeShape="RoundRectangle 12"
-                                                HorizontalOptions="End" VerticalOptions="Start"
-                                                Margin="0,8,8,0"
-                                                IsVisible="False">
-                                            <Label Text="✓" FontSize="13" TextColor="White"
-                                                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            WidthRequest="22"
+                                            HeightRequest="22"
+                                            BackgroundColor="#6C5CE7"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 12"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="0,6,6,0"
+                                            IsVisible="False">
+
+                                            <Label Text="✓"
+                                               FontSize="12"
+                                               TextColor="White"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+
                                         </Border>
+
                                     </Grid>
+
                                 </Border>
-                                <Label x:Name="MidnightLabel" Text="Полуночная" FontSize="13"
-                                       TextColor="#9B8FCC" HorizontalOptions="Center"/>
+
+                                <Label x:Name="MidnightLabel"
+                                   Text="Полуночная"
+                                   FontSize="{OnIdiom Phone=11, Default=13}"
+                                   TextColor="#9B8FCC"
+                                   HorizontalOptions="Center"/>
+
                             </VerticalStackLayout>
 
                         </HorizontalStackLayout>
-                    </Grid>
+
+                    </FlexLayout>
 
                 </VerticalStackLayout>
+
             </Border>
 
         </VerticalStackLayout>
