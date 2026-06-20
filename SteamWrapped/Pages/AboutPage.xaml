@@ -40,7 +40,7 @@
                         <Label Grid.Column="1" Text="127" FontSize="13" TextColor="{DynamicResource TextPrimary}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="Дата установки" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
+                        <Label Text="Дата сборки" FontSize="13" TextColor="{DynamicResource TextSecondary}"/>
                         <Label Grid.Column="1"
        Text="{Binding BuildDate}"
        FontSize="13"
