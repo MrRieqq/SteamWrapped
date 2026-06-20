@@ -78,6 +78,8 @@ public static class ThemeService
 
     public static bool IsDark { get; private set; } = true;
 
+    public static event Action<bool>? ThemeChanged;
+
     public static void LoadAndApply()
     {
         var saved = Preferences.Default.Get(ThemeKey, "dark");
@@ -97,5 +99,6 @@ public static class ThemeService
             res[kv.Key] = kv.Value;
 
         Application.Current!.UserAppTheme = AppTheme.Dark;
+        ThemeChanged?.Invoke(dark);
     }
 }

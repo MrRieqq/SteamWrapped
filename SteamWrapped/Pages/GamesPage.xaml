@@ -181,7 +181,9 @@
                 <Border WidthRequest="36"
                         HeightRequest="36"
                         StrokeShape="RoundRectangle 10"
-                        BackgroundColor="{DynamicResource FilterActive}">
+                        BackgroundColor="{DynamicResource FilterActive}"
+                        Stroke="{DynamicResource GameCardStroke}"
+                        StrokeThickness="1">
                     <Border.Triggers>
                         <DataTrigger TargetType="Border"
                                      Binding="{Binding IsGridView}"
@@ -198,18 +200,21 @@
                            VerticalOptions="Center">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding IsGridView}" Value="False">
-                                <Setter Property="TextColor" Value="#8D9AB4"/>
+                                <Setter Property="TextColor"
+        Value="{DynamicResource FilterInactiveText}"/>
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
                 </Border>
-
+    
                 <!-- Вид списком -->
 
                 <Border WidthRequest="36"
                         HeightRequest="36"
                         StrokeShape="RoundRectangle 10"
-                        BackgroundColor="{DynamicResource GameSearchBg}">
+                        BackgroundColor="{DynamicResource GameSearchBg}"
+                        Stroke="{DynamicResource GameCardStroke}"
+                        StrokeThickness="1">
                     <Border.Triggers>
                         <DataTrigger TargetType="Border"
                                      Binding="{Binding IsGridView}"
@@ -228,7 +233,8 @@
                             <DataTrigger TargetType="Label"
                                          Binding="{Binding IsGridView}"
                                          Value="False">
-                                <Setter Property="TextColor" Value="White"/>
+                                <Setter Property="TextColor"
+        Value="{DynamicResource FilterActiveText}"/>
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>

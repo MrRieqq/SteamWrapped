@@ -9,6 +9,7 @@ public partial class SettingsPage : ContentPage
     public SettingsPage()
     {
         InitializeComponent();
+        ThemeService.ThemeChanged += UpdateThemeUI;
     }
 
     protected override void OnAppearing()
@@ -111,6 +112,10 @@ public partial class SettingsPage : ContentPage
 
     private void UpdateThemeUI(bool isDark)
     {
+        DarkBorder.BackgroundColor = isDark ? Color.FromArgb("#1A1A2E") : Color.FromArgb("#13102B");
+        MidnightBorder.BackgroundColor = isDark ? Color.FromArgb("#0D0B1E") : Color.FromArgb("#1E1A3A");
+        DarkCheckmark.BackgroundColor = Color.FromArgb("#4F6FFF");
+        MidnightCheckmark.BackgroundColor = Color.FromArgb("#6C5CE7");
         // Тёмная кнопка
         DarkBorder.Stroke = isDark ? Color.FromArgb("#4F6FFF") : Color.FromArgb("#263244");
         DarkBorder.StrokeThickness = isDark ? 2 : 1;

@@ -182,4 +182,18 @@ public partial class GamesPageViewModel : ObservableObject
             Games.Add(game);
         }
     }
+    public GamesPageViewModel()
+    {
+        ThemeService.ThemeChanged += OnThemeChanged;
+    }
+
+    private void OnThemeChanged(bool _)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            OnPropertyChanged(nameof(SelectedFilter));
+            OnPropertyChanged(nameof(IsGridView));
+            OnPropertyChanged(nameof(IsListView));
+        });
+    }
 }
