@@ -14,51 +14,65 @@
         </Grid.Background>
         <ScrollView>
             <VerticalStackLayout
-                HorizontalOptions="Center"
+                HorizontalOptions="Fill"
                 Spacing="10"
-                Padding="0,20,0,40">
+                Padding="{OnIdiom Phone='16,20,16,30', Default='0,20,0,40'}">
+
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
                     Spacing="10">
-                    <Label Text="🎮" FontSize="15"/>
+                    <Label Text="🎮" FontSize="{OnIdiom Phone=13, Default=15}"/>
                     <Label
                         Text="ТВОЯ ИГРОВАЯ ИНФОРМАЦИЯ В ОДНОМ МЕСТЕ"
-                        FontSize="16"
+                        FontSize="{OnIdiom Phone=13, Default=16}"
+                        HorizontalTextAlignment="Center"
                         TextColor="{DynamicResource MainAccent}"/>
                 </HorizontalStackLayout>
+
                 <VerticalStackLayout
                     HorizontalOptions="Center"
-                    Spacing="-15">
+                    Spacing="-10">
                     <Label
                         Text="STEAM"
                         FontFamily="Orbitionblod"
-                        FontSize="82"
+                        FontSize="{OnIdiom Phone=44, Tablet=64, Default=82}"
                         FontAttributes="Bold"
                         HorizontalTextAlignment="Center"
                         TextColor="{DynamicResource MainAccent2}"/>
                     <Label
                         Text="WRAPPED"
                         FontFamily="Orbitionblod"
-                        FontSize="82"
+                        FontSize="{OnIdiom Phone=44, Tablet=64, Default=82}"
                         FontAttributes="Bold"
                         HorizontalTextAlignment="Center"
                         TextColor="{DynamicResource MainAccent3}"/>
                 </VerticalStackLayout>
+
                 <Label
-                    WidthRequest="500"
+                    MaximumWidthRequest="500"
+                    HorizontalOptions="Center"
+                    Margin="{OnIdiom Phone='10,0', Default='0'}"
                     HorizontalTextAlignment="Center"
-                    FontSize="20"
+                    FontSize="{OnIdiom Phone=15, Default=20}"
                     TextColor="{DynamicResource MainSubText}"
                     Text="Введи Steam ID или свой профиль Steam и узнай всё о своих игровых привычках — часы, жанры и многое другое."/>
-                <Grid
-                    WidthRequest="1200"
-                    ColumnDefinitions="550,620"
-                    ColumnSpacing="20"
-                    HorizontalOptions="Center">
 
-                    <!-- Профиль слева -->
+                <!-- Контейнер карточек: на телефоне складываются друг под другом,
+                     на широком экране стоят рядом -->
+                <FlexLayout
+                    Direction="Row"
+                    Wrap="Wrap"
+                    JustifyContent="Center"
+                    AlignItems="Start"
+                    HorizontalOptions="Fill"
+                    Margin="{OnIdiom Phone='0,10,0,0', Default='0,20,0,0'}">
+
+                    <!-- Профиль -->
                     <Border
-                        Grid.Column="0"
+                        FlexLayout.Basis="{OnIdiom Phone='100%', Tablet='100%', Default='550'}"
+                        FlexLayout.Grow="0"
+                        MaximumWidthRequest="{OnIdiom Phone=560, Default=550}"
+                        Margin="{OnIdiom Phone='0,0,0,16', Tablet='0,0,0,16', Default='0,0,20,0'}"
                         BackgroundColor="{DynamicResource MainCard}"
                         Stroke="{DynamicResource MainCardStroke}"
                         StrokeThickness="1"
@@ -66,87 +80,110 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
                         </Border.StrokeShape>
-                        <Grid
-                            ColumnDefinitions="140,*"
-                            ColumnSpacing="20">
+                        <!-- На телефоне аватар+ник и статистика идут друг под другом и центрируются,
+                             на широком экране стоят рядом, как раньше -->
+                        <FlexLayout
+                            Direction="{OnIdiom Phone=Column, Default=Row}"
+                            Wrap="NoWrap"
+                            AlignItems="Center"
+                            JustifyContent="Center">
 
                             <!-- Аватар + ник -->
                             <VerticalStackLayout
-                                Grid.Column="0"
+                                FlexLayout.Basis="{OnIdiom Phone='Auto', Default='140'}"
+                                FlexLayout.Grow="0"
+                                FlexLayout.ShrinkFactor="0"
+                                Margin="{OnIdiom Phone='0,0,0,16', Default='0,0,20,0'}"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
                                 Spacing="10">
                                 <Frame
-                                    WidthRequest="110"
-                                    HeightRequest="110"
-                                    CornerRadius="55"
+                                    WidthRequest="{OnIdiom Phone=90, Default=110}"
+                                    HeightRequest="{OnIdiom Phone=90, Default=110}"
+                                    CornerRadius="{OnIdiom Phone=45, Default=55}"
                                     Padding="0"
                                     BorderColor="#4E8BE0"
-                                    IsClippedToBounds="True">
+                                    IsClippedToBounds="True"
+                                    HorizontalOptions="Center">
                                     <Image
                                         Source="{Binding AvatarUrl}"
                                         Aspect="AspectFill"/>
                                 </Frame>
                                 <Label
                                     Text="{Binding PlayerName}"
-                                    FontSize="20"
+                                    FontSize="{OnIdiom Phone=16, Default=20}"
                                     FontAttributes="Bold"
+                                    HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     TextColor="{DynamicResource TextPrimary}"/>
                                 <Border
                                     BackgroundColor="{DynamicResource MainCardInner}"
+                                    HorizontalOptions="Center"
                                     Padding="8,4">
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="8"/>
                                     </Border.StrokeShape>
                                     <Label
                                         Text="{Binding SteamLevel, StringFormat='Уровень {0}'}"
+                                        FontSize="{OnIdiom Phone=12, Default=14}"
                                         TextColor="{DynamicResource MainAccent}"
                                         HorizontalTextAlignment="Center"
                                         HorizontalOptions="Fill"/>
                                 </Border>
                             </VerticalStackLayout>
 
-                            <!-- Статистика справа -->
+                            <!-- Статистика -->
                             <VerticalStackLayout
-                                Grid.Column="1"
+                                FlexLayout.Basis="Auto"
+                                FlexLayout.Grow="0"
+                                HorizontalOptions="{OnIdiom Phone=Center, Default=Start}"
                                 VerticalOptions="Center"
-                                Spacing="15">
+                                Spacing="{OnIdiom Phone=10, Default=15}">
                                 <Label
                                     Text="{Binding TotalHours, StringFormat='⏱ Часы: {0}'}"
-                                    FontSize="20"
+                                    FontSize="{OnIdiom Phone=15, Default=20}"
                                     FontAttributes="Bold"
+                                    HorizontalTextAlignment="{OnIdiom Phone=Center, Default=Start}"
+                                    LineBreakMode="TailTruncation"
                                     TextColor="{DynamicResource TextPrimary}"/>
                                 <Label
                                     Text="{Binding GamesPlayed, StringFormat='🎮 Игр: {0}'}"
-                                    FontSize="20"
+                                    FontSize="{OnIdiom Phone=15, Default=20}"
                                     FontAttributes="Bold"
+                                    HorizontalTextAlignment="{OnIdiom Phone=Center, Default=Start}"
+                                    LineBreakMode="TailTruncation"
                                     TextColor="{DynamicResource TextPrimary}"/>
                                 <Label
                                     Text="{Binding TotalAchievements, StringFormat='🏆 Достижений: {0}'}"
-                                    FontSize="20"
+                                    FontSize="{OnIdiom Phone=15, Default=20}"
                                     FontAttributes="Bold"
+                                    HorizontalTextAlignment="{OnIdiom Phone=Center, Default=Start}"
+                                    LineBreakMode="TailTruncation"
                                     TextColor="{DynamicResource TextPrimary}"/>
                                 <Label
                                     Text="{Binding GamerRank, StringFormat='🚀 Ранг: {0}'}"
-                                    FontSize="20"
+                                    FontSize="{OnIdiom Phone=15, Default=20}"
                                     FontAttributes="Bold"
+                                    HorizontalTextAlignment="{OnIdiom Phone=Center, Default=Start}"
+                                    LineBreakMode="TailTruncation"
                                     TextColor="{DynamicResource MainAccent}"/>
                             </VerticalStackLayout>
-                        </Grid>
+                        </FlexLayout>
                     </Border>
 
-                    <!-- Форма справа -->
+                    <!-- Форма ввода -->
                     <Border
-                        Grid.Column="1"
-                        Padding="35"
+                        FlexLayout.Basis="{OnIdiom Phone='100%', Tablet='100%', Default='620'}"
+                        FlexLayout.Grow="0"
+                        MaximumWidthRequest="{OnIdiom Phone=560, Default=620}"
+                        Padding="{OnIdiom Phone=22, Default=35}"
                         BackgroundColor="{DynamicResource MainCard2}"
                         Stroke="{DynamicResource MainCard2Stroke}"
                         StrokeThickness="1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <VerticalStackLayout Spacing="25">
+                        <VerticalStackLayout Spacing="{OnIdiom Phone=18, Default=25}">
                             <Label
                                 Text="STEAM ID ИЛИ ССЫЛКА НА ПРОФИЛЬ"
                                 FontSize="13"
@@ -160,7 +197,7 @@
                                     PlaceholderColor="#5E6C80"
                                     TextColor="{DynamicResource TextPrimary}"
                                     BackgroundColor="Transparent"
-                                    Margin="20,8"
+                                    Margin="{OnIdiom Phone='14,8', Default='20,8'}"
                                     Text="{Binding SteamId}"/>
                             </Border>
                             <Label
@@ -168,9 +205,9 @@
                                 TextColor="{DynamicResource MainSubText2}"
                                 Text="Поддерживаются SteamID64 и ссылки на профиль."/>
                             <Button
-                                HeightRequest="60"
+                                HeightRequest="{OnIdiom Phone=54, Default=60}"
                                 Text="⚡ Загрузить мой профиль"
-                                FontSize="20"
+                                FontSize="{OnIdiom Phone=17, Default=20}"
                                 FontAttributes="Bold"
                                 TextColor="{DynamicResource TextPrimary}"
                                 CornerRadius="12"
@@ -181,7 +218,7 @@
                                 Color="#53B9FF"/>
                         </VerticalStackLayout>
                     </Border>
-                </Grid>
+                </FlexLayout>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
