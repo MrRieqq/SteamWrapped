@@ -5,7 +5,7 @@ namespace SteamWrapped.Services;
 
 public class SteamApiService
 {
-    private const string ApiKey = "FE3B59EFEB6371A8A3BF392A48AE3613";
+    private const string ApiKey = "YOUR_API";
 
     private static readonly HttpClient _client;
 
